@@ -13,11 +13,11 @@ public class WalkingEnemy : Enemy
     {
         if (maxHpWalking != 0f)
         {
-            hp = maxHpWalking;
-            maxHp = maxHpWalking;
+            Hp = maxHpWalking;
+            MaxHp = maxHpWalking;
         }
         else
-            hp = maxHp;
+            Hp = MaxHp;
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -29,7 +29,7 @@ public class WalkingEnemy : Enemy
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        GameObject o = other.gameObject;
+        var o = other.gameObject;
         if (o.CompareTag("Player"))
             Attack(o);
     }

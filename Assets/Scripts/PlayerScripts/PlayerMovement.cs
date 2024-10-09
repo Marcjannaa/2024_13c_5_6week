@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
             _canJump = true;
     }
 
-    void Update() 
+    private void Update() 
     {
         if (Input.GetKey(KeyCode.A)) 
             transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);

@@ -6,26 +6,22 @@ using UnityEngine.Serialization;
 
 public class PlayerStats : MonoBehaviour
 {
-    // klasa do UI i statów gracza, zrobiłam żeby było cokolwiek, do poprawy później
     [SerializeField] private float maxHp = 100f;
     [SerializeField] private TMP_Text txt;
-    private float currHP;
+    private float _currHP;
     
-    void Start()
+    private void Start()
     {
-        currHP = maxHp;
+        _currHP = maxHp;
     }
 
     public void ChangeHp(float dmg)
     {
-        currHP -= dmg;
-    }
-    void UpdateUI()
-    {
-        txt.SetText("HP:" + currHP, false);
-    }
-    void Update()
-    {
+        _currHP -= dmg;
         UpdateUI();
+    }
+    private void UpdateUI()
+    {
+        txt.SetText("HP:" + _currHP, false);
     }
 }

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-    protected float maxHp = 100f;
+    protected float MaxHp = 100f;
 
-    protected float hp;
+    protected float Hp;
     
     private void Start()
     {
-        hp = maxHp;
+        Hp = MaxHp;
     }
 
     protected abstract void Attack(GameObject go);
