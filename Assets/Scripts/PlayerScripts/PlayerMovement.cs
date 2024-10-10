@@ -13,8 +13,11 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] private float jumpForce = 5f;
 
+    [SerializeField] private float dashForce = 5f;
+
     private bool _canJump = true;
     private bool _canDoubleJump = false;
+    private bool _looksToLeft = true;
 
     private void OnTriggerStay2D (Collider2D other)
     {
@@ -30,11 +33,13 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+            _looksToLeft = false;
         }
         
         else if (Input.GetKey(KeyCode.D))
         {
             transform.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
+            _looksToLeft = true;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -50,11 +55,11 @@ public class PlayerMovement : MonoBehaviour
                 _canDoubleJump = false;
             }
         }
-        
-    }
 
-    private void FixedUpdate()
-    {
-        
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            float forceX = dashForce * (_looksToLeft?1:-1);
+            rb.AddForce(new Vector2(forceX,0),ForceMode2D.Impulse);
+        }
     }
 }
