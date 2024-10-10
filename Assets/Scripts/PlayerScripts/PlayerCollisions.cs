@@ -16,5 +16,11 @@ public class PlayerCollisions : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("FallZone"))
             transform.position = checkedPosition;
+        else if (other.gameObject.CompareTag("Projectile"))
+        {
+            //dostan dmg na morde
+            Destroy(other.gameObject);
+        }
+            
     }
 }
