@@ -8,6 +8,7 @@ TagManager:
   - Floor
   - Checkpoint
   - FallZone
+  - Projectile
   layers:
   - Default
   - TransparentFX
