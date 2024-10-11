@@ -44,22 +44,27 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if(_canJump){
-                rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-                _canJump = false;
-                _canDoubleJump = true;
-            }
-            else if (_canDoubleJump)
-            {
-                float forceY = (rb.totalForce.y * rb.mass * -1) + jumpForce;
-                rb.AddForce(new Vector2(0, forceY), ForceMode2D.Impulse);
-                _canDoubleJump = false;
-            }
+           PerformJump();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             PerformDash();
+        }
+    }
+
+    private void PerformJump()
+    {
+        if(_canJump){
+            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            _canJump = false;
+            _canDoubleJump = true;
+        }
+        else if (_canDoubleJump)
+        {
+            float forceY = (rb.totalForce.y * rb.mass * -1) + jumpForce;
+            rb.AddForce(new Vector2(0, forceY), ForceMode2D.Impulse);
+            _canDoubleJump = false;
         }
     }
 
