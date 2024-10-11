@@ -16,10 +16,12 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float dashForce = 5f;
 
+    [SerializeField] private float dashCooldown = 2f;
+
     private bool _canJump = true;
     private bool _canDoubleJump = false;
     private bool _looksToLeft = true;
-
+    private bool _canDash = true;
     private void OnTriggerStay2D (Collider2D other)
     {
         if (other.CompareTag("Floor"))
@@ -70,15 +72,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void PerformDash()
     {
-        float forceX = dashForce * (_looksToLeft?1:-1);
-        rb.AddForce(new Vector2(forceX,0),ForceMode2D.Impulse);
-        float dashDmg = GetComponent<PlayerStats>().GetDashDamage();
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.5f, 1.5f),0);
-        foreach (var enemy in colliders.Where(e=>e.CompareTag("Enemy")))
-        {
-            enemy.GetComponent<Enemy>().ChangeHp(dashDmg);
-            Debug.Log("Damage dealt");
+        if(_canDash){
+            float forceX = dashForce * (_looksToLeft ? 1 : -1);
+            rb.AddForce(new Vector2(forceX, 0), ForceMode2D.Impulse);
+            float dashDmg = GetComponent<PlayerStats>().GetDashDamage();
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.5f, 1.5f), 0);
+            foreach (var enemy in colliders.Where(e => e.CompareTag("Enemy")))
+            {
+                enemy.GetComponent<Enemy>().ChangeHp(dashDmg);
+            }
+
+            StartCoroutine(DashCooldown());
         }
         //place for future features of dash
     }
+
+    IEnumerator DashCooldown()
+    {
+        _canDash = false;
+        yield return new WaitForSeconds(dashCooldown);
+        _canDash = true;
+    }
+    
 }
