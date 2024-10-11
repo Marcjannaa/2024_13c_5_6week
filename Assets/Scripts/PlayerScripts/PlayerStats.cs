@@ -33,4 +33,9 @@ public class PlayerStats : MonoBehaviour
     {
         txt.SetText("HP:" + _currHP, false);
     }
+
+    public float GetDashDamage()
+    {
+        return _dashDamage;
+    }
 }

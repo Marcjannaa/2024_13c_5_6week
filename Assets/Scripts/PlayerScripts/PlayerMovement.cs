@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.Build;
 using UnityEngine;
@@ -58,8 +59,21 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            float forceX = dashForce * (_looksToLeft?1:-1);
-            rb.AddForce(new Vector2(forceX,0),ForceMode2D.Impulse);
+            PerformDash();
         }
+    }
+
+    private void PerformDash()
+    {
+        float forceX = dashForce * (_looksToLeft?1:-1);
+        rb.AddForce(new Vector2(forceX,0),ForceMode2D.Impulse);
+        float dashDmg = GetComponent<PlayerStats>().GetDashDamage();
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.5f, 1.5f),0);
+        foreach (var enemy in colliders.Where(e=>e.CompareTag("Enemy")))
+        {
+            enemy.GetComponent<Enemy>().ChangeHp(dashDmg);
+            Debug.Log("Damage dealt");
+        }
+        //place for future features of dash
     }
 }
