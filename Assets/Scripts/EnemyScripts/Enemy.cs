@@ -14,6 +14,6 @@ public abstract class Enemy : MonoBehaviour
     }
 
     protected abstract void Attack(GameObject go);
-    protected abstract void ChangeHp(float damage);
+    public abstract void ChangeHp(float damage);
     protected abstract void LifeSteal();
 }

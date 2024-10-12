@@ -35,8 +35,11 @@ public class WalkingEnemy : Enemy
     }
 
     protected override void LifeSteal(){}
-    
-    protected override void ChangeHp(float damage){}
+
+    public override void ChangeHp(float damage)
+    {
+        Hp -= damage;
+    }
     protected override void Attack(GameObject go)
     {
         go.GetComponent<PlayerStats>().ChangeHp(dmg);
