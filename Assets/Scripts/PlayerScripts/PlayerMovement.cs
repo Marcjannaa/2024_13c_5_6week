@@ -16,7 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float dashForce = 5f;
 
-    [SerializeField] private float dashCooldown = 2f;
+    [SerializeField] private float dashCooldown = 10f;
+    [SerializeField] private float dashDuration = 2f;
 
     private bool _canJump = true;
     private bool _canDoubleJump = false;
@@ -81,10 +82,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 enemy.GetComponent<Enemy>().ChangeHp(dashDmg);
             }
-
             StartCoroutine(DashCooldown());
         }
-        //place for future features of dash
+        
     }
 
     IEnumerator DashCooldown()
