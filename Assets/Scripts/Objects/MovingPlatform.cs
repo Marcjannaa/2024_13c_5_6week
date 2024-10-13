@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,18 @@ public class MovingPlatform : MonoBehaviour
         CurrentPos = transform.position;
         MovingRight = InitialDirection.ToLower() == "right";
         StartCoroutine(MoveCoroutine());
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+            other.gameObject.transform.SetParent(gameObject.transform);
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+            other.gameObject.transform.SetParent(null);
     }
 
     private IEnumerator MoveCoroutine()
