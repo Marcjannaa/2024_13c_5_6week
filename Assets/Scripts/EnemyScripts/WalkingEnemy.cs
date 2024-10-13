@@ -9,6 +9,9 @@ public class WalkingEnemy : Enemy
     [SerializeField] private float maxHpWalking;
     [SerializeField] private float enemySpeed = 2f;
     [SerializeField] private float dmg = 5f;
+    private const float DmgCooldown = 0.2f;
+    private float _counter = 0f;
+    
     private void Start()
     {
         if (maxHpWalking != 0f)
@@ -27,13 +30,17 @@ public class WalkingEnemy : Enemy
         transform.position += new Vector3(multi * enemySpeed * Time.deltaTime, 0, 0);
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionStay2D(Collision2D other)
     {
         var o = other.gameObject;
-        if (o.CompareTag("Player"))
+        if (!o.CompareTag("Player")){return;}
+        if (_counter <= 0f)
+        {
             Attack(o);
+            _counter = DmgCooldown;
+        }else _counter -= Time.deltaTime;
     }
-
+    
     protected override void LifeSteal(){}
 
     public override void ChangeHp(float damage)
