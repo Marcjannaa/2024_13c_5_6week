@@ -19,8 +19,7 @@ public class WalkingEnemy : Enemy
             Hp = maxHpWalking;
             MaxHp = maxHpWalking;
         }
-        else
-            Hp = MaxHp;
+        else Hp = MaxHp;
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -32,11 +31,10 @@ public class WalkingEnemy : Enemy
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        var o = other.gameObject;
-        if (!o.CompareTag("Player")){return;}
+        if (!other.gameObject.CompareTag("Player")){return;}
         if (_counter <= 0f)
         {
-            Attack(o);
+            Attack(other.gameObject);
             _counter = DmgCooldown;
         }else _counter -= Time.deltaTime;
     }

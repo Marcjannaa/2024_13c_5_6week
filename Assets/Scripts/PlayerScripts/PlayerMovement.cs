@@ -81,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
             foreach (var enemy in colliders.Where(e => e.CompareTag("Enemy")))
             {
                 enemy.GetComponent<Enemy>().ChangeHp(dashDmg);
+                enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceX, 1), ForceMode2D.Impulse);
             }
             StartCoroutine(DashCooldown());
         }

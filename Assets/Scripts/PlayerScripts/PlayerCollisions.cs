@@ -7,6 +7,11 @@ public class PlayerCollisions : MonoBehaviour
 {
     private Vector2 checkedPosition;
 
+    private void Start()
+    {
+        checkedPosition = transform.position;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Checkpoint"))

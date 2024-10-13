@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHpWalking: 100
-  enemySpeed: 2
+  enemySpeed: 1
   dmg: 5
 --- !u!212 &2758498195696220932
 SpriteRenderer:

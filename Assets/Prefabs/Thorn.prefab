@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9014770986405148740}
   - component: {fileID: 3244496642146407472}
   - component: {fileID: 3212988478177943857}
+  - component: {fileID: 6544646413714565029}
   m_Layer: 0
   m_Name: Thorn
   m_TagString: FallZone
@@ -117,7 +118,7 @@ EdgeCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0, y: 0}
   m_EdgeRadius: 0
   m_Points:
   - {x: -0.50681114, y: -0.27224475}
@@ -127,3 +128,33 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &6544646413714565029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915439070953016828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 1
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.5, y: -0.2886666, z: 0}
+  - {x: -0.5, y: 0.7113334, z: 0}
+  - {x: 0.5, y: 0.7113334, z: 0}
+  - {x: 0.5, y: -0.2886666, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -285568
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0.2113334, z: 0}
+    m_Extent: {x: 0.5, y: 0.5, z: 0}
