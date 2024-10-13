@@ -26,6 +26,7 @@ public class PlayerCollisions : MonoBehaviour
             //dostan dmg na morde
             Destroy(other.gameObject);
         }
-            
+        else if (other.gameObject.CompareTag("Plasma"))
+            transform.position = checkedPosition; // tymczasowo xd
     }
 }
