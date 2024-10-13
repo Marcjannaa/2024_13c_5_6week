@@ -27,7 +27,7 @@ public class WalkingEnemy : Enemy
         transform.position += new Vector3(multi * enemySpeed * Time.deltaTime, 0, 0);
     }
 
-    private void OnCollisionStay2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         var o = other.gameObject;
         if (o.CompareTag("Player"))
