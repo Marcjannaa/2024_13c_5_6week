@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 7693201724580232718}
   - component: {fileID: 5065916596727224754}
   - component: {fileID: 2192022271539928041}
+  - component: {fileID: -7040179516713853913}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -421,6 +422,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 100
   txt: {fileID: 8038675171465387670}
+  defaultMeleeDamage: 30
+  defaultRangedDamage: 20
+  defaultDashDamage: 10
 --- !u!212 &7659744810791945515
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -488,6 +492,9 @@ MonoBehaviour:
   moveSpeed: 5
   rb: {fileID: 2192022271539928041}
   jumpForce: 6
+  dashForce: 5
+  dashCooldown: 10
+  dashDuration: 2
 --- !u!61 &5065916596727224754
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -560,3 +567,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-7040179516713853913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7407854848357733485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a97325c729427142bf516172c24a88d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interval: 0.1

@@ -24,15 +24,20 @@ public class StatusEffectManager : MonoBehaviour
     public UnityAction<StatusEffectSO, float> ActivateStatus;
     public UnityAction<StatusEffectSO, float,float> UpdateStatus;
     public UnityAction<StatusEffectSO> DeactivateStatus;
-    
-    private void OnStatusTriggerBuildUp(StatusEffectType status, float buildup)
+
+    private void Awake()
+    {
+        _statusEffectToApplyDict.Add(StatusEffectType.Dash,ScriptableObject.CreateInstance<DashStatusEffect>());
+    }
+
+    public void OnStatusTriggerBuildUp(StatusEffectType status, float buildup)
     {
         if (!_enabledEffects.ContainsKey(status))
         {
             var effectToAdd = CreateEffectObject(status, _statusEffectToApplyDict[status]);
             _enabledEffects.Add(status,effectToAdd);
             //UI update here
-            ActivateStatus?.Invoke(effectToAdd,effectToAdd.GetCurrentDurationNormalized());
+            //ActivateStatus?.Invoke(effectToAdd,effectToAdd.GetCurrentDurationNormalized());
         }
 
         if (!_enabledEffects[status].isEffectActive)
@@ -40,7 +45,7 @@ public class StatusEffectManager : MonoBehaviour
             var enabled = _enabledEffects[status];
             enabled.AddBuildup(buildup,gameObject);
             //UI update here
-            UpdateStatus?.Invoke(enabled,enabled.GetCurrentDurationNormalized(),enabled.GetCurrentDurationNormalized());
+            //UpdateStatus?.Invoke(enabled,enabled.GetCurrentDurationNormalized(),enabled.GetCurrentDurationNormalized());
         }
         else
         {
@@ -63,7 +68,7 @@ public class StatusEffectManager : MonoBehaviour
         foreach (var effect in _enabledEffects.ToList())
         {
             effect.Value.UpdateCall(target,_interval);
-            UpdateStatus?.Invoke(effect.Value,effect.Value.GetCurrentThresholdNormalized(),effect.Value.GetCurrentDurationNormalized()); //UI update
+            //UpdateStatus?.Invoke(effect.Value,effect.Value.GetCurrentThresholdNormalized(),effect.Value.GetCurrentDurationNormalized()); //UI update
             if (effect.Value.CanStatusVisualBeRemoved())
             {
                 RemoveEffect(effect.Key);
@@ -77,7 +82,7 @@ public class StatusEffectManager : MonoBehaviour
         {
             _enabledEffects[status].RemoveEffect(gameObject);
             //UI update here
-            DeactivateStatus?.Invoke(_enabledEffects[status]);
+            //DeactivateStatus?.Invoke(_enabledEffects[status]);
 
             _enabledEffects.Remove(status);
         }

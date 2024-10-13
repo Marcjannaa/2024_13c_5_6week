@@ -15,13 +15,13 @@ public abstract class StatusEffectSO : ScriptableObject
     public float activeDuration;
     public GameObject visualEffectPrefab;
     
-    private float _currentThreshold;
-    private float _remainingDuration;
-    private GameObject _vfxPlaying;
+    protected float _currentThreshold;
+    protected float _remainingDuration;
+    protected GameObject _vfxPlaying;
     [HideInInspector] public bool isBuildUpOnlyShow;
     [HideInInspector] public bool isEffectActive;
     public float tickInterval = 0.5f;
-    private float tickIntervalCoolDown = 0.5f;
+    protected float tickIntervalCoolDown = 0.5f;
 
     public virtual void AddBuildup(float buildup, GameObject target)
     {
@@ -36,6 +36,7 @@ public abstract class StatusEffectSO : ScriptableObject
     public virtual void ApplyEffect(GameObject target)
     {
         isEffectActive = true;
+        _remainingDuration = activeDuration;
         if (visualEffectPrefab != null)
         {
             _vfxPlaying = Instantiate(visualEffectPrefab, target.transform.position,Quaternion.identity,target.transform);

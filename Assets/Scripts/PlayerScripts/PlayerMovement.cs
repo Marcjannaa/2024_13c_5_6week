@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashForce = 5f;
 
     [SerializeField] private float dashCooldown = 10f;
-    [SerializeField] private float dashDuration = 2f;
 
     private bool _canJump = true;
     private bool _canDoubleJump = false;
@@ -82,6 +81,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 enemy.GetComponent<Enemy>().ChangeHp(dashDmg);
             }
+
+            GetComponent<StatusEffectManager>().OnStatusTriggerBuildUp(StatusEffectType.Dash,10f);
             StartCoroutine(DashCooldown());
         }
         
