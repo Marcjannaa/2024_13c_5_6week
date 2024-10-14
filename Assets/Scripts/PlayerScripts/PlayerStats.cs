@@ -23,7 +23,7 @@ public class PlayerStats : MonoBehaviour
         _meleeDamage = defaultMeleeDamage;
         _rangedDamage = defaultRangedDamage;
         _dashDamage = defaultDashDamage;
-        _currentResistance = 0;
+        UpdateUI();
     }
 
     public void ChangeHp(float dmg)

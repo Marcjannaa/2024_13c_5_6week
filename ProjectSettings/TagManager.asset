@@ -8,6 +8,9 @@ TagManager:
   - Floor
   - Checkpoint
   - FallZone
+  - Projectile
+  - Plasma
+  - Coffin
   layers:
   - Default
   - TransparentFX
