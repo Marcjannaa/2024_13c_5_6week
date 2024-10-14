@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _canJump = true;
     private bool _canDoubleJump = false;
-    private bool _looksToLeft = true;
+    private bool _looksToLeft;
     private bool _canDash = true;
     private void OnTriggerStay2D (Collider2D other)
     {
@@ -36,29 +36,25 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
-            _looksToLeft = false;
+            _looksToLeft = true;
         }
         
         else if (Input.GetKey(KeyCode.D))
         {
             transform.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
-            _looksToLeft = true;
+            _looksToLeft = false;
         }
 
         if (Input.GetMouseButtonDown(0))     
-        {  
             Attack();
-        }
         
         if (Input.GetKeyDown(KeyCode.Space))
-        {
            PerformJump();
-        }
+        
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
             PerformDash();
-        }
+        
     }
 
     private void PerformJump()
@@ -79,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
     private void PerformDash()
     {
         if(_canDash){
-            float forceX = dashForce * (_looksToLeft ? 1 : -1);
+            float forceX = dashForce * (_looksToLeft ? -1 : 1);
             rb.AddForce(new Vector2(forceX, 0), ForceMode2D.Impulse);
             float dashDmg = GetComponent<PlayerStats>().GetDashDamage();
             Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.5f, 1.5f), 0);
@@ -90,7 +86,6 @@ public class PlayerMovement : MonoBehaviour
             }
             StartCoroutine(DashCooldown());
         }
-        
     }
 
     IEnumerator DashCooldown()
@@ -102,14 +97,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Attack()
     {
-        RaycastHit2D hitInfo = Physics2D.Raycast(gameObject.transform.position, new Vector2((_looksToLeft ? 1 : -1), 0), 2);
-        GameObject hit = hitInfo.collider.gameObject;
-        float dmg = gameObject.GetComponent<PlayerStats>().GetMeleeDamage();
-        if (hit.CompareTag("Enemy"))
+        var hitInfo = Physics2D.Raycast(
+            new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), 
+            (_looksToLeft ? transform.right * -1 : transform.right), 
+            0.1f
+            );
+        
+        if (hitInfo.collider.gameObject.CompareTag("Enemy") && hitInfo.collider != null)
         {
-            hit.GetComponent<WalkingEnemy>().ChangeHp(dmg);
+            var dmg = gameObject.GetComponent<PlayerStats>().GetMeleeDamage();
+            hitInfo.collider.gameObject.GetComponent<WalkingEnemy>().ChangeHp(dmg);
             print("hit");
-            Destroy(hit);
         }
     }
 }
