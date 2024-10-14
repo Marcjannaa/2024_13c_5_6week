@@ -44,6 +44,12 @@ public class PlayerMovement : MonoBehaviour
             transform.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
             _looksToLeft = true;
         }
+
+        if (Input.GetMouseButtonDown(0))     
+        {  
+            Attack();
+        }
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
            PerformJump();
@@ -93,5 +99,17 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         _canDash = true;
     }
-    
+
+    private void Attack()
+    {
+        RaycastHit2D hitInfo = Physics2D.Raycast(gameObject.transform.position, new Vector2((_looksToLeft ? 1 : -1), 0), 2);
+        GameObject hit = hitInfo.collider.gameObject;
+        float dmg = gameObject.GetComponent<PlayerStats>().GetMeleeDamage();
+        if (hit.CompareTag("Enemy"))
+        {
+            hit.GetComponent<WalkingEnemy>().ChangeHp(dmg);
+            print("hit");
+            Destroy(hit);
+        }
+    }
 }

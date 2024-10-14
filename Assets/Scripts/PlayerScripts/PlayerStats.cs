@@ -11,8 +11,9 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float defaultMeleeDamage=30;
     [SerializeField] private float defaultRangedDamage=20;
     [SerializeField] private float defaultDashDamage=10;
+    [SerializeField] private float _meleeDamage;
+    
     private float _currentHP;
-    private float _meleeDamage;
     private float _rangedDamage;
     private float _dashDamage;
     private float _currentResistance; //percentage of damage avoided (example: 0.15 will reduce incoming damage to 85%)
