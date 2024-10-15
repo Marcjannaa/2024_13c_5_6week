@@ -19,17 +19,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashDuration = 2f;
 
     private bool _canJump = true;
-    private bool _canDoubleJump = false;
-    private bool _looksToLeft;
     private bool _canDash = true;
-    private void OnTriggerStay2D (Collider2D other)
-    {
-        if (other.CompareTag("Floor"))
-        {
-            _canJump = true;
-            _canDoubleJump = false;
-        }
-    }
+    private bool _canDoubleJump;
+    private bool _looksToLeft;
 
     private void Update() 
     {
@@ -113,5 +105,11 @@ public class PlayerMovement : MonoBehaviour
             hitInfo.collider.gameObject.GetComponent<WalkingEnemy>().ChangeHp(dmg);
             print("hit");
         }
+    }
+
+    public void ActivateJump()
+    {
+        _canJump = true;
+        _canDoubleJump = false;
     }
 }
