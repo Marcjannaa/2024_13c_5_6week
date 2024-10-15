@@ -10,63 +10,50 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private float MovingRange;
     [SerializeField] private float MoveDelay;
     private Vector3 CurrentPos;
-    private bool _movingRight;
+    private bool _moving;
     private bool _horizontal;
-    //private unsafe float *pos;
-    void Start()
+    
+    private void Start()
     {
         CurrentPos = transform.position;
-        _movingRight = InitialDirection.ToLower() == "right";
+        _moving = InitialDirection.ToLower() == "right" || InitialDirection.ToLower() == "up";
+        _horizontal = InitialDirection.ToLower() != "up" && InitialDirection.ToLower() != "down";
         StartCoroutine(MoveCoroutine());
-        float _pos = 2f;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))
-            other.gameObject.transform.SetParent(gameObject.transform);
+            other.gameObject.transform.parent = gameObject.transform;
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
-            other.gameObject.transform.SetParent(null);
+        if (other.gameObject.CompareTag("Player") && other.gameObject.transform.parent == gameObject.transform)
+            other.gameObject.transform.parent = null;
     }
 
     private IEnumerator MoveCoroutine()
     {
         while (true)
         {
-            float targetX;
+            float target;
             CurrentPos = transform.position;
             
-            if (_movingRight)
-            {
-                targetX = CurrentPos.x + MovingRange;
-            }
-            else
-            {
-                targetX = CurrentPos.x - MovingRange;
-            }
+            if (_moving)
+                target = (_horizontal ? CurrentPos.x : CurrentPos.y) + MovingRange;
+            else target = (_horizontal ? CurrentPos.x : CurrentPos.y) - MovingRange;
 
-            Vector3 targetPos = new Vector3(targetX, transform.position.y, transform.position.z);
+            var targetPos = _horizontal ? new Vector3(target, transform.position.y, transform.position.z) : new Vector3(transform.position.x, target, transform.position.z);
             
-            while (Mathf.Abs(transform.position.x - targetX) > 0.01f)
+            while (Mathf.Abs(_horizontal ? transform.position.x - target : transform.position.y - target) > 0.01f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, MovingSpeed * Time.deltaTime);
                 yield return null;
             }
             
             yield return new WaitForSeconds(MoveDelay);
-            
-            if (_movingRight)
-            {
-                _movingRight = false;
-            }
-            else
-            {
-                _movingRight = true;
-            }
+            _moving = !_moving;
         }
     }
 }
