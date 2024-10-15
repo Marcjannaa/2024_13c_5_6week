@@ -48,3 +48,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: -1
+    uniqueID: 2429209959
+    locked: 0
+  - name: 0
+    uniqueID: 2603546373
+    locked: 0
+  - name: 1
+    uniqueID: 3023428813
+    locked: 0

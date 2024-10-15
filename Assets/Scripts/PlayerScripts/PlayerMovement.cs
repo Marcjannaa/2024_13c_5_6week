@@ -102,7 +102,11 @@ public class PlayerMovement : MonoBehaviour
             (_looksToLeft ? transform.right * -1 : transform.right), 
             0.1f
             );
-        
+        Debug.DrawRay(
+            new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), 
+             _looksToLeft ? transform.right * -2f : transform.right * 2f, 
+                 Color.cyan
+             );
         if (hitInfo.collider.gameObject.CompareTag("Enemy") && hitInfo.collider != null)
         {
             var dmg = gameObject.GetComponent<PlayerStats>().GetMeleeDamage();

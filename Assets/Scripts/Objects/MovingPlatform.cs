@@ -10,12 +10,15 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private float MovingRange;
     [SerializeField] private float MoveDelay;
     private Vector3 CurrentPos;
-    private bool MovingRight;
+    private bool _movingRight;
+    private bool _horizontal;
+    //private unsafe float *pos;
     void Start()
     {
         CurrentPos = transform.position;
-        MovingRight = InitialDirection.ToLower() == "right";
+        _movingRight = InitialDirection.ToLower() == "right";
         StartCoroutine(MoveCoroutine());
+        float _pos = 2f;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -37,7 +40,7 @@ public class MovingPlatform : MonoBehaviour
             float targetX;
             CurrentPos = transform.position;
             
-            if (MovingRight)
+            if (_movingRight)
             {
                 targetX = CurrentPos.x + MovingRange;
             }
@@ -56,13 +59,13 @@ public class MovingPlatform : MonoBehaviour
             
             yield return new WaitForSeconds(MoveDelay);
             
-            if (MovingRight)
+            if (_movingRight)
             {
-                MovingRight = false;
+                _movingRight = false;
             }
             else
             {
-                MovingRight = true;
+                _movingRight = true;
             }
         }
     }
