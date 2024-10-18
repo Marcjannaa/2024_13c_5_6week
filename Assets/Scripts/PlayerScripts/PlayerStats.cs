@@ -26,7 +26,7 @@ public class PlayerStats : MonoBehaviour
         UpdateUI();
     }
 
-    public void ChangeHp(float dmg)
+    public void DealDamage(float dmg)
     {
         _currentHP -= (1-_currentResistance)*dmg;
         UpdateUI();

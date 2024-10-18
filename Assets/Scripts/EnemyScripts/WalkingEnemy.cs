@@ -39,7 +39,6 @@ public class WalkingEnemy : Enemy
         }else _counter -= Time.deltaTime;
     }
     
-    protected override void LifeSteal(){}
 
     public override void ChangeHp(float damage)
     {
@@ -47,6 +46,6 @@ public class WalkingEnemy : Enemy
     }
     protected override void Attack(GameObject go)
     {
-        go.GetComponent<PlayerStats>().ChangeHp(dmg);
+        go.GetComponent<PlayerStats>().DealDamage(dmg);
     }
 }

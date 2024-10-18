@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(new Vector2(forceX, 0), ForceMode2D.Impulse);
             float dashDmg = GetComponent<PlayerStats>().GetDashDamage();
             Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.5f, 1.5f), 0);
-            foreach (var enemy in colliders.Where(e => e.CompareTag("Enemy")))
+            foreach (var enemy in colliders.Where(e => e.CompareTag("Enemy"))) //BUG: enemies take no damage
             {
                 enemy.GetComponent<Enemy>().ChangeHp(dashDmg);
                 enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceX, 1), ForceMode2D.Impulse);
