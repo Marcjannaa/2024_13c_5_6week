@@ -13,14 +13,12 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float defaultDashDamage=10;
     [SerializeField] private float _meleeDamage;
     
-    private float _currentHP;
-    private float _rangedDamage;
-    private float _dashDamage;
-    private float _currentResistance; //percentage of damage avoided (example: 0.15 will reduce incoming damage to 85%)
+    private float _currentHp, _rangedDamage, _dashDamage, _currentResistance;
+    //private float _currentResistance; percentage of damage avoided (example: 0.15 will reduce incoming damage to 85%)
     
     private void Start()
     {
-        _currentHP = maxHp;
+        _currentHp = maxHp;
         _meleeDamage = defaultMeleeDamage;
         _rangedDamage = defaultRangedDamage;
         _dashDamage = defaultDashDamage;
@@ -29,12 +27,12 @@ public class PlayerStats : MonoBehaviour
 
     public void ChangeHp(float dmg)
     {
-        _currentHP -= (1-_currentResistance)*dmg;
+        _currentHp -= (1-_currentResistance)*dmg;
         UpdateUI();
     }
     private void UpdateUI()
     {
-        txt.SetText("HP:" + _currentHP, false);
+        txt.SetText("HP:" + _currentHp, false);
     }
 
     public float GetMeleeDamage()
