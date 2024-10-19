@@ -9,30 +9,19 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private float MovingSpeed;
     [SerializeField] private float MovingRange;
     [SerializeField] private float MoveDelay;
-
+    [SerializeField] private bool lift;
+    private Vector3 _currentPos;
+    private bool _moving;
+    private bool _horizontal;
     private Vector3 CurrentPos;
     private bool MovingRight;
     private bool working;
     void Start()
     {
-        CurrentPos = transform.position;
-        MovingRight = InitialDirection.ToLower() == "right";
-
-        StartCoroutine(MoveCoroutine());
-        working = true;
-=======
-    [SerializeField] private bool lift;
-    private Vector3 _currentPos;
-    private bool _moving;
-    private bool _horizontal;
-    
-    private void Start()
-    {
         _currentPos = transform.position;
         _moving = InitialDirection.ToLower() == "right" || InitialDirection.ToLower() == "down";
         _horizontal = InitialDirection.ToLower() != "up" && InitialDirection.ToLower() != "down";
         if (!lift) StartCoroutine(MoveCoroutine());
-
     }
     
 

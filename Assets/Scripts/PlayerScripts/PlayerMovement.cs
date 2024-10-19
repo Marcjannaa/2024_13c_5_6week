@@ -10,8 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
 
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Animator animator;
-    
+
     [SerializeField] private float jumpForce = 5f;
 
     [SerializeField] private float dashForce = 5f;
@@ -30,28 +29,21 @@ public class PlayerMovement : MonoBehaviour
             _canDoubleJump = false;
         }
     }
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
-=======
+
     private bool _canDoubleJump;
     private bool _looksToLeft;
 
 
     private void Update() 
     {
-        bool isMoving = false;
+
         if (Input.GetKey(KeyCode.A))
         {
             transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
 
             _looksToLeft = false;
-            if (_canJump)
-            {
-                isMoving = true;
-            }
-=======
+
+
             _looksToLeft = true;
 
         }
@@ -62,16 +54,12 @@ public class PlayerMovement : MonoBehaviour
 
             _looksToLeft = true;
             
-            if (_canJump)
-            {
-                isMoving = true;
-            }
+
         }
         
         
-=======
-            _looksToLeft = false;
-        }
+
+
 
         if (Input.GetMouseButtonDown(0))     
             Attack();
@@ -83,11 +71,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
             PerformDash();
-
-        }
-        
-        animator.SetBool("isMoving", isMoving);
-=======
         
 
     }
@@ -141,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
         WorldStateManager.ChangeState();
     }
     
-=======
+
 
     private void Attack()
     {
