@@ -300,4 +300,4 @@ MonoBehaviour:
   IsShootingLeft: 0
   _cooldown: 2
   Projectile: {fileID: 5806633734326194717, guid: 9f7c1ecac19d7d7439ac1c53e28a3436, type: 3}
-  MaxHP: 100
+  MaxHP: 90

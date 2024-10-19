@@ -10,34 +10,72 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
 
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Animator animator;
     
     [SerializeField] private float jumpForce = 5f;
 
     [SerializeField] private float dashForce = 5f;
 
     [SerializeField] private float dashCooldown = 10f;
+    [SerializeField] private float gaiaDuration = 5f;
 
     private bool _canJump = true;
     private bool _canDash = true;
+
+    private void OnTriggerStay2D (Collider2D other)
+    {
+        if (other.CompareTag("Floor"))
+        {
+            _canJump = true;
+            _canDoubleJump = false;
+        }
+    }
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+=======
     private bool _canDoubleJump;
     private bool _looksToLeft;
 
+
     private void Update() 
     {
+        bool isMoving = false;
         if (Input.GetKey(KeyCode.A))
         {
             transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+
+            _looksToLeft = false;
+            if (_canJump)
+            {
+                isMoving = true;
+            }
+=======
             _looksToLeft = true;
+
         }
         
         else if (Input.GetKey(KeyCode.D))
         {
             transform.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
+
+            _looksToLeft = true;
+            
+            if (_canJump)
+            {
+                isMoving = true;
+            }
+        }
+        
+        
+=======
             _looksToLeft = false;
         }
 
         if (Input.GetMouseButtonDown(0))     
             Attack();
+
         
         if (Input.GetKeyDown(KeyCode.Space))
            PerformJump();
@@ -45,7 +83,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
             PerformDash();
+
+        }
         
+        animator.SetBool("isMoving", isMoving);
+=======
+        
+
     }
 
     private void PerformJump()
@@ -78,6 +122,8 @@ public class PlayerMovement : MonoBehaviour
 
             GetComponent<StatusEffectManager>().OnStatusTriggerBuildUp(StatusEffectType.Dash,10f);
             StartCoroutine(DashCooldown());
+            WorldStateManager.ChangeState();
+            StartCoroutine(GaiaDuration());
         }
     }
 
@@ -87,6 +133,15 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         _canDash = true;
     }
+
+    
+    IEnumerator GaiaDuration()
+    {
+        yield return new WaitForSeconds(gaiaDuration);
+        WorldStateManager.ChangeState();
+    }
+    
+=======
 
     private void Attack()
     {
@@ -113,4 +168,5 @@ public class PlayerMovement : MonoBehaviour
         _canJump = true;
         _canDoubleJump = false;
     }
+
 }
