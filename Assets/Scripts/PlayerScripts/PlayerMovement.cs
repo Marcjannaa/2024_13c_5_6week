@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
 
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Animator animator;
     
     [SerializeField] private float jumpForce = 5f;
 
@@ -31,20 +32,37 @@ public class PlayerMovement : MonoBehaviour
             _canDoubleJump = false;
         }
     }
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Update() 
     {
+        bool isMoving = false;
         if (Input.GetKey(KeyCode.A))
         {
             transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
             _looksToLeft = false;
+            if (_canJump)
+            {
+                isMoving = true;
+            }
         }
         
         else if (Input.GetKey(KeyCode.D))
         {
             transform.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
             _looksToLeft = true;
+            
+            if (_canJump)
+            {
+                isMoving = true;
+            }
         }
+        
+        
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
            PerformJump();
@@ -54,6 +72,8 @@ public class PlayerMovement : MonoBehaviour
         {
             PerformDash();
         }
+        
+        animator.SetBool("isMoving", isMoving);
     }
 
     private void PerformJump()
