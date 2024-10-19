@@ -34,7 +34,7 @@ public class BatBehavior : Enemy
         }
     }
 
-    private void Update()
+    private void Update() //BUG: Usunięcie playera ze sceny i powrót psuje zachowanie
     {
         switch (_attackState)
         {

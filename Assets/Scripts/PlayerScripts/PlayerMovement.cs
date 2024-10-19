@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
             _canJump = false;
             _canDoubleJump = true;
         }
-        else if (_canDoubleJump)
+        else if (_canDoubleJump) //TODO: poprawić przypisywanie siły żeby nie robić "efektu domina" i móc wyskakiwać z dziur w trakcie spadania
         {
             float forceY = (rb.totalForce.y * rb.mass * -1) + jumpForce;
             rb.AddForce(new Vector2(0, forceY), ForceMode2D.Impulse);
