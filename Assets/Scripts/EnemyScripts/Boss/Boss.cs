@@ -6,10 +6,10 @@ using UnityEngine;
 public abstract class Boss : Enemy
 {
     [SerializeField] protected List<float> phaseChangeThresholds = new List<float>(){0.5f};
+    [SerializeField] protected List<GameObject> gates;
     protected int _currentPhase; //WARNING: phases are coounted from 0. It has to match thresholdList 
     protected SpriteRenderer _renderer;
     protected GameObject _player;
-    protected BossGateBehavior[] _gates;
     protected float _currentDamage=0f; //used for attack function
 
     private void Awake()
@@ -23,19 +23,18 @@ public abstract class Boss : Enemy
     {
         _renderer = GetComponent<SpriteRenderer>();
         _renderer.enabled = false;
-        _gates = GetComponentsInChildren<BossGateBehavior>();
     }
 
     public void Aggrevate(GameObject player)
     {
         _player = player;
         _renderer.enabled = true;
-        foreach (BossGateBehavior gate in _gates)
+        foreach (GameObject gate in gates)
         {
-            gate.Lock();
+            gate.GetComponent<BossGateBehavior>().Lock();
         }
 
-        //StartCoroutine(Fight());
+        StartCoroutine(Fight());
     }
 
     protected abstract IEnumerator Fight();
@@ -48,6 +47,11 @@ public abstract class Boss : Enemy
     protected bool IsAggrevated()
     {
         return _player is not null;
+    }
+
+    protected bool IsLookingRight()
+    {
+        return transform.position.x < _player.transform.position.x;
     }
 
     protected override void Attack(GameObject go)
@@ -67,5 +71,19 @@ public abstract class Boss : Enemy
         {
             Die();
         }
+    }
+
+    protected float HorizontalDistanceToPlayer()
+    {
+        return Math.Abs(transform.position.x - _player.transform.position.x);
+    }
+    protected float VerticalDistanceToPlayer()
+    {
+        return Math.Abs(transform.position.y - _player.transform.position.y);
+    }
+
+    protected float DistanceToPlayer()
+    {
+        return Vector2.Distance(transform.position, _player.transform.position);
     }
 }

@@ -91,7 +91,11 @@ public class SkeletonBehavior : Enemy
 
     private void SwingArm()
     {
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(new Vector2(transform.position.x+_attackOffset,transform.position.y+_attackOffset), new Vector2(attackDistance, attackDistance), 0);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(
+            new Vector2(transform.position.x+_attackOffset,transform.position.y+_attackOffset),
+            new Vector2(attackDistance, attackDistance),
+            0
+            );
         foreach (var collider in colliders)
         {
             Attack(collider.gameObject);

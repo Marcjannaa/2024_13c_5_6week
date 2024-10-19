@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float Speed;
-    private string direction;
+    [SerializeField] protected float Speed;
+    protected string direction;
 
-    private Rigidbody2D Rb;
+    protected Rigidbody2D Rb;
 
     private void Awake()
     {
