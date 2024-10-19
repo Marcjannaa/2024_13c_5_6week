@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-    protected float MaxHp = 100f;
+    [SerializeField] protected float MaxHp = 100f;
 
     protected float Hp;
     
