@@ -1,44 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField] private float maxHp = 100f;
-    [SerializeField] private TMP_Text txt;
     [SerializeField] private float defaultMeleeDamage=30;
     [SerializeField] private float defaultRangedDamage=20;
     [SerializeField] private float defaultDashDamage=10;
-    private float _currentHP;
-    private float _meleeDamage;
-    private float _rangedDamage;
-    private float _dashDamage;
-    private float _currentResistance; //percentage of damage avoided (example: 0.15 will reduce incoming damage to 85%)
+    [SerializeField] private float meleeDamage;
+    [SerializeField] private TMP_Text soulsTxt, rosesTxt, keysTxt, hpTxt;
+    private float _currentHp, _rangedDamage, _dashDamage, _currentResistance;
+    //private float _currentResistance; percentage of damage avoided (example: 0.15 will reduce incoming damage to 85%)
     
     private void Start()
     {
-        _currentHP = maxHp;
-        _meleeDamage = defaultMeleeDamage;
+        _currentHp = maxHp;
+        meleeDamage = defaultMeleeDamage;
         _rangedDamage = defaultRangedDamage;
         _dashDamage = defaultDashDamage;
         UpdateUI();
     }
 
+    public void ResetStats()
+    {
+        _currentHp = maxHp;
+    }
     public void ChangeHp(float dmg)
     {
-        _currentHP -= (1-_currentResistance)*dmg;
+        _currentHp -= (1-_currentResistance)*dmg;
         UpdateUI();
+        if (_currentHp <= 0)
+        {
+            gameObject.GetComponent<PlayerCollisions>().Die();
+        }
     }
-    private void UpdateUI()
+    public void UpdateUI()
     {
-        txt.SetText("HP:" + _currentHP, false);
+        rosesTxt.SetText("roses: " + GetComponent<PlayerStash>().GetRoses());
+        keysTxt.SetText("keys: " + GetComponent<PlayerStash>().GetKeys());
+        soulsTxt.SetText("souls: " + GetComponent<PlayerStash>().GetSouls());
+        hpTxt.SetText("HP: " + _currentHp);
     }
 
     public float GetMeleeDamage()
     {
-        return _meleeDamage;
+        return meleeDamage;
     }
     public float GetRangedDamage()
     {
@@ -57,7 +67,7 @@ public class PlayerStats : MonoBehaviour
 
     public void SetMeleeDamage(float damage)
     {
-        _meleeDamage = damage;
+        meleeDamage = damage;
     }
     public void SetRangedDamage(float damage)
     {

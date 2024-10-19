@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
-using UnityEditor.Build;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -21,9 +20,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gaiaDuration = 5f;
 
     private bool _canJump = true;
-    private bool _canDoubleJump = false;
-    private bool _looksToLeft = true;
     private bool _canDash = true;
+
     private void OnTriggerStay2D (Collider2D other)
     {
         if (other.CompareTag("Floor"))
@@ -36,6 +34,10 @@ public class PlayerMovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
+=======
+    private bool _canDoubleJump;
+    private bool _looksToLeft;
+
 
     private void Update() 
     {
@@ -43,16 +45,21 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+
             _looksToLeft = false;
             if (_canJump)
             {
                 isMoving = true;
             }
+=======
+            _looksToLeft = true;
+
         }
         
         else if (Input.GetKey(KeyCode.D))
         {
             transform.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
+
             _looksToLeft = true;
             
             if (_canJump)
@@ -62,18 +69,27 @@ public class PlayerMovement : MonoBehaviour
         }
         
         
-        
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-           PerformJump();
+=======
+            _looksToLeft = false;
         }
 
+        if (Input.GetMouseButtonDown(0))     
+            Attack();
+
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+           PerformJump();
+        
+
         if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
             PerformDash();
+
         }
         
         animator.SetBool("isMoving", isMoving);
+=======
+        
+
     }
 
     private void PerformJump()
@@ -94,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
     private void PerformDash()
     {
         if(_canDash){
-            float forceX = dashForce * (_looksToLeft ? 1 : -1);
+            float forceX = dashForce * (_looksToLeft ? -1 : 1);
             rb.AddForce(new Vector2(forceX, 0), ForceMode2D.Impulse);
             float dashDmg = GetComponent<PlayerStats>().GetDashDamage();
             Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.5f, 1.5f), 0);
@@ -109,7 +125,6 @@ public class PlayerMovement : MonoBehaviour
             WorldStateManager.ChangeState();
             StartCoroutine(GaiaDuration());
         }
-        
     }
 
     IEnumerator DashCooldown()
@@ -118,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         _canDash = true;
     }
+
     
     IEnumerator GaiaDuration()
     {
@@ -125,4 +141,32 @@ public class PlayerMovement : MonoBehaviour
         WorldStateManager.ChangeState();
     }
     
+=======
+
+    private void Attack()
+    {
+        var hitInfo = Physics2D.Raycast(
+            new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), 
+            (_looksToLeft ? transform.right * -1 : transform.right), 
+            0.1f
+            );
+        Debug.DrawRay(
+            new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), 
+             _looksToLeft ? transform.right * -2f : transform.right * 2f, 
+                 Color.cyan
+             );
+        if (hitInfo.collider.gameObject.CompareTag("Enemy") && hitInfo.collider != null)
+        {
+            var dmg = gameObject.GetComponent<PlayerStats>().GetMeleeDamage();
+            hitInfo.collider.gameObject.GetComponent<WalkingEnemy>().ChangeHp(dmg);
+            print("hit");
+        }
+    }
+
+    public void ActivateJump()
+    {
+        _canJump = true;
+        _canDoubleJump = false;
+    }
+
 }

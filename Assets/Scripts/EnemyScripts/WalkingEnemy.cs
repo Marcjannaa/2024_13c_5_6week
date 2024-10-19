@@ -43,6 +43,11 @@ public class WalkingEnemy : Enemy
 
     public override void ChangeHp(float damage)
     {
+        if (Hp - damage <= 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Hp -= damage;
     }
     protected override void Attack(GameObject go)
