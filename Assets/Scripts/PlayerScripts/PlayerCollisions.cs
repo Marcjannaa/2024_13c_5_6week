@@ -11,7 +11,12 @@ public class PlayerCollisions : MonoBehaviour
     {
         checkedPosition = transform.position;
     }
-
+    public void Die()
+    {
+        transform.position = checkedPosition;
+        gameObject.GetComponent<PlayerStats>().ResetStats();
+        gameObject.GetComponent<PlayerStats>().UpdateUI();
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Checkpoint"))
@@ -24,9 +29,9 @@ public class PlayerCollisions : MonoBehaviour
         else if (other.gameObject.CompareTag("Projectile"))
         {
             //dostan dmg na morde
-            Destroy(other.gameObject);
+            Destroy(other.gameObject); 
         }
         else if (other.gameObject.CompareTag("Plasma"))
-            transform.position = checkedPosition; // tymczasowo xd
+            Die();
     }
 }
