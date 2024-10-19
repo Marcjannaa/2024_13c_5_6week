@@ -6,19 +6,14 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    private void Start()
-    {
-        gameObject.tag = "Key";
-    }
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
+        
+        if (!other.gameObject.CompareTag("Player")) return;
+        
+        var playerStash = other.gameObject.GetComponent<PlayerStash>();
+        playerStash.Add(PlayerStash.Item.Keys);
         Destroy(gameObject);
-        other.GetComponent<PlayerStash>().Add(PlayerStash.GainedItem.Keys);
-    }
-
-    private void OnDestroy()
-    {
     }
 }

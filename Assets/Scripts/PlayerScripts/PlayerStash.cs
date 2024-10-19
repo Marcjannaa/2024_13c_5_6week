@@ -9,21 +9,19 @@ using UnityEngine;
 public class PlayerStash : MonoBehaviour
 {
     private int _rosesCount, _keysCount, _soulsCount = 0;
-    public enum GainedItem
-    {
-        Roses, Souls, Keys
-    }
-    public void Add(GainedItem item, int count=1)
+    public enum Item { Roses, Souls, Keys }
+    public virtual void Add(Item item, int count=1)
     {
         switch (item)
         {
-            case GainedItem.Roses:
+            case Item.Roses:
                 _rosesCount += count;
                 break;
-            case GainedItem.Keys:
+            case Item.Keys:
                 _keysCount += count;
+                GetComponent<PlayerStats>().UpdateUI();
                 break;
-            case GainedItem.Souls:
+            case Item.Souls:
                 _soulsCount += count;
                 break;
             default: break;
