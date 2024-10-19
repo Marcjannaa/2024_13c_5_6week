@@ -11,12 +11,16 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private float MoveDelay;
     private Vector3 CurrentPos;
     private bool MovingRight;
+    private bool working;
     void Start()
     {
         CurrentPos = transform.position;
         MovingRight = InitialDirection.ToLower() == "right";
+
         StartCoroutine(MoveCoroutine());
+        working = true;
     }
+    
 
     private void OnCollisionEnter2D(Collision2D other)
     {

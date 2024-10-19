@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashForce = 5f;
 
     [SerializeField] private float dashCooldown = 10f;
+    [SerializeField] private float gaiaDuration = 5f;
 
     private bool _canJump = true;
     private bool _canDoubleJump = false;
@@ -85,6 +86,8 @@ public class PlayerMovement : MonoBehaviour
 
             GetComponent<StatusEffectManager>().OnStatusTriggerBuildUp(StatusEffectType.Dash,10f);
             StartCoroutine(DashCooldown());
+            WorldStateManager.ChangeState();
+            StartCoroutine(GaiaDuration());
         }
         
     }
@@ -94,6 +97,12 @@ public class PlayerMovement : MonoBehaviour
         _canDash = false;
         yield return new WaitForSeconds(dashCooldown);
         _canDash = true;
+    }
+    
+    IEnumerator GaiaDuration()
+    {
+        yield return new WaitForSeconds(gaiaDuration);
+        WorldStateManager.ChangeState();
     }
     
 }
