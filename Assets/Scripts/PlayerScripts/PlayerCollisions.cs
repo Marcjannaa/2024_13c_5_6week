@@ -14,8 +14,9 @@ public class PlayerCollisions : MonoBehaviour
     public void Die()
     {
         transform.position = checkedPosition;
-        gameObject.GetComponent<PlayerStats>().ResetStats();
+        gameObject.GetComponent<PlayerStats>().SetHp(0);
         gameObject.GetComponent<PlayerStats>().UpdateUI();
+        //gameObject.GetComponent<PlayerStats>().ResetStats();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -25,13 +26,22 @@ public class PlayerCollisions : MonoBehaviour
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("FallZone"))
+        {
+            gameObject.GetComponent<PlayerStats>().UpdateUI();
             transform.position = checkedPosition;
+            Die();
+        }
         else if (other.gameObject.CompareTag("Projectile"))
         {
             //dostan dmg na morde
             Destroy(other.gameObject); 
+            gameObject.GetComponent<PlayerStats>().UpdateUI();
+
         }
         else if (other.gameObject.CompareTag("Plasma"))
+        {
             Die();
+            gameObject.GetComponent<PlayerStats>().UpdateUI();
+        }
     }
 }
