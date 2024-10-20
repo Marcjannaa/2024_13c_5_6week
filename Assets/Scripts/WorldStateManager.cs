@@ -21,7 +21,7 @@ public class WorldStateManager : MonoBehaviour
         UpdateAllObjects();
     }
 
-    public static void ChangeState()
+    public void ChangeState()
     {
         switch (WorldState)
         {
@@ -35,7 +35,7 @@ public class WorldStateManager : MonoBehaviour
 
         UpdateAllObjects();
     }
-    private static void UpdateAllObjects()
+    private void UpdateAllObjects()
     {
         foreach (WorldObject obj in worldObjects)
         {

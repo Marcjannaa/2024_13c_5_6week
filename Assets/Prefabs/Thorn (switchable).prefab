@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3915439070953016828, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_Name
-      value: Thorn
+      value: Thorn (switchable)
       objectReference: {fileID: 0}
     - target: {fileID: 9014770986405148740, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55,5 +55,27 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3915439070953016828, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8087777753987097384}
   m_SourcePrefab: {fileID: 100100000, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
+--- !u!1 &3400254244200917551 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3915439070953016828, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
+  m_PrefabInstance: {fileID: 1830236263690217427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-8087777753987097384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3400254244200917551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3074d12fbbc92349973aa2ebf924cca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActiveInGaia: 0
+  ActiveInNecropolis: 0

@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
 
     [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private WorldStateManager _worldManager;
 
     [SerializeField] private float dashForce = 5f;
 
@@ -40,10 +41,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
-
-            _looksToLeft = false;
-
-
             _looksToLeft = true;
 
         }
@@ -51,16 +48,10 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKey(KeyCode.D))
         {
             transform.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
-
-            _looksToLeft = true;
-            
-
+            _looksToLeft = false;
         }
         
         
-
-
-
         if (Input.GetMouseButtonDown(0))     
             Attack();
 
@@ -103,9 +94,9 @@ public class PlayerMovement : MonoBehaviour
                 enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceX, 1), ForceMode2D.Impulse);
             }
 
-            GetComponent<StatusEffectManager>().OnStatusTriggerBuildUp(StatusEffectType.Dash,10f);
+            //GetComponent<StatusEffectManager>().OnStatusTriggerBuildUp(StatusEffectType.Dash,10f);
             StartCoroutine(DashCooldown());
-            WorldStateManager.ChangeState();
+            _worldManager.ChangeState();
             StartCoroutine(GaiaDuration());
         }
     }
@@ -121,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator GaiaDuration()
     {
         yield return new WaitForSeconds(gaiaDuration);
-        WorldStateManager.ChangeState();
+        _worldManager.ChangeState();
     }
     
 
