@@ -56,7 +56,7 @@ public class PlayerStats : MonoBehaviour
     }
     public void UpdateUI()
     {
-        rosesTxt.SetText("roses: " + GetComponent<PlayerStash>().GetRoses());
+        rosesTxt.SetText(GetComponent<PlayerStash>().GetRoses().ToString());
         keysTxt.SetText("keys: " + GetComponent<PlayerStash>().GetKeys());
         soulsTxt.SetText("souls: " + GetComponent<PlayerStash>().GetSouls());
         slider.value = _currentHp / maxHp;

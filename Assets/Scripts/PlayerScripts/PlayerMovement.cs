@@ -22,48 +22,25 @@ public class PlayerMovement : MonoBehaviour
     private bool _canJump = true;
     private bool _canDash = true;
 
-    private void OnTriggerStay2D (Collider2D other)
-    {
-        if (other.CompareTag("Floor"))
-        {
-            _canJump = true;
-            _canDoubleJump = false;
-        }
-    }
+    private float dir;
 
     private bool _canDoubleJump;
     private bool _looksToLeft;
-
-
-    private void Update() 
+    
+    private void Update()
     {
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
-            _looksToLeft = true;
-
-        }
-        
-        else if (Input.GetKey(KeyCode.D))
-        {
-            transform.position += new Vector3(moveSpeed * Time.deltaTime, 0, 0);
-            _looksToLeft = false;
-        }
-        
+        if (Input.GetKey(KeyCode.A)) _looksToLeft = true;
+        else if (Input.GetKey(KeyCode.D)) _looksToLeft = false;
         
         if (Input.GetMouseButtonDown(0))     
             Attack();
-
         
         if (Input.GetKeyDown(KeyCode.Space))
            PerformJump();
         
-
         if (Input.GetKeyDown(KeyCode.LeftShift))
             PerformDash();
         
-
     }
 
     private void PerformJump()
@@ -143,4 +120,9 @@ public class PlayerMovement : MonoBehaviour
         _canDoubleJump = false;
     }
 
+    private void FixedUpdate()
+    {
+        dir = Input.GetAxis("Horizontal");
+        transform.position += new Vector3(dir * moveSpeed * Time.deltaTime, 0, 0);
+    }
 }

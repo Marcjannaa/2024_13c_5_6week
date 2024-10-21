@@ -48,6 +48,7 @@ public class WalkingEnemy : Enemy
             return;
         }
         Hp -= damage;
+        gameObject.GetComponent<HpBar>().UpdateBar(Hp, maxHpWalking);
     }
     protected override void Attack(GameObject go)
     {
