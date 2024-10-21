@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
             _canJump = false;
             _canDoubleJump = true;
         }
-        else if (_canDoubleJump)
+        else if (_canDoubleJump) //TODO: poprawić przypisywanie siły żeby nie robić "efektu domina" i móc wyskakiwać z dziur w trakcie spadania
         {
             float forceY = (rb.totalForce.y * rb.mass * -1) + jumpForce;
             rb.AddForce(new Vector2(0, forceY), ForceMode2D.Impulse);
@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(new Vector2(forceX, 0), ForceMode2D.Impulse);
             float dashDmg = GetComponent<PlayerStats>().GetDashDamage();
             Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.5f, 1.5f), 0);
-            foreach (var enemy in colliders.Where(e => e.CompareTag("Enemy")))
+            foreach (var enemy in colliders.Where(e => e.CompareTag("Enemy"))) //BUG: enemies take no damage
             {
                 enemy.GetComponent<Enemy>().ChangeHp(dashDmg);
                 enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceX, 1), ForceMode2D.Impulse);
