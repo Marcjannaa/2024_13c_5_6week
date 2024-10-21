@@ -56,10 +56,18 @@ public class MovingPlatform : MonoBehaviour
                 yield return null;
             }
             yield return new WaitForSeconds(MoveDelay);
-            
-            print(_moving);
             if (lift) break;
             _moving = !_moving;
         }
+        /*
+         if (_horizontal)
+         {
+            _currentPos.x
+         }
+         else
+         {
+            _currentPos.y
+         }
+         */
     }
 }
