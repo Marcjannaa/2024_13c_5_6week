@@ -17,7 +17,5 @@ public class BreakableWall : Enemy
         }
     }
 
-    protected override void LifeSteal()
-    {
-    }
+
 }
