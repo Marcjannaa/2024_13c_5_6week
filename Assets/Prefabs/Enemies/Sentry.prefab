@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3546908478741149889}
   - component: {fileID: 4881478900168051325}
   - component: {fileID: 3991929802644140252}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 7502588238172937630}
   - component: {fileID: 1940106253659451780}
   - component: {fileID: 6269670613053227495}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 374777339062531997}
   - component: {fileID: 6663397725988569269}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sentry
   m_TagString: Enemy
   m_Icon: {fileID: 0}

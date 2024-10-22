@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 10004603179967814}
   - component: {fileID: 5998177239461468476}
   - component: {fileID: 6895725078327588830}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Champion
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -52,12 +52,22 @@ MonoBehaviour:
   - 0.5
   gates: []
   championWave: {fileID: 5806633734326194717, guid: d1b81bf6efa83744f9853c0dd8ec85e4, type: 3}
+  walkSpeed: 2
   meleeWindupDuration: 0.7
   meleeAttackDuration: 0.3
   meleeAttackRange: 2.5
   meleeAttackDistance: 6
   meleeAttackDamage: 20
-  walkSpeed: 2
+  betweenMeleeAttackBreak: 0.1
+  meleeAttackCooldown: 1
+  dashWindUpDuration: 0.5
+  dashDamage: 50
+  dashSpeed: 10
+  dashAttackCoolDown: 1
+  dashCooldown: 5
+  dashMaxDistance: 10
+  dashDuration: 0.2
+  dashRange: 1
 --- !u!212 &10004603179967814
 SpriteRenderer:
   m_ObjectHideFlags: 0

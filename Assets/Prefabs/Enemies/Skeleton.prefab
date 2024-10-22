@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4124061513983602456}
   - component: {fileID: 8597232884024793765}
   - component: {fileID: 7071879648775445665}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,10 +48,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b8449c53f40a224a8841b6cf518c43e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHp: 100
   damage: 25
   speed: 3
   idleWonder: 5
   attackDistance: 2
+  windupDuration: 0.5
+  attacksGap: 0.25
+  disengagementDuration: 1
 --- !u!212 &1685639637971898606
 SpriteRenderer:
   m_ObjectHideFlags: 0

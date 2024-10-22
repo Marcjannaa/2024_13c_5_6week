@@ -8,9 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3244496642146407472, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
+      propertyPath: m_RendererPriority
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3244496642146407472, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3915439070953016828, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_Name
       value: Thorn (switchable)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6544646413714565029, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
+      propertyPath: m_InstanceId
+      value: -182332
       objectReference: {fileID: 0}
     - target: {fileID: 9014770986405148740, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_LocalPosition.x

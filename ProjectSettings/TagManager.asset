@@ -12,6 +12,7 @@ TagManager:
   - Plasma
   - Coffin
   - Key
+  - Rose
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Attackable
   - 
   - 
   - 
@@ -57,4 +58,7 @@ TagManager:
     locked: 0
   - name: 1
     uniqueID: 3023428813
+    locked: 0
+  - name: 2
+    uniqueID: 78290763
     locked: 0
