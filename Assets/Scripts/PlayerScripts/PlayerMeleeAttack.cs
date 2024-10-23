@@ -17,19 +17,19 @@ public class PlayerMeleeAttack : MonoBehaviour
         hits = Physics2D.CircleCastAll(transform.position, attackRange, transform.right, 0f, attackableLayer);
         foreach (var t in hits)
         {
-            IDamageable idamageable = t.collider.gameObject.GetComponent<IDamageable>();
-            if (idamageable != null)
-            {
-                idamageable.Damage(
-                    gameObject.GetComponent<PlayerStats>().GetMeleeDamage(), t.collider.gameObject
-                    );
-                print("hiiiit1!!");
-            }
+            var idamageable = t.collider.gameObject.GetComponent<IDamageable>();
+            
+            print(t.collider.gameObject.name);
+            print(t.collider.gameObject.layer);
+            print(t.collider.gameObject.tag);
+            
+            if (idamageable == null) continue;
+            
+            idamageable.Damage(
+                gameObject.GetComponent<PlayerStats>().GetMeleeDamage(), t.collider.gameObject
+            );
+            
+            print("hiiiit1!!");
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(_transform.position, attackRange);
     }
 }

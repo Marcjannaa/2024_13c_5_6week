@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PlayerScripts;
 using UnityEngine;
 
-public abstract class Boss : Enemy
+public abstract class Boss : Enemy, IDamageable
 {
     [SerializeField] protected List<float> phaseChangeThresholds = new List<float>(){0.5f};
     [SerializeField] protected List<GameObject> gates;

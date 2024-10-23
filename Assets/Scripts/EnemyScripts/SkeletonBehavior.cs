@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using PlayerScripts;
 using UnityEngine;
 
-public class SkeletonBehavior : Enemy
+public class SkeletonBehavior : Enemy, IDamageable
 {
     [SerializeField] private float damage = 25f;
     [SerializeField] private float speed = 3f;
