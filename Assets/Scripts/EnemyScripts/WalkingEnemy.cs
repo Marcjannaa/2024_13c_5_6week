@@ -24,7 +24,7 @@ public class WalkingEnemy : Enemy
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")){return;}
+        if (!other.CompareTag("Player")) { return; }
         var multi = other.gameObject.transform.position.x > transform.position.x ? 1 : -1;
         transform.position += new Vector3(multi * enemySpeed * Time.deltaTime, 0, 0);
     }
@@ -54,4 +54,6 @@ public class WalkingEnemy : Enemy
     {
         go.GetComponent<PlayerStats>().DealDamage(dmg);
     }
+
+
 }
