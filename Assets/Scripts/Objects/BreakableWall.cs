@@ -16,8 +16,4 @@ public class BreakableWall : Enemy
             Destroy(gameObject);
         }
     }
-
-    protected override void LifeSteal()
-    {
-    }
 }
