@@ -48,7 +48,6 @@ public class PlayerStats : MonoBehaviour
     {
         _currentHp = maxHp;
     }
-    public void ChangeHp(float dmg)
     public void DealDamage(float dmg)
     {
         _currentHp -= (1-_currentResistance)*dmg;
