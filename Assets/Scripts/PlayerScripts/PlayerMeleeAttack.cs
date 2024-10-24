@@ -15,20 +15,18 @@ public class PlayerMeleeAttack : MonoBehaviour
     [SerializeField] private float attackRange = 0.3f;
     private bool _shouldDamage;
     private RaycastHit2D[] hits;
-    Vector2 t;
     private string key;
     
     public void DealDamage()
     {
-        hits = Physics2D.CircleCastAll(transform.position, attackRange, transform.right, 0f, attackableLayer);
-        if (Input.GetAxis("Vertical") > 0)
-        {
-            hits = Physics2D.CircleCastAll(transform.position, attackRange, transform.up * Input.GetAxis("Vertical"), 1f, attackableLayer);
-        }else if (Input.GetAxis("Horizontal") > 0)
-        {
-            hits = Physics2D.CircleCastAll(transform.position, attackRange, transform.right * Input.GetAxis("Horizontal"), 1f, attackableLayer);
-        }
+        var rayTransform = transform.right * Input.GetAxis("Horizontal");
+        if (Input.GetAxis("Vertical") != 0)
+            rayTransform = transform.up * Input.GetAxis("Vertical");
+        else if (Input.GetAxis("Horizontal") != 0)
+            rayTransform = transform.right * Input.GetAxis("Horizontal");
         
+        hits = Physics2D.CircleCastAll(transform.position, attackRange, rayTransform, 1f, attackableLayer);
+
         foreach (var t in hits)
         {
             var idamageable = t.collider.gameObject.GetComponent<IDamageable>();

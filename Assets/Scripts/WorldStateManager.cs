@@ -32,7 +32,6 @@ public class WorldStateManager : MonoBehaviour
                 WorldState = State.Gaia;
                 break;
         }
-
         UpdateAllObjects();
     }
     private void UpdateAllObjects()
