@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7857707137654258664}
+  - component: {fileID: 682480745861698041}
   - component: {fileID: 8630516134272876575}
   - component: {fileID: 1685639637971898606}
   - component: {fileID: 4124061513983602456}
@@ -36,6 +37,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &682480745861698041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8962576334377896942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0d8ef8f30408748809ce7bcea66b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8630516134272876575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,10 +61,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b8449c53f40a224a8841b6cf518c43e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHp: 100
   damage: 25
   speed: 3
   idleWonder: 5
   attackDistance: 2
+  windupDuration: 0.5
+  attacksGap: 0.25
+  disengagementDuration: 1
 --- !u!212 &1685639637971898606
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -23,12 +23,14 @@ public class SkeletonBehavior : Enemy
     private float _windupTimer;
     private float _gapTimer;
     private float _disengagementTimer;
-    private float _attackOffset;
+    private float _attackOffset; 
+    private StuckDetector _stuckDetector;
     
     private void Start()
     {
         _renderer = GetComponent<SpriteRenderer>();
         _isLookingRight = true;
+        _stuckDetector = GetComponent<StuckDetector>();
         BecomeIdle();
     }
 
@@ -92,7 +94,7 @@ public class SkeletonBehavior : Enemy
     private void SwingArm()
     {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(
-            new Vector2(transform.position.x+_attackOffset,transform.position.y+_attackOffset),
+            new Vector2(transform.position.x+_attackOffset,transform.position.y),
             new Vector2(attackDistance, attackDistance),
             0
             );
@@ -115,6 +117,7 @@ public class SkeletonBehavior : Enemy
         _player = other.gameObject;
         _skeletonState = SkeletonStates.AGGREVATED;
     }
+    
 
     protected override void Attack(GameObject go)
     {
@@ -142,13 +145,26 @@ public class SkeletonBehavior : Enemy
 
     private void IdleMove()
     {
-        if (Vector2.Distance(transform.position, _nextIdlePosition) > 0.1f && Math.Abs(_idlePosition.x-transform.position.x) <= idleWonder)
+        bool tooFar = Vector2.Distance(transform.position, _nextIdlePosition) > 0.1f;
+        bool withinArea = Math.Abs(_idlePosition.x - transform.position.x) <= idleWonder;
+        bool isStuck = _stuckDetector.IsStuckX();
+        if (isStuck)
         {
-            transform.position = Vector2.MoveTowards(transform.position, _nextIdlePosition, speed * Time.deltaTime);
+            float scale = (_isLookingRight ? UnityEngine.Random.Range(0, 5) : UnityEngine.Random.Range(5, 11))/10f;
+            _nextIdlePosition=new Vector2(_idlePosition.x + scale* idleWonder - idleWonder*0.5f,_idlePosition.y);
+            _stuckDetector.HoldUp();
+            _stuckDetector.Clear();
         }
         else
         {
-           _nextIdlePosition=new Vector2(_idlePosition.x + UnityEngine.Random.Range(0, 11)/10f * idleWonder - idleWonder*0.5f,_idlePosition.y);
+            if ( tooFar && withinArea)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, _nextIdlePosition, speed * Time.deltaTime);
+            }
+            else
+            {
+                _nextIdlePosition=new Vector2(_idlePosition.x + UnityEngine.Random.Range(0, 11)/10f * idleWonder - idleWonder*0.5f,_idlePosition.y);
+            }
         }
     }
 }
