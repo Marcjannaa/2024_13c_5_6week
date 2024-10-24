@@ -26,6 +26,7 @@ public class ChampionBehavior : Boss
     [SerializeField] private float dashRange = 1f;
 
     private bool _dashReady;
+    private bool _alreadyShot = false;
     private void Awake()
     {
         MaxHp = 500f;
@@ -35,8 +36,12 @@ public class ChampionBehavior : Boss
 
     protected override IEnumerator Fight()
     {
-        yield return new WaitForSeconds(2);
-        ShootWave();
+        if (!_alreadyShot)
+        {
+            yield return new WaitForSeconds(2);
+            _alreadyShot = true;
+            ShootWave();
+        }
         yield return new WaitForSeconds(1);
         while (true)
         {
