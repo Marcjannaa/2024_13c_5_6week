@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6068647843912520909}
   - component: {fileID: 680114766307014719}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Fireflies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1309,18 +1309,18 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 0.6122236, g: 0.44499102, b: 0.93962264, a: 0.78039217}
-        key1: {r: 1, g: 0.91285527, b: 0, a: 0}
+        key1: {r: 0.020754695, g: 1, b: 0.096034385, a: 0}
         key2: {r: 0.47244856, g: 0.2245282, b: 1, a: 0.7294118}
-        key3: {r: 0.16416413, g: 0.645283, b: 0.081573494, a: 0.12941177}
-        key4: {r: 0, g: 0, b: 0, a: 0}
+        key3: {r: 0.47244856, g: 0.2245282, b: 1, a: 0.12941177}
+        key4: {r: 0.47244856, g: 0.2245282, b: 1, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
-        ctime0: 11796
-        ctime1: 29684
+        ctime0: 11488
+        ctime1: 29221
         ctime2: 54510
-        ctime3: 60369
-        ctime4: 0
+        ctime3: 54510
+        ctime4: 54510
         ctime5: 0
         ctime6: 0
         ctime7: 0
