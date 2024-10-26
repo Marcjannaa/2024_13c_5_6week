@@ -13,8 +13,6 @@ public class Sentry : Enemy, IDamageable
     [SerializeField] private float _cooldown;
 
     [SerializeField]  GameObject Projectile;
-
-    [SerializeField] private float MaxHP = 100f;
     
     [SerializeField] private Slider slider;
     private void Start()

@@ -27,9 +27,11 @@ public class WorldStateManager : MonoBehaviour
         {
             case State.Gaia:
                 WorldState = State.Necropolis;
+                Debug.Log("necro");
                 break;
             case State.Necropolis:
                 WorldState = State.Gaia;
+                Debug.Log("gaia");
                 break;
         }
         UpdateAllObjects();
