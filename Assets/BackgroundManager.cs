@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +8,23 @@ using Vector3 = UnityEngine.Vector3;
 
 public class BackgroundManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    private void Start()
+    [SerializeField] private Camera cam;
+    void Start()
     {
-        //gameObject.GetComponent<RectTransform>().position = new Vector3(0, 0, 0);
-        gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
-        gameObject.GetComponentInParent<Canvas>().sortingLayerID = 0;
-        gameObject.GetComponentInParent<Canvas>().sortingOrder = 0;
-        gameObject.GetComponentInParent<Canvas>().sortingLayerName = "Default";
+        gameObject.transform.SetParent(cam.transform);
+        AdjustSize();
     }
+
+    private void Update()
+    {
+        //AdjustSize();
+    }
+
+    void AdjustSize()
+    {
+        float screenHeight = cam.orthographicSize * 2;
+        float screenWidth = screenHeight * cam.aspect;
+        transform.localScale = new Vector3(screenWidth/8, screenHeight/7, 1);
+    }
+    
 }
