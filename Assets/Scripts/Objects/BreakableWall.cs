@@ -16,6 +16,4 @@ public class BreakableWall : Enemy
             Destroy(gameObject);
         }
     }
-
-
 }
