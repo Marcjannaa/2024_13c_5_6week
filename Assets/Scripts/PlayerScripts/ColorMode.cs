@@ -29,7 +29,7 @@ public class ColorMode : MonoBehaviour
         ld.color = PickColor(_playerState);
         var hp = gameObject.GetComponentInParent<PlayerStats>().getCurrentHp();
         _alpha = 255f * hp;
-        intensity = intensity * hp;
+        intensity *= hp;
         var hearts = gameObject.GetComponentInParent<PlayerStats>().getHearts();
         _playerState = hearts switch 
         {

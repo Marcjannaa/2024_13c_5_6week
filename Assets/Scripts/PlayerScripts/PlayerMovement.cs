@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.LeftShift))
             PerformDash();
-        
+        gameObject.GetComponentInChildren<PlayerSprites>().LookLeft(_looksToLeft);
     }
 
     private void PerformJump()
