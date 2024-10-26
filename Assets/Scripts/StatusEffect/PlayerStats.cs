@@ -42,6 +42,7 @@ public class PlayerStats : MonoBehaviour
         for (var i = hearts.Count - 1; i >= 0; i--)
         {
             hearts[i].GetComponent<Heart>().GetTheFuckOut(i < _heartCount);
+            gameObject.GetComponentInChildren<ColorMode>().UpdateColor();
         }
     }
     private void ResetHp()
@@ -101,6 +102,16 @@ public class PlayerStats : MonoBehaviour
     public void SetHp(float newHp)
     {
         _currentHp = newHp;
+    }
+
+    public int getHearts()
+    {
+        return _heartCount;
+    }
+
+    public float getCurrentHp()
+    {
+        return _currentHp / maxHp;
     }
 
     public void SetMeleeDamage(float damage) { meleeDamage = damage; }
