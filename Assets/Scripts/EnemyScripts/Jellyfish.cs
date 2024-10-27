@@ -20,7 +20,7 @@ public class Jellyfish : Enemy
     private bool canMoveTo = true;
     private int action = 1;
     private Random rnd = new Random();
-    private static float moveTowardsPlayerDuration = 5f;
+    private static float moveTowardsPlayerDuration = 4f;
     private static float attackDelay = 2f;
     
     private Transform[] tentacles;
@@ -171,20 +171,39 @@ public class Jellyfish : Enemy
         while (!shot)
         {
             int counter = 0;
+            
             foreach (var tentacle in tentacles)
             {
-                if (counter< tentacles.Length/2)
+                if (counter < tentacles.Length / 2)
                 {
                     tentacle.GetComponent<Tentacle>().Rotate(0);
-                }else tentacle.GetComponent<Tentacle>().Rotate(1);
-                tentacle.GetComponent<Tentacle>().Shoot();
+                }
+                else
+                {
+                    tentacle.GetComponent<Tentacle>().Rotate(1);
+                }
                 counter++;
+            }
+
+
+            yield return new WaitForSeconds(1);
+            
+            foreach (var tentacle in tentacles)
+            {
+                tentacle.GetComponent<Tentacle>().Shoot(player);
+            }
+
+            foreach (var tentacle in tentacles)
+            {
+                StartCoroutine(tentacle.GetComponent<Tentacle>().ReturnToInitialRotation());
             }
 
             shot = true;
         }
+
         yield return null;
     }
+
 
     private IEnumerator sweepAttackCoroutine()
     {
