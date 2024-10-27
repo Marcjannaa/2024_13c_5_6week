@@ -17,7 +17,10 @@ public class Jellyfish : Enemy
     private float dmg = 30f;
     private float distance;
     private bool canAttack = true;
-    private static float moveTowardsPlayerDuration = 3f;
+    private bool canMoveTo = true;
+    private int action = 1;
+    private Random rnd = new Random();
+    private static float moveTowardsPlayerDuration = 5f;
     private static float attackDelay = 2f;
 
     
@@ -36,10 +39,27 @@ public class Jellyfish : Enemy
     
     void Update()
     {
-        if (canAttack)
+        
+
+        switch (action)
         {
-            StartCoroutine(attackCoroutine());
+            case 0:
+                print("atak");
+                if (canAttack)
+                {
+                    StartCoroutine(attackCoroutine());
+                }
+                break;
+            case 1:
+                print("ruch");
+                if (canMoveTo)
+                {
+                    int randomPos = rnd.Next(0, 3);
+                    StartCoroutine(moveToPositionCoroutine(positions[randomPos]));
+                }
+                break;
         }
+
     }
     
     
@@ -82,8 +102,7 @@ public class Jellyfish : Enemy
 
     private JellyAttack rollAttack()
     {
-        Random random = new Random();
-        int atk = random.Next(0, 100);
+        int atk = rnd.Next(0, 100);
         switch (atk)
         {
             case <101:
@@ -96,6 +115,7 @@ public class Jellyfish : Enemy
     private IEnumerator attackCoroutine()
     {
         canAttack = false;
+
 
         JellyAttack ja = rollAttack();
 
@@ -113,15 +133,13 @@ public class Jellyfish : Enemy
         }
         
         yield return new WaitForSeconds(attackDelay);
-        
+        action = 1;
         canAttack = true;
     }
 
     private IEnumerator moveAttackCoroutine()
     {
         float elapsedTime = 0f;
-//        Vector2 direction = player.transform.position - transform.position;
-//        direction.Normalize();
         
         while (elapsedTime < moveTowardsPlayerDuration)
         {
@@ -131,11 +149,22 @@ public class Jellyfish : Enemy
             
             yield return null;
         }
-        
         yield return null;
     }
 
-    
+    private IEnumerator moveToPositionCoroutine(Vector2 newPosition)
+    {
+        canMoveTo = false;
+        Vector3 v3 = new Vector3(newPosition.x, newPosition.y, 0);
+        while (transform.position.x != newPosition.x && transform.position.y != newPosition.y)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, v3, 2 * speed * Time.deltaTime);
+            yield return null;
+        }
+        yield return new WaitForSeconds(attackDelay);
+        action = 0;
+        canMoveTo = true;
+    }
 }
 
 
