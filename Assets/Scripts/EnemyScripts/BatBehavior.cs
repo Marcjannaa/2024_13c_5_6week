@@ -22,24 +22,31 @@ public class BatBehavior : Enemy, IDamageable
     private GameObject _player;
     private StuckDetector _stuckDetector;
     private Vector2 _lookingDirection;
+    private float _playerCollisionCounter;
     private void Start()
     {
+        GetComponent<Rigidbody2D>().gravityScale = 0f;
         _stuckDetector = GetComponent<StuckDetector>();
         BecomeIdle();
     }
-    private void OnCollisionEnter2D(Collision2D other)
+
+    private void OnCollisionStay2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Floor"))
-        {
-            Debug.Log("oof");
-        }
         if (!other.gameObject.CompareTag("Player")){return;}
 
+        _playerCollisionCounter++;
         if(_attackCooldownCounter<=0){
             Attack(other.gameObject);
             _attackCooldownCounter = attackCooldown;
             _attackState = BatAttackSequence.DISANGAGING;
         }
+
+        if (_playerCollisionCounter > 1)
+        {
+            _attackState = BatAttackSequence.DISANGAGING;
+            Debug.Log("tu");
+        }
+
     }
 
     private void Update() //BUG: Usunięcie playera ze sceny i powrót psuje zachowanie
@@ -55,7 +62,7 @@ public class BatBehavior : Enemy, IDamageable
                 if (Vector2.Distance(transform.position, _player.transform.position) <= attackDistance)
                 {
                     _attackState = BatAttackSequence.CHARGING;
-                    _attackStartPos = transform.position;
+                   _attackStartPos = transform.position;
                 }
                 break;
             case BatAttackSequence.CHARGING:
@@ -73,6 +80,7 @@ public class BatBehavior : Enemy, IDamageable
                 if (_attackCooldownCounter <= 0f)
                 {
                     _attackState = BatAttackSequence.AGGREVATED;
+                    _playerCollisionCounter = 0;
                 }
                 break;
         }
