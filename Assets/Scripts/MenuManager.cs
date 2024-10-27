@@ -19,5 +19,10 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("LoadGame");
     }
+
+    public void Exit()
+    {
+        
+    }
     
 }

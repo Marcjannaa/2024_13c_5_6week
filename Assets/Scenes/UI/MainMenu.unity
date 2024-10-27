@@ -335,6 +335,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 598133432214440745, guid: 10f3de03482136a4c91c4716dea4b126, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1937697133}
+    - target: {fileID: 598133432214440745, guid: 10f3de03482136a4c91c4716dea4b126, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Exit
+      objectReference: {fileID: 0}
+    - target: {fileID: 598133432214440745, guid: 10f3de03482136a4c91c4716dea4b126, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MenuManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 598133432214440745, guid: 10f3de03482136a4c91c4716dea4b126, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3406467139800982712, guid: 10f3de03482136a4c91c4716dea4b126, type: 3}
       propertyPath: m_Name
       value: MainMenuOptions
@@ -424,6 +440,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10f3de03482136a4c91c4716dea4b126, type: 3}
+--- !u!114 &1937697133 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3937310089649610169, guid: 10f3de03482136a4c91c4716dea4b126, type: 3}
+  m_PrefabInstance: {fileID: 1937697132}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e70693e8ad27f479e855b613545a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
