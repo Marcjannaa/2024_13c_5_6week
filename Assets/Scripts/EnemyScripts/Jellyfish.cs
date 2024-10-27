@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 using Random = System.Random;
 
@@ -18,6 +19,7 @@ public class Jellyfish : Enemy
     private float distance;
     private bool canAttack = true;
     private bool canMoveTo = true;
+    private bool chase = false;
     private int action = 1;
     private Random rnd = new Random();
     private static float moveTowardsPlayerDuration = 4f;
@@ -48,7 +50,7 @@ public class Jellyfish : Enemy
     
     void Update()
     {
-        if (Hp >= 200)
+        if (Hp > 500)
         {
             switch (action)
             {
@@ -69,13 +71,12 @@ public class Jellyfish : Enemy
         }
         else
         {
-            StartCoroutine(chaseSequenceCoroutine());
+            if (!chase)
+            {
+                chase = true;
+                StartCoroutine(chaseSequenceCoroutine());
+            }
         }
-    }
-
-    private string chaseSequenceCoroutine()
-    {
-        throw new NotImplementedException();
     }
 
 
@@ -223,9 +224,23 @@ public class Jellyfish : Enemy
         
         while (elapsedTime < moveTowardsPlayerDuration)
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            Vector3 targetPos = new Vector3(player.transform.position.x, player.transform.position.y + 2f, 0);
+            transform.position = Vector2.MoveTowards(transform.position, targetPos, 2 * speed * Time.deltaTime);
             
             elapsedTime += Time.deltaTime;
+            
+            yield return null;
+        }
+        yield return null;
+    }
+    
+    private IEnumerator chaseSequenceCoroutine()
+    {
+
+        
+        while (Hp > 0)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
             
             yield return null;
         }
