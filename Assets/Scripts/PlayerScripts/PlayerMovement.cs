@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetAxis("Fire1") > 0 && _attackCooldown)
         {
-            gameObject.GetComponentInChildren<ColorMode>().setPlayerState(ColorMode.PlayerState.Attacking);
+            gameObject.GetComponentInChildren<ColorMode>().SetPlayerState(ColorMode.PlayerState.Idle);
             gameObject.GetComponentInChildren<ColorMode>().UpdateColor();
 
             _attackCooldown = false;
@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _attackCooldown = false;
         yield return new WaitForSeconds(_attackCooldownCount);
-        gameObject.GetComponentInChildren<ColorMode>().setPlayerState(ColorMode.PlayerState.Idle);
+        gameObject.GetComponentInChildren<ColorMode>().SetPlayerState(ColorMode.PlayerState.Idle);
         gameObject.GetComponentInChildren<ColorMode>().UpdateColor();
         _attackCooldown = true;
     }

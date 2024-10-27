@@ -48,6 +48,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1386749128003371469, guid: 6f77f2705036ee0499bac269d1e05a40, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1386749128003371469, guid: 6f77f2705036ee0499bac269d1e05a40, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1386749128003371469, guid: 6f77f2705036ee0499bac269d1e05a40, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446911092226201145, guid: 6f77f2705036ee0499bac269d1e05a40, type: 3}
+      propertyPath: m_InstanceId
+      value: -11926
+      objectReference: {fileID: 0}
     - target: {fileID: 6179603867225706678, guid: 6f77f2705036ee0499bac269d1e05a40, type: 3}
       propertyPath: m_Name
       value: Plasma (switchable)
