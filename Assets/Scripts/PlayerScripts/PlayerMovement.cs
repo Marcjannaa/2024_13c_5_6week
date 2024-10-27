@@ -26,14 +26,20 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _canDoubleJump;
     private bool _looksToLeft;
-    
+    private const float _attackCooldownCount = 0.3f;
+    private bool _attackCooldown = true;
+
     private void Update()
     {
         if (Input.GetKey(KeyCode.A)) _looksToLeft = true;
         else if (Input.GetKey(KeyCode.D)) _looksToLeft = false;
-        
-        if (Input.GetMouseButtonDown(0))     
-            Attack();
+
+        if (Input.GetAxis("Fire1") > 0 && _attackCooldown)
+        {
+            _attackCooldown = false;
+            gameObject.GetComponent<PlayerMeleeAttack>().DealDamage();
+            StartCoroutine(AttackCooldown());
+        }
         
         if (Input.GetKeyDown(KeyCode.Space))
            PerformJump();
@@ -77,6 +83,12 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(GaiaDuration());
         }
     }
+    private IEnumerator AttackCooldown()
+    {
+        _attackCooldown = false;
+        yield return new WaitForSeconds(_attackCooldownCount);
+        _attackCooldown = true;
+    }
 
     IEnumerator DashCooldown()
     {
@@ -84,7 +96,6 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         _canDash = true;
     }
-
     
     IEnumerator GaiaDuration()
     {
@@ -92,8 +103,6 @@ public class PlayerMovement : MonoBehaviour
         _worldManager.ChangeState();
     }
     
-
-
     private void Attack()
     {
         var hitInfo = Physics2D.Raycast(

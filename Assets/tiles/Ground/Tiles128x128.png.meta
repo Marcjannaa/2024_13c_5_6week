@@ -113,12 +113,12 @@ TextureImporter:
       name: tile1
       rect:
         serializedVersion: 2
-        x: 10
-        y: 375
-        width: 110
-        height: 110
+        x: 18
+        y: 374
+        width: 104
+        height: 126
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -55, y: 33}
@@ -148,12 +148,12 @@ TextureImporter:
       name: tile2
       rect:
         serializedVersion: 2
-        x: 199
-        y: 375
-        width: 110
-        height: 110
+        x: 202
+        y: 374
+        width: 104
+        height: 126
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -55, y: 32}
@@ -177,12 +177,12 @@ TextureImporter:
       name: tile3
       rect:
         serializedVersion: 2
-        x: 388
-        y: 375
-        width: 110
-        height: 110
+        x: 386
+        y: 374
+        width: 104
+        height: 126
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: 14, y: -55}
@@ -211,12 +211,12 @@ TextureImporter:
       name: tile4
       rect:
         serializedVersion: 2
-        x: 10
-        y: 220
-        width: 110
-        height: 110
+        x: 18
+        y: 214
+        width: 104
+        height: 126
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -2, y: 55}
@@ -241,12 +241,12 @@ TextureImporter:
       name: tile5
       rect:
         serializedVersion: 2
-        x: 198
-        y: 221
-        width: 110
-        height: 110
+        x: 202
+        y: 214
+        width: 104
+        height: 126
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -262,12 +262,12 @@ TextureImporter:
       name: tile6
       rect:
         serializedVersion: 2
-        x: 388
-        y: 220
-        width: 110
-        height: 110
+        x: 386
+        y: 214
+        width: 104
+        height: 126
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -55, y: 55}
@@ -294,12 +294,12 @@ TextureImporter:
       name: tile7
       rect:
         serializedVersion: 2
-        x: 10
-        y: 64
-        width: 110
-        height: 110
+        x: 18
+        y: 54
+        width: 104
+        height: 126
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: 2, y: 55}
@@ -328,12 +328,12 @@ TextureImporter:
       name: tile8
       rect:
         serializedVersion: 2
-        x: 199
-        y: 65
-        width: 110
-        height: 110
+        x: 202
+        y: 54
+        width: 104
+        height: 126
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -349,12 +349,12 @@ TextureImporter:
       name: tile9
       rect:
         serializedVersion: 2
-        x: 388
-        y: 65
-        width: 110
-        height: 110
+        x: 386
+        y: 54
+        width: 104
+        height: 126
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -9, y: 24}

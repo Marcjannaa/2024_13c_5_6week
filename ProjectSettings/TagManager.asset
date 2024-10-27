@@ -12,6 +12,7 @@ TagManager:
   - Plasma
   - Coffin
   - Key
+  - Rose
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Attackable
   - 
   - 
   - 
@@ -46,15 +47,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3782927589
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: -1
-    uniqueID: 2429209959
+  - name: Player
+    uniqueID: 462910367
     locked: 0
-  - name: 0
-    uniqueID: 2603546373
-    locked: 0
-  - name: 1
-    uniqueID: 3023428813
+  - name: UI
+    uniqueID: 2636726039
     locked: 0

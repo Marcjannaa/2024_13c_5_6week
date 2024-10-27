@@ -12,7 +12,7 @@ using Image = UnityEngine.UIElements.Image;
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField] private float maxHp = 100f;
-    [SerializeField] private float defaultMeleeDamage=30;
+    [SerializeField] private float defaultMeleeDamage=5f;
     [SerializeField] private float defaultRangedDamage=20;
     [SerializeField] private float defaultDashDamage=10;
     [SerializeField] private float meleeDamage;
@@ -48,6 +48,7 @@ public class PlayerStats : MonoBehaviour
     {
         _currentHp = maxHp;
     }
+
     public void DealDamage(float dmg)
     {
         _currentHp -= (1-_currentResistance)*dmg;
@@ -56,8 +57,8 @@ public class PlayerStats : MonoBehaviour
     public void UpdateUI()
     {
         rosesTxt.SetText(GetComponent<PlayerStash>().GetRoses().ToString());
-        keysTxt.SetText("keys: " + GetComponent<PlayerStash>().GetKeys());
-        soulsTxt.SetText("souls: " + GetComponent<PlayerStash>().GetSouls());
+        keysTxt.SetText(GetComponent<PlayerStash>().GetKeys().ToString());
+        soulsTxt.SetText(GetComponent<PlayerStash>().GetSouls().ToString());
         slider.value = _currentHp / maxHp;
         RefreshHearts();
     }

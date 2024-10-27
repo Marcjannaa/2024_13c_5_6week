@@ -36,5 +36,10 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerStats>().DealDamage(10);
+        }
     }
 }

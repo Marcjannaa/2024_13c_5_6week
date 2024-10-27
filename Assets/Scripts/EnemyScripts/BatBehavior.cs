@@ -1,8 +1,9 @@
 using System;
+using PlayerScripts;
 using UnityEngine;
 using Random = System.Random;
 
-public class BatBehavior : Enemy
+public class BatBehavior : Enemy, IDamageable
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float speed = 2f;

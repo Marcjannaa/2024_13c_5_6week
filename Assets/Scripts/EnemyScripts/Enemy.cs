@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using PlayerScripts;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, IDamageable
 {
     [SerializeField] protected float MaxHp = 100f;
 
@@ -15,5 +17,12 @@ public abstract class Enemy : MonoBehaviour
 
     protected abstract void Attack(GameObject go);
     public abstract void ChangeHp(float damage);
-    
+
+    private void OnDestroy()
+    {
+        var objects = FindObjectsOfType<GameObject>();
+        foreach (var obj in objects)
+            if (obj.CompareTag("Player"))
+                obj.GetComponent<PlayerStash>().Add(PlayerStash.Item.Souls);
+    }
 }
