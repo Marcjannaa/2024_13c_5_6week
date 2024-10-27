@@ -1,17 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = System.Random;
 
 
 public class Jellyfish : Enemy
 {
-    [SerializeField]private List<Vector2> positions = new List<Vector2>() { new(0f, 0f), new(0f, 0f), new(0f, 0f) };
+    [SerializeField] private List<Vector2> positions = new List<Vector2>() { new(0f, 0f), new(0f, 0f), new(0f, 0f) };
     private float atkDelay;
+    [SerializeField] private GameObject player;
     [SerializeField] private float speed;
-    private float dmgDealy = 0.5f;
+    private float contactDamageDelay = 0.5f;
     private float counter = 0f;
     private float dmg = 30f;
+    private float distance;
+    private bool canAttack = true;
+    private static float moveTowardsPlayerDuration = 3f;
+    private static float attackDelay = 2f;
+
     
     private enum JellyAttack
     {
@@ -25,13 +33,15 @@ public class Jellyfish : Enemy
     {
         Hp = MaxHp;
     }
-
-    private void OnTriggerStay2D(Collider2D other)
+    
+    void Update()
     {
-        if (!other.CompareTag("Player")) { return; }
-        
-
+        if (canAttack)
+        {
+            StartCoroutine(attackCoroutine());
+        }
     }
+    
     
     private void OnCollisionStay2D(Collision2D other)
     {
@@ -39,7 +49,7 @@ public class Jellyfish : Enemy
         if (counter <= 0f)
         {
             Attack(other.gameObject);
-            counter = dmgDealy;
+            counter = contactDamageDelay;
         }else counter -= Time.deltaTime;
     }
     protected override void Attack(GameObject go)
@@ -58,17 +68,74 @@ public class Jellyfish : Enemy
 //        gameObject.GetComponent<HpBar>().UpdateBar(Hp, MaxHp);
     }
 
-    // Update is called once per frame
-    void Update()
+
+
+    void movingAttack()
     {
-        
+        distance = Vector2.Distance(transform.position, player.transform.position);
+        Vector2 direction = player.transform.position - transform.position;
+        direction.Normalize();
+//        float rotationAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+//        transform.rotation = Quaternion.Euler(Vector3.forward * rotationAngle);
     }
 
-    void movingAttack(GameObject go)
+    private JellyAttack rollAttack()
     {
-        var multi = go.gameObject.transform.position.x > transform.position.x ? 1 : -1;
-        transform.position += new Vector3(multi * speed * Time.deltaTime, 0, 0);
+        Random random = new Random();
+        int atk = random.Next(0, 100);
+        switch (atk)
+        {
+            case <101:
+                return JellyAttack.Move;
+        }
+
+        return JellyAttack.Move;
     }
+
+    private IEnumerator attackCoroutine()
+    {
+        canAttack = false;
+
+        JellyAttack ja = rollAttack();
+
+        switch (ja)
+        {
+            case JellyAttack.Move:
+                yield return StartCoroutine(moveAttackCoroutine());
+                break;
+            case JellyAttack.Sweep:
+                break;
+            case JellyAttack.Shoot:
+                break;
+            case JellyAttack.Drain:
+                break;
+        }
+        
+        yield return new WaitForSeconds(attackDelay);
+        
+        canAttack = true;
+    }
+
+    private IEnumerator moveAttackCoroutine()
+    {
+        float elapsedTime = 0f;
+//        Vector2 direction = player.transform.position - transform.position;
+//        direction.Normalize();
+        
+        while (elapsedTime < moveTowardsPlayerDuration)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            
+            elapsedTime += Time.deltaTime;
+            
+            yield return null;
+        }
+        
+        yield return null;
+    }
+
+    
 }
 
 
