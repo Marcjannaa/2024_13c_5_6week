@@ -137,7 +137,7 @@ public class Jellyfish : Enemy
 
 
         JellyAttack ja = rollAttack();
-        if (ja == JellyAttack.Drain && transform.position == new Vector3(positions[1].x, positions[1].y, 0))
+        if (ja == JellyAttack.Drain && transform.position == new Vector3(positions[0].x, positions[0].y, 0))
         {
             StartCoroutine(drainAttackCoroutine());
         }
@@ -209,6 +209,17 @@ public class Jellyfish : Enemy
     private IEnumerator sweepAttackCoroutine()
     {
         print("sweep");
+        if (transform.position == new Vector3(positions[1].x, positions[1].y, 0))
+        {
+            StartCoroutine(tentacles[tentacles.Length-1].GetComponent<Tentacle>().Sweep("right"));
+        }else if (transform.position == new Vector3(positions[0].x, positions[0].y, 0))
+        {
+            StartCoroutine(tentacles[tentacles.Length-1].GetComponent<Tentacle>().Sweep("right"));
+            StartCoroutine(tentacles[0].GetComponent<Tentacle>().Sweep("left"));
+        }else if (transform.position == new Vector3(positions[2].x, positions[2].y, 0))
+        {
+            StartCoroutine(tentacles[0].GetComponent<Tentacle>().Sweep("left"));
+        }
         yield return null;
     }
 

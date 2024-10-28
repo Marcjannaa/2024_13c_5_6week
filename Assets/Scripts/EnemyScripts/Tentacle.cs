@@ -25,8 +25,6 @@ public class Tentacle : MonoBehaviour
 
     public void Rotate(int dir)
     {
-        Vector3 pivotOffset = new Vector3(-transform.localScale.x / 2, 0, 0);
-        Vector3 rotationAngle = new Vector3(0,0,0);
         switch (dir)
         {
             case 0:
@@ -57,6 +55,65 @@ public class Tentacle : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, 0, totalRotation);
     }
+    
+    //do poprawki, nie rusza się głupia
+public IEnumerator Sweep(string direction)
+{
+    Vector3 defaultPosition = transform.position;
+    Quaternion defaultRotation = transform.rotation;
+
+    Vector3 newPosition = defaultPosition;
+    float angle = 0f;
+    
+    switch (direction)
+    {
+        case "left":
+            newPosition = new Vector3(defaultPosition.x + 0.6f, defaultPosition.y + 0.43f, defaultPosition.z);
+            angle = -33f;
+            break;
+        case "right":
+            newPosition = new Vector3(defaultPosition.x - 0.6f, defaultPosition.y + 0.43f, defaultPosition.z);
+            angle = 33f;
+            break;
+    }
+
+    float chargeDuration = 2f;
+    float attackDuration = 1f;
+
+    float elapsedTime = 0f;
+    
+    while (elapsedTime < chargeDuration)
+    {
+        transform.position = Vector3.Lerp(defaultPosition, newPosition, elapsedTime / chargeDuration);
+        
+        float rotation = Mathf.Lerp(0, angle, elapsedTime / chargeDuration);
+        transform.rotation = Quaternion.Euler(0, 0, rotation);
+        
+        elapsedTime += Time.deltaTime;
+        
+        yield return null;
+    }
+    
+    transform.position = newPosition;
+    transform.rotation = Quaternion.Euler(0, 0, angle);
+    
+    elapsedTime = 0f;
+    
+    while (elapsedTime < attackDuration)
+    {
+        transform.position = Vector3.Lerp(newPosition, defaultPosition, elapsedTime / attackDuration);
+        
+        float rotation = Mathf.Lerp(angle, 0, elapsedTime / attackDuration);
+        transform.rotation = Quaternion.Euler(0, 0, rotation);
+        
+        elapsedTime += Time.deltaTime;
+        
+        yield return null;
+    }
+    
+    transform.position = defaultPosition;
+    transform.rotation = defaultRotation;
+}
     
     public IEnumerator ReturnToInitialRotation()
     {
