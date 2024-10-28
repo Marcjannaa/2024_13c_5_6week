@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UpgradeMenu : MonoBehaviour
 {
@@ -72,4 +73,11 @@ public class UpgradeMenu : MonoBehaviour
         soulsCount -= hpCost;
         PlayerPrefs.SetFloat("MaxHp", PlayerPrefs.GetFloat("MaxHp") * (1 + (hpVal / PlayerPrefs.GetFloat("MaxHp"))));
     }
+
+    public void OnExitButton()
+    {
+        SceneManager.LoadScene("Tutorial");
+        PlayerPrefs.GetInt("Paused", 1);
+    }
+
 }
