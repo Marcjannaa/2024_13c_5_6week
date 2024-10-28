@@ -29,7 +29,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/lvl2.unity
     guid: 4e50a63c45a55d34fb53f50e8a86f8b3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/UI/PauseMenu.unity
     guid: fb2f03764472ae54cadadd7daead44fb
   - enabled: 1
