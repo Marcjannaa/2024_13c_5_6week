@@ -1579,7 +1579,7 @@ MonoBehaviour:
   moveSpeed: 5
   rb: {fileID: 2192022271539928041}
   jumpForce: 6
-  _worldManager: {fileID: 0}
+  _worldManager: {fileID: 2266463321979683171, guid: bce6c1351bcbfd74b8ce7d31c828fae9, type: 3}
   dashForce: 5
   dashCooldown: 10
   gaiaDuration: 5

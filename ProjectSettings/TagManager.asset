@@ -53,6 +53,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Jelly Main Body
+    uniqueID: 591100283
+    locked: 0
   - name: Player
     uniqueID: 462910367
     locked: 0
