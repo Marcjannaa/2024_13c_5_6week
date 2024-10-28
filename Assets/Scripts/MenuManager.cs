@@ -22,7 +22,7 @@ public class MenuManager : MonoBehaviour
 
     public void Exit()
     {
-        
+        print("Quitting..");
     }
     
 }
