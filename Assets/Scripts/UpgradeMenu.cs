@@ -48,36 +48,62 @@ public class UpgradeMenu : MonoBehaviour
         hpBuff.text += "Cost: " + hpCost + " Souls.";
         attackBuff.text += "Cost: " + attackCost + " Souls.";
     }
-    
+
+    private void UpdateUI()
+    {
+        roseCountTxt.text = PlayerPrefs.GetInt("Roses").ToString();
+        soulsCountTxt.text = PlayerPrefs.GetInt("Souls").ToString();
+    }
     public void OnStaminaUpgrade()
     {
         if (roseCount < staminaCost) return;
         roseCount -= staminaCost;
         PlayerPrefs.SetFloat("Stamina", PlayerPrefs.GetFloat("Stamina") * (1 - (staminaVal / PlayerPrefs.GetFloat("Stamina"))));
+        PlayerPrefs.SetInt("Roses", roseCount);
+        PlayerPrefs.Save();
+        UpdateUI();
+
     }
     public void OnShiftUpgrade()
     {
         if (roseCount < shiftCost) return;
         roseCount -= shiftCost;
-        PlayerPrefs.SetFloat("DashDuration", PlayerPrefs.GetFloat("DashDuration") * (1 + (shiftVal / PlayerPrefs.GetFloat("DashDuration"))));
+        PlayerPrefs.SetFloat("DashDuration", PlayerPrefs.GetFloat("DashDuration") * (1 - (shiftVal / PlayerPrefs.GetFloat("DashDuration"))));
+        PlayerPrefs.SetInt("Roses", roseCount);
+        PlayerPrefs.Save();
+        UpdateUI();
+
+
     }
     public void OnAttackUpgrade()
     {
         if (soulsCount < attackCost) return;
         soulsCount -= attackCost;
         PlayerPrefs.SetFloat("MeleeAttack", PlayerPrefs.GetFloat("MeleeAttack") * (1 + (attackVal / PlayerPrefs.GetFloat("MeleeAttack"))));
+        PlayerPrefs.SetInt("Souls", soulsCount);
+        PlayerPrefs.Save();
+        UpdateUI();
+
+
+
     }
     public void OnHpUpgrade()
     {
         if (soulsCount < hpCost) return;
         soulsCount -= hpCost;
         PlayerPrefs.SetFloat("MaxHp", PlayerPrefs.GetFloat("MaxHp") * (1 + (hpVal / PlayerPrefs.GetFloat("MaxHp"))));
+        PlayerPrefs.SetInt("Souls", soulsCount);
+        PlayerPrefs.Save();
+        UpdateUI();
+
+
     }
 
     public void OnExitButton()
     {
         SceneManager.LoadScene("Tutorial");
         PlayerPrefs.GetInt("Paused", 1);
+        
     }
 
 }

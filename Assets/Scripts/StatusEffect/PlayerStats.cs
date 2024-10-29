@@ -28,12 +28,11 @@ public class PlayerStats : MonoBehaviour
     private void Start()
     {
         _heartCount = hearts.Count;
-        _currentHp = maxHp;
-        meleeDamage = defaultMeleeDamage;
+        _currentHp = PlayerPrefs.GetFloat("MaxHp");
+        meleeDamage = PlayerPrefs.GetFloat("MeleeAttack");
         _rangedDamage = defaultRangedDamage;
         _dashDamage = defaultDashDamage;
-        PlayerPrefs.SetFloat("MeleeAttack", meleeDamage);
-        PlayerPrefs.SetFloat("MaxHp", maxHp);
+
         RefreshHearts();
         UpdateUI();
     }
@@ -58,9 +57,9 @@ public class PlayerStats : MonoBehaviour
     }
     public void UpdateUI()
     {
-        rosesTxt.SetText(GetComponent<PlayerStash>().GetRoses().ToString());
+        rosesTxt.SetText(PlayerPrefs.GetInt("Roses").ToString());
         keysTxt.SetText(GetComponent<PlayerStash>().GetKeys().ToString());
-        soulsTxt.SetText(GetComponent<PlayerStash>().GetSouls().ToString());
+        soulsTxt.SetText(PlayerPrefs.GetInt("Souls").ToString());
         slider.value = _currentHp / PlayerPrefs.GetFloat("MaxHp");;
         RefreshHearts();
     }

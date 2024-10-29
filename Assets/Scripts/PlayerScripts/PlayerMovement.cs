@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator AttackCooldown()
     {
         _attackCooldown = false;
-        yield return new WaitForSeconds(_attackCooldownCount);
+        yield return new WaitForSeconds(PlayerPrefs.GetFloat("Stamina"));
         gameObject.GetComponentInChildren<ColorMode>().SetPlayerState(ColorMode.PlayerState.Idle);
         gameObject.GetComponentInChildren<ColorMode>().UpdateColor();
         _attackCooldown = true;
@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator DashCooldown()
     {
         _canDash = false;
-        yield return new WaitForSeconds(dashCooldown);
+        yield return new WaitForSeconds(PlayerPrefs.GetFloat("DashDuration"));
         _canDash = true;
     }
     
