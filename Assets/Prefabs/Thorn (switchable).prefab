@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 871074644193884401, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 871074644193884401, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_SortingOrder
@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 871074644193884401, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_SortingLayerID
-      value: 1797625493
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 871074644193884401, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_RenderingLayerMask
@@ -49,12 +49,44 @@ PrefabInstance:
       value: Thorn (switchable)
       objectReference: {fileID: 0}
     - target: {fileID: 4745980891963049644, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745980891963049644, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745980891963049644, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4745980891963049644, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
+      propertyPath: m_EdgeRadius
+      value: 0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745980891963049644, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
+      propertyPath: m_Points.Array.data[0].x
+      value: -0.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745980891963049644, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
+      propertyPath: m_Points.Array.data[0].y
+      value: 0.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745980891963049644, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
+      propertyPath: m_Points.Array.data[1].x
+      value: -0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745980891963049644, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
+      propertyPath: m_Points.Array.data[1].y
+      value: -0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745980891963049644, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
+      propertyPath: m_Points.Array.data[2].y
+      value: 0.62
+      objectReference: {fileID: 0}
     - target: {fileID: 6544646413714565029, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_InstanceId
-      value: -1495226
+      value: -21792
       objectReference: {fileID: 0}
     - target: {fileID: 6544646413714565029, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
@@ -66,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8237478485192387393, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8237478485192387393, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_SortingOrder
@@ -74,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8237478485192387393, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_SortingLayerID
-      value: 1797625493
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8237478485192387393, guid: 55ef1f7cc1976954f8e6b81673a07abe, type: 3}
       propertyPath: m_RenderingLayerMask

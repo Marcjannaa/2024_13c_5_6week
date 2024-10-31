@@ -38,7 +38,7 @@ public class PlayerMeleeAttack : MonoBehaviour
             if (idamageable == null) continue;
             
             idamageable.Damage(
-                gameObject.GetComponent<PlayerStats>().GetMeleeDamage(), t.collider.gameObject
+                PlayerPrefs.GetFloat("MeleeAttack"), t.collider.gameObject
             );
             print("hiiiit1!!");
         }

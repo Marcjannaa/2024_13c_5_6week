@@ -16,14 +16,17 @@ public class PlayerStash : MonoBehaviour
         {
             case Item.Roses:
                 _rosesCount += count;
+                PlayerPrefs.SetInt("Roses", _rosesCount);
                 GetComponent<PlayerStats>().UpdateUI();
                 break;
             case Item.Keys:
                 _keysCount += count;
+                PlayerPrefs.SetInt("Keys", _keysCount);
                 GetComponent<PlayerStats>().UpdateUI();
                 break;
             case Item.Souls:
                 _soulsCount += count;
+                PlayerPrefs.SetInt("Souls", _soulsCount);
                 GetComponent<PlayerStats>().UpdateUI();
                 break;
             default: break;

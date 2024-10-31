@@ -28,8 +28,8 @@ public class PlayerStats : MonoBehaviour
     private void Start()
     {
         _heartCount = hearts.Count;
-        _currentHp = maxHp;
-        meleeDamage = defaultMeleeDamage;
+        _currentHp = PlayerPrefs.GetFloat("MaxHp");
+        meleeDamage = PlayerPrefs.GetFloat("MeleeAttack");
         _rangedDamage = defaultRangedDamage;
         _dashDamage = defaultDashDamage;
 
@@ -42,11 +42,12 @@ public class PlayerStats : MonoBehaviour
         for (var i = hearts.Count - 1; i >= 0; i--)
         {
             hearts[i].GetComponent<Heart>().GetTheFuckOut(i < _heartCount);
+            gameObject.GetComponentInChildren<ColorMode>().UpdateColor();
         }
     }
     private void ResetHp()
     {
-        _currentHp = maxHp;
+        _currentHp = PlayerPrefs.GetFloat("MaxHp");
     }
 
     public void DealDamage(float dmg)
@@ -56,10 +57,10 @@ public class PlayerStats : MonoBehaviour
     }
     public void UpdateUI()
     {
-        rosesTxt.SetText(GetComponent<PlayerStash>().GetRoses().ToString());
+        rosesTxt.SetText(PlayerPrefs.GetInt("Roses").ToString());
         keysTxt.SetText(GetComponent<PlayerStash>().GetKeys().ToString());
-        soulsTxt.SetText(GetComponent<PlayerStash>().GetSouls().ToString());
-        slider.value = _currentHp / maxHp;
+        soulsTxt.SetText(PlayerPrefs.GetInt("Souls").ToString());
+        slider.value = _currentHp / PlayerPrefs.GetFloat("MaxHp");;
         RefreshHearts();
     }
 
@@ -101,6 +102,16 @@ public class PlayerStats : MonoBehaviour
     public void SetHp(float newHp)
     {
         _currentHp = newHp;
+    }
+
+    public int getHearts()
+    {
+        return _heartCount;
+    }
+
+    public float getCurrentHp()
+    {
+        return _currentHp / maxHp;
     }
 
     public void SetMeleeDamage(float damage) { meleeDamage = damage; }

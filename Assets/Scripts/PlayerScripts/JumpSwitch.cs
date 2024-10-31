@@ -7,7 +7,7 @@ public class JumpSwitch : MonoBehaviour
 {
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (!other.CompareTag("Floor"))return;
+//        if (!other.CompareTag("Floor"))return;
         gameObject.GetComponentInParent<PlayerMovement>().ActivateJump();
     }
 }

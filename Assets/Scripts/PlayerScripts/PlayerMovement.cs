@@ -36,6 +36,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetAxis("Fire1") > 0 && _attackCooldown)
         {
+            gameObject.GetComponentInChildren<ColorMode>().SetPlayerState(ColorMode.PlayerState.Idle);
+            gameObject.GetComponentInChildren<ColorMode>().UpdateColor();
+
             _attackCooldown = false;
             gameObject.GetComponent<PlayerMeleeAttack>().DealDamage();
             StartCoroutine(AttackCooldown());
@@ -46,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.LeftShift))
             PerformDash();
-        
+        gameObject.GetComponentInChildren<PlayerSprites>().LookLeft(_looksToLeft);
     }
 
     private void PerformJump()
@@ -86,14 +89,16 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator AttackCooldown()
     {
         _attackCooldown = false;
-        yield return new WaitForSeconds(_attackCooldownCount);
+        yield return new WaitForSeconds(PlayerPrefs.GetFloat("Stamina"));
+        gameObject.GetComponentInChildren<ColorMode>().SetPlayerState(ColorMode.PlayerState.Idle);
+        gameObject.GetComponentInChildren<ColorMode>().UpdateColor();
         _attackCooldown = true;
     }
 
     IEnumerator DashCooldown()
     {
         _canDash = false;
-        yield return new WaitForSeconds(dashCooldown);
+        yield return new WaitForSeconds(PlayerPrefs.GetFloat("DashDuration"));
         _canDash = true;
     }
     
@@ -101,26 +106,6 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(gaiaDuration);
         _worldManager.ChangeState();
-    }
-    
-    private void Attack()
-    {
-        var hitInfo = Physics2D.Raycast(
-            new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), 
-            (_looksToLeft ? transform.right * -1 : transform.right), 
-            0.1f
-            );
-        Debug.DrawRay(
-            new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), 
-             _looksToLeft ? transform.right * -2f : transform.right * 2f, 
-                 Color.cyan
-             );
-        if (hitInfo.collider.gameObject.CompareTag("Enemy") && hitInfo.collider != null)
-        {
-            var dmg = gameObject.GetComponent<PlayerStats>().GetMeleeDamage();
-            hitInfo.collider.gameObject.GetComponent<WalkingEnemy>().ChangeHp(dmg);
-            print("hit");
-        }
     }
 
     public void ActivateJump()
