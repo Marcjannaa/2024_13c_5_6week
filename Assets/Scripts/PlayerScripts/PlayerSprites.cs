@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerSprites : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer _spriteRenderer;
-    [SerializeField] private Sprite left, right;
+    [SerializeField] private SpriteRenderer[] spriteRenderers;
+    [SerializeField] private Animation anim;
 
     public void LookLeft(bool looksToLeft)
     {
-        _spriteRenderer.sprite = looksToLeft ? left : right;
+        //print(gameObject.transform.localScale.x * Input.GetAxis("Horizontal"));
+        var theScale = transform.localScale;
+        theScale.x = looksToLeft ? -1f : 1f;
+        transform.localScale = theScale;
     }
 }

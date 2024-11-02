@@ -18,21 +18,24 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float dashCooldown = 10f;
     [SerializeField] private float gaiaDuration = 5f;
-
+    [SerializeField] private Animator anim;
+    
     private bool _canJump = true;
     private bool _canDash = true;
 
     private float dir;
 
     private bool _canDoubleJump;
-    private bool _looksToLeft;
+    private bool _looksToLeft = false;
     private const float _attackCooldownCount = 0.3f;
     private bool _attackCooldown = true;
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.A)) _looksToLeft = true;
-        else if (Input.GetKey(KeyCode.D)) _looksToLeft = false;
+        if (Input.GetAxis("Horizontal") < 0) _looksToLeft = true;
+        else if (Input.GetAxis("Horizontal") > 0) _looksToLeft = false;
+
+        anim.SetBool("IsRunning", Input.GetAxis("Horizontal") != 0f);
 
         if (Input.GetAxis("Fire1") > 0 && _attackCooldown)
         {
@@ -54,14 +57,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void PerformJump()
     {
+        anim.SetBool("IsJumping", false);
         if(_canJump){
+            anim.SetBool("IsJumping", true);
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             _canJump = false;
             _canDoubleJump = true;
         }
         else if (_canDoubleJump) //TODO: poprawić przypisywanie siły żeby nie robić "efektu domina" i móc wyskakiwać z dziur w trakcie spadania
         {
-            float forceY = (rb.totalForce.y * rb.mass * -1) + jumpForce;
+            anim.SetBool("IsJumping", true);
+            var forceY = (rb.totalForce.y * rb.mass * -1) + jumpForce;
             rb.AddForce(new Vector2(0, forceY), ForceMode2D.Impulse);
             _canDoubleJump = false;
         }
@@ -69,22 +75,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void PerformDash()
     {
-        if(_canDash){
-            float forceX = dashForce * (_looksToLeft ? -1 : 1);
-            rb.AddForce(new Vector2(forceX, 0), ForceMode2D.Impulse);
-            float dashDmg = GetComponent<PlayerStats>().GetDashDamage();
-            Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.5f, 1.5f), 0);
-            foreach (var enemy in colliders.Where(e => e.CompareTag("Enemy"))) //BUG: enemies take no damage
-            {
-                enemy.GetComponent<Enemy>().ChangeHp(dashDmg);
-                enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceX, 1), ForceMode2D.Impulse);
-            }
-
-            //GetComponent<StatusEffectManager>().OnStatusTriggerBuildUp(StatusEffectType.Dash,10f);
-            StartCoroutine(DashCooldown());
-            _worldManager.ChangeState();
-            StartCoroutine(GaiaDuration());
+        if (!_canDash) return;
+        var forceX = dashForce * (_looksToLeft ? -1 : 1);
+        rb.AddForce(new Vector2(forceX, 0), ForceMode2D.Impulse);
+        var dashDmg = GetComponent<PlayerStats>().GetDashDamage();
+        var colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.5f, 1.5f), 0);
+        foreach (var enemy in colliders.Where(e => e.CompareTag("Enemy"))) //BUG: enemies take no damage
+        {
+            enemy.GetComponent<Enemy>().ChangeHp(dashDmg);
+            enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceX, 1), ForceMode2D.Impulse);
         }
+
+        //GetComponent<StatusEffectManager>().OnStatusTriggerBuildUp(StatusEffectType.Dash,10f);
+        StartCoroutine(DashCooldown());
+        _worldManager.ChangeState();
+        StartCoroutine(GaiaDuration());
     }
     private IEnumerator AttackCooldown()
     {
@@ -112,6 +117,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _canJump = true;
         _canDoubleJump = false;
+        anim.SetBool("IsJumping", false);
     }
 
     private void FixedUpdate()
