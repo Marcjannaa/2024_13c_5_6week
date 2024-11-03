@@ -26,12 +26,14 @@ public class SkeletonBehavior : Enemy, IDamageable
     private float _disengagementTimer;
     private float _attackOffset; 
     private StuckDetector _stuckDetector;
+    private Animator _animator;
     
     private void Start()
     {
         _renderer = GetComponent<SpriteRenderer>();
         _isLookingRight = true;
         _stuckDetector = GetComponent<StuckDetector>();
+        _animator = GetComponent<Animator>();
         BecomeIdle();
     }
 
@@ -53,6 +55,7 @@ public class SkeletonBehavior : Enemy, IDamageable
                 break;
             case SkeletonStates.WIND_UP:
                 _renderer.color = Color.red;
+                _animator.SetTrigger("Perform Attack");
                 _windupTimer -= Time.deltaTime;
                 if (_windupTimer <= 0)
                 {
@@ -71,6 +74,7 @@ public class SkeletonBehavior : Enemy, IDamageable
                 if (_gapTimer <= 0)
                 {
                     _skeletonState = SkeletonStates.SECOND_ATTACK;
+                    _animator.SetTrigger("Perform Attack");
                 }
                 break;
             case SkeletonStates.SECOND_ATTACK:
@@ -110,6 +114,7 @@ public class SkeletonBehavior : Enemy, IDamageable
         _isLookingRight = _skeletonState == SkeletonStates.IDLE ? _nextIdlePosition.x > transform.position.x : _player.transform.position.x > transform.position.x;
         _attackOffset = 0.5f * attackDistance;
         _attackOffset *= _isLookingRight ? 1 : -1;
+        _renderer.flipX = !_isLookingRight;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
