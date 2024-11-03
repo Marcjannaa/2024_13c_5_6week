@@ -23,8 +23,12 @@ public class BatBehavior : Enemy, IDamageable
     private StuckDetector _stuckDetector;
     private Vector2 _lookingDirection;
     private float _playerCollisionCounter;
+    private SpriteRenderer _renderer;
+    private Animator _animator;
     private void Start()
     {
+        _renderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
         GetComponent<Rigidbody2D>().gravityScale = 0f;
         _stuckDetector = GetComponent<StuckDetector>();
         BecomeIdle();
@@ -63,6 +67,7 @@ public class BatBehavior : Enemy, IDamageable
                 {
                     _attackState = BatAttackSequence.CHARGING;
                    _attackStartPos = transform.position;
+                   _animator.SetBool("duringAttack",true);
                 }
                 break;
             case BatAttackSequence.CHARGING:
@@ -73,6 +78,7 @@ public class BatBehavior : Enemy, IDamageable
                 if (Vector2.Distance(transform.position, _attackStartPos) == 0f)
                 {
                     _attackState = BatAttackSequence.READY;
+                    _animator.SetBool("duringAttack",false);
                 }
                 break;
             case BatAttackSequence.READY:
@@ -91,6 +97,7 @@ public class BatBehavior : Enemy, IDamageable
         if (!other.CompareTag("Player")){return;}
         _player = other.gameObject;
         _attackState = BatAttackSequence.AGGREVATED;
+        _animator.SetBool("playerSpotted",true);
     }
 
     private void OnTriggerExit(Collider other)
@@ -121,6 +128,7 @@ public class BatBehavior : Enemy, IDamageable
         _player = null;
         _idlePos = transform.position;
         _nextIdlePos = _idlePos;
+        _animator.SetBool("playerSpotted",false);
     }
 
     private void RefreshLookingDirection()
@@ -134,6 +142,7 @@ public class BatBehavior : Enemy, IDamageable
             y = transform.position.y - _player.transform.position.y;
         }
         _lookingDirection = new Vector2(x, y);
+        _renderer.flipX = x > 0;
     }
 
     private void IdleMove()
