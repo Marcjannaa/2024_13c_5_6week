@@ -44,15 +44,15 @@ public class Sentry : Enemy, IDamageable
         {
             if (IsShootingLeft)
             {
-                Quaternion leftRotation = Quaternion.Euler(0, 180, 0) * transform.rotation;
-                Vector3 pos = transform.position;
+                var leftRotation = Quaternion.Euler(0, 180, 0) * transform.rotation;
+                var pos = transform.position;
                 pos.Set(pos.x,pos.y + 0.2f,pos.z);
                 Instantiate(Projectile, pos, leftRotation);
             }
 
             if (IsShootingRight)
             {
-                Vector3 pos = transform.position;
+                var pos = transform.position;
                 pos.Set(pos.x + 1f,pos.y + 0.2f,pos.z);
                 Instantiate(Projectile, pos, transform.rotation);
                 

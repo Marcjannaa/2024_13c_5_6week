@@ -31,16 +31,18 @@ public class PlayerMeleeAttack : MonoBehaviour
         {
             var idamageable = t.collider.gameObject.GetComponent<IDamageable>();
             
+            /*
             print(t.collider.gameObject.name);
             print(t.collider.gameObject.layer);
             print(t.collider.gameObject.tag);
+            */
             
             if (idamageable == null) continue;
             
             idamageable.Damage(
                 PlayerPrefs.GetFloat("MeleeAttack"), t.collider.gameObject
             );
-            print("hiiiit1!!");
+            //print("hiiiit1!!");
         }
     }
 }

@@ -16,10 +16,10 @@ public class Tentacle : MonoBehaviour
 
     public void Shoot(GameObject player)
     {
-        Collider2D collider = GetComponent<Collider2D>();
-        Bounds bounds = collider.bounds;
-        Vector3 pos = new Vector3(bounds.center.x, bounds.min.y, 0);
-        GameObject projectile = Instantiate(tentacleProjectile,pos,tentacleProjectile.transform.rotation);
+        var collider = GetComponent<Collider2D>();
+        var bounds = collider.bounds;
+        var pos = new Vector3(bounds.center.x, bounds.min.y, 0);
+        var projectile = Instantiate(tentacleProjectile,pos,tentacleProjectile.transform.rotation);
         projectile.GetComponent<TentacleProjectile>().Initialize(player);
     }
 

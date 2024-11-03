@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
@@ -30,8 +28,9 @@ public class MovingPlatform : MonoBehaviour
         if (!other.gameObject.CompareTag("Player") ||
             (other.gameObject.transform.parent != null))
         { return; }
-        other.gameObject.transform.SetParent(gameObject.GetComponentInChildren<Transform>().gameObject.transform);
+        other.gameObject.transform.SetParent(gameObject.GetComponentInChildren<GameObject>().gameObject.transform);
         _moving = !_moving;
+        
         if (lift) StartCoroutine(MoveCoroutine());
     }
 

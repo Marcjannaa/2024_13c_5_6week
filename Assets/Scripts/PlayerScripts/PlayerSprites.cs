@@ -10,7 +10,6 @@ public class PlayerSprites : MonoBehaviour
 
     public void LookLeft(bool looksToLeft)
     {
-        //print(gameObject.transform.localScale.x * Input.GetAxis("Horizontal"));
         var theScale = transform.localScale;
         theScale.x = looksToLeft ? -1f : 1f;
         transform.localScale = theScale;
