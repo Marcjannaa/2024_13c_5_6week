@@ -27,12 +27,19 @@ public class ChampionBehavior : Boss
     private bool _dashReady;
     private StuckDetector _detector;
     private bool _dashHitTaken = false;
+    private Animator _animator;
     private void Awake()
     {
         MaxHp = championMaxHp;
         Hp = MaxHp;
         _dashReady = true;
         _detector = GetComponent<StuckDetector>();
+        _animator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        _renderer.flipX = !IsLookingRight();
     }
 
     protected override IEnumerator Fight()
@@ -60,6 +67,7 @@ public class ChampionBehavior : Boss
 
     private void ShootWave()
     {
+        _animator.SetTrigger("shoot");
         Vector2 pos = transform.position;
         pos = new Vector2(pos.x + 2f, pos.y-0.5f);
         Quaternion rot = Quaternion.Euler(0, 0, 0) * transform.rotation;
@@ -70,8 +78,10 @@ public class ChampionBehavior : Boss
         while (HorizontalDistanceToPlayer()>=distance)
         {
             transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, speed * Time.deltaTime);
+            _animator.SetBool("walking",true);
             yield return null;
         }
+        _animator.SetBool("walking",false);
     }
 
     private void Attack(float range)
@@ -89,6 +99,7 @@ public class ChampionBehavior : Boss
     private IEnumerator PerformSingleAttack()
     {
         _renderer.color=Color.red;
+        _animator.SetTrigger("attack1");
         yield return new WaitForSeconds(meleeWindupDuration);
         _renderer.color=Color.magenta;
         Attack(meleeAttackRange);
@@ -101,6 +112,7 @@ public class ChampionBehavior : Boss
         yield return PerformSingleAttack();
         _renderer.color=Color.yellow;
         yield return new WaitForSeconds(betweenMeleeAttackBreak);
+        _animator.SetTrigger("attack2");
         yield return PerformSingleAttack();
     }
 
@@ -131,6 +143,7 @@ public class ChampionBehavior : Boss
         _renderer.color=Color.cyan;
         _dashHitTaken = false;
         yield return new WaitForSeconds(dashWindUpDuration);
+        _animator.SetTrigger("dash");
         _renderer.color=Color.red;
         Vector2 endPos = new Vector2(transform.position.x+dashMaxDistance* (IsLookingRight() ? 1 : -1), transform.position.y);
         _detector.Clear();
