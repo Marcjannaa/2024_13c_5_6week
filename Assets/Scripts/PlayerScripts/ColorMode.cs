@@ -31,7 +31,6 @@ public class ColorMode : MonoBehaviour
 
     private void SetParticles()
     {
-        //main.duration = 2f;
         _main.startColor = PickColor(_playerState);
         _main.loop = true;
         _main.simulationSpace = ParticleSystemSimulationSpace.World;
@@ -64,7 +63,6 @@ public class ColorMode : MonoBehaviour
     {
         return ps switch
         {
-            //PlayerState.Attacking => new Color(255f, 10f, 35f, 255),
             PlayerState.HighHp => new Color(60f, 0f, 255f, _alpha),
             PlayerState.MediumHp => new Color(255f, 100f, 0f, _alpha),
             PlayerState.LowHp => new Color(200f, 0f, 0f, _alpha),

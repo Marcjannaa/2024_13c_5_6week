@@ -38,20 +38,17 @@ public class PauseMenu : MonoBehaviour
 
     public void OnExit()
     {
-        print("exitclocked");
         Resume();
     }
     
     public void LoadMainMenu()
     {
-        print("loadclicked");
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 
     public void LoadUpgradeMenu()
     {
-        print("upgradeclicked");
         SceneManager.LoadScene("UpgradeMenu");
     }
 }

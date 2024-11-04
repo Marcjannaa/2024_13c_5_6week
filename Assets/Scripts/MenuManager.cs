@@ -5,16 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    public static bool newGame;
     public void NewGame()
     {
-        SceneManager.LoadScene("Tutorial");
-        PlayerPrefs.SetInt("Roses", 0);
-        PlayerPrefs.SetInt("Souls", 0);
-        PlayerPrefs.SetFloat("MeleeAttack", 10f);
-        PlayerPrefs.SetFloat("MaxHp", 100f);
-        PlayerPrefs.SetFloat("DashDuration", 1f);
-        PlayerPrefs.SetFloat("Stamina", 0.3f);
-        PlayerPrefs.Save();
+        newGame = true;
+        SceneManager.LoadScene("LoadGame");
     }
 
     public void Settings()
@@ -24,6 +19,7 @@ public class MenuManager : MonoBehaviour
 
     public void LoadGame()
     {
+        newGame = false;
         SceneManager.LoadScene("LoadGame");
     }
 

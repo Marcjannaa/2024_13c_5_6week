@@ -9,7 +9,8 @@ public class ImprovedMovingPlatform : MonoBehaviour
     [SerializeField] private float MoveDelay=2f;
     private int _index;
     private bool _canMove = true;
-    void Start()
+
+    private void Start()
     {
         if (route.Count >=2)
         {
@@ -20,19 +21,21 @@ public class ImprovedMovingPlatform : MonoBehaviour
         {
             Debug.Log("Platform route missing");
         }
-    }
-    private void OnCollisionEnter2D(Collision2D other)
+    } 
+    
+  /*  private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy"))
-            other.gameObject.transform.SetParent(gameObject.transform);
+        print("aaaaaaa");
+        if (!other.gameObject.CompareTag("Player") && !other.gameObject.CompareTag("Enemy")) return;
+        other.gameObject.transform.SetParent(gameObject.transform);
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy"))
-            other.gameObject.transform.SetParent(null);
+        if (!other.gameObject.CompareTag("Player") && !other.gameObject.CompareTag("Enemy")) return;
+        other.gameObject.transform.SetParent(null);
     }
-
+*/
     private IEnumerator MoveCoroutine()
     {
         while(_canMove){
