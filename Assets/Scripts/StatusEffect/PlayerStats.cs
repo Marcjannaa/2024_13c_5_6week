@@ -79,6 +79,7 @@ public class PlayerStats : MonoBehaviour
         ManageHearts();
         RefreshHearts();
         UpdateUI();
+        LoadMenuHandler.SaveToCurrentSlot();
     }
 
     public float GetMeleeDamage()

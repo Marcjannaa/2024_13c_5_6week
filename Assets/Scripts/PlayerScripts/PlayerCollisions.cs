@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCollisions : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class PlayerCollisions : MonoBehaviour
         if (other.gameObject.CompareTag("Checkpoint"))
         {
             checkedPosition = transform.position;
+            PlayerPrefs.SetString("LastScene" + LoadMenuHandler.slotNum, SceneManager.GetActiveScene().name);
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("FallZone"))
