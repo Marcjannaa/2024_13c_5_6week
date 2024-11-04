@@ -30,7 +30,7 @@ public class MovingPlatform : MonoBehaviour
         if (!other.gameObject.CompareTag("Player") ||
             (other.gameObject.transform.parent != null))
         { return; }
-        other.gameObject.transform.SetParent(gameObject.transform);
+        other.gameObject.transform.SetParent(gameObject.GetComponentInChildren<Transform>().gameObject.transform);
         _moving = !_moving;
         if (lift) StartCoroutine(MoveCoroutine());
     }
@@ -59,15 +59,5 @@ public class MovingPlatform : MonoBehaviour
             if (lift) break;
             _moving = !_moving;
         }
-        /*
-         if (_horizontal)
-         {
-            _currentPos.x
-         }
-         else
-         {
-            _currentPos.y
-         }
-         */
     }
 }
