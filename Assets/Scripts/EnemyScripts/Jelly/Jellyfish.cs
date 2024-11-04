@@ -43,7 +43,7 @@ public class Jellyfish : Enemy
         tentacles = new Transform[childCount-1];
 
         bool headfound = false;
-        for (int i = 0; i < childCount +1; i++)
+        for (int i = 0; i < childCount; i++)
         {
             if (transform.GetChild(i).name != "Head" && !headfound)
             {
