@@ -11,7 +11,7 @@ public class Tentacle : MonoBehaviour
 
     private void Start()
     {
-        initialRotation = transform.rotation;
+        initialRotation = transform.parent.rotation;
     }
 
     public void Shoot(GameObject player)
