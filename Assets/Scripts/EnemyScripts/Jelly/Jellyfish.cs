@@ -39,12 +39,26 @@ public class Jellyfish : Enemy
     void Start()
     {
         Hp = MaxHp;
-        int childCount = transform.childCount;
-        tentacles = new Transform[childCount];
+        int childCount = transform.childCount ;
+        tentacles = new Transform[childCount-1];
 
-        for (int i = 0; i < childCount; i++)
+        bool headfound = false;
+        for (int i = 0; i < childCount +1; i++)
         {
-            tentacles[i] = transform.GetChild(i);
+            if (transform.GetChild(i).name != "Head" && !headfound)
+            {
+                tentacles[i] = transform.GetChild(i).GetChild(0); 
+            }else
+            {
+                headfound = true;
+            }
+
+            if (headfound && transform.GetChild(i).name != "Head")
+            {
+                tentacles[i-1] = transform.GetChild(i).GetChild(0); 
+            }
+            
+            
         }
     }
     

@@ -48,19 +48,19 @@ public class Tentacle : MonoBehaviour
             
             float angle = Mathf.Lerp(0, totalRotation, elapsedTime / duration);
             
-            transform.rotation = Quaternion.Euler(0, 0, angle);
+            transform.parent.rotation = Quaternion.Euler(0, 0, angle);
 
             yield return null;
         }
 
-        transform.rotation = Quaternion.Euler(0, 0, totalRotation);
+        transform.parent.rotation = Quaternion.Euler(0, 0, totalRotation);
     }
     
     //do poprawki, nie rusza się głupia
 public IEnumerator Sweep(string direction)
 {
-    Vector3 defaultPosition = transform.position;
-    Quaternion defaultRotation = transform.rotation;
+    Vector3 defaultPosition = transform.parent.position;
+    Quaternion defaultRotation = transform.parent.rotation;
 
     Vector3 newPosition = defaultPosition;
     float angle = 0f;
@@ -84,35 +84,39 @@ public IEnumerator Sweep(string direction)
     
     while (elapsedTime < chargeDuration)
     {
-        transform.position = Vector3.Lerp(defaultPosition, newPosition, elapsedTime / chargeDuration);
+        var parent = transform.parent;
+        parent.position = Vector3.Lerp(defaultPosition, newPosition, elapsedTime / chargeDuration);
         
         float rotation = Mathf.Lerp(0, angle, elapsedTime / chargeDuration);
-        transform.rotation = Quaternion.Euler(0, 0, rotation);
+        parent.rotation = Quaternion.Euler(0, 0, rotation);
         
         elapsedTime += Time.deltaTime;
         
         yield return null;
     }
-    
-    transform.position = newPosition;
-    transform.rotation = Quaternion.Euler(0, 0, angle);
+
+    var parent1 = transform.parent;
+    parent1.position = newPosition;
+    parent1.rotation = Quaternion.Euler(0, 0, angle);
     
     elapsedTime = 0f;
     
     while (elapsedTime < attackDuration)
     {
-        transform.position = Vector3.Lerp(newPosition, defaultPosition, elapsedTime / attackDuration);
+        var parent = transform.parent;
+        parent.position = Vector3.Lerp(newPosition, defaultPosition, elapsedTime / attackDuration);
         
         float rotation = Mathf.Lerp(angle, 0, elapsedTime / attackDuration);
-        transform.rotation = Quaternion.Euler(0, 0, rotation);
+        parent.rotation = Quaternion.Euler(0, 0, rotation);
         
         elapsedTime += Time.deltaTime;
         
         yield return null;
     }
-    
-    transform.position = defaultPosition;
-    transform.rotation = defaultRotation;
+
+    var parent2 = transform.parent;
+    parent2.position = defaultPosition;
+    parent2.rotation = defaultRotation;
 }
     
     public IEnumerator ReturnToInitialRotation()
@@ -123,12 +127,13 @@ public IEnumerator Sweep(string direction)
         while (elapsedTime < duration)
         {
             float t = elapsedTime / duration;
-            transform.rotation = Quaternion.Slerp(transform.rotation, initialRotation, t);
+            var parent = transform.parent;
+            parent.rotation = Quaternion.Slerp(parent.rotation, initialRotation, t);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        transform.rotation = initialRotation;
+        transform.parent.rotation = initialRotation;
     }
 }
 
