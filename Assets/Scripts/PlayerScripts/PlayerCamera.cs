@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    private Vector3 _offset = new Vector3(0f, 0f, -10f);
+    private Vector3 _offset = new Vector3(0f, 0f, -30f);
 
     private float _time = 0.25f;
 
@@ -15,13 +15,13 @@ public class PlayerCamera : MonoBehaviour
 
     private void Start()
     {
-        gameObject.transform.SetParent(null);
+        gameObject.transform.position.Set(target.position.x, target.position.y, _offset.z);
     }
 
     void Update()
     {
         if (target == null){return;}
-        Vector3 targetPos = target.position + _offset;
+        var targetPos = target.position + _offset;
         transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, _time);
     }
 }

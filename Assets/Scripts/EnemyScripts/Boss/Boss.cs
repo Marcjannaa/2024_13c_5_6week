@@ -12,9 +12,11 @@ public abstract class Boss : Enemy, IDamageable
     protected SpriteRenderer _renderer;
     protected GameObject _player;
     protected float _currentDamage=0f; //used for attack function
+    protected bool _fightStarted;
 
     private void Awake()
     {
+        _fightStarted = false;
         phaseChangeThresholds.Sort(); // I don't trust future me
         phaseChangeThresholds.Reverse();
         _currentPhase = 0;
@@ -28,20 +30,28 @@ public abstract class Boss : Enemy, IDamageable
 
     public void Aggrevate(GameObject player)
     {
-        _player = player;
-        _renderer.enabled = true;
-        foreach (GameObject gate in gates)
+        if(!_fightStarted)
         {
-            gate.GetComponent<BossGateBehavior>().Lock();
-        }
+            _fightStarted = true;
+            _player = player;
+            _renderer.enabled = true;
+            foreach (GameObject gate in gates)
+            {
+                gate.GetComponent<BossGateBehavior>().Lock();
+            }
 
-        StartCoroutine(Fight());
+            StartCoroutine(Fight());
+        }
     }
 
     protected abstract IEnumerator Fight();
 
     protected void Die()
     {
+        foreach (GameObject gate in gates)
+        {
+            gate.GetComponent<BossGateBehavior>().Release();
+        }
         Destroy(gameObject);
     }
 
