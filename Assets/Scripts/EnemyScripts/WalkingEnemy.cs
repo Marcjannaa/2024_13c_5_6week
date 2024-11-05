@@ -11,11 +11,9 @@ public class WalkingEnemy : Enemy
     [SerializeField] private float dmg = 5f;
     private const float DmgCooldown = 0.2f;
     private float _counter = 0f;
-    private SpriteRenderer _renderer;
     
     private void Start()
     {
-        _renderer = GetComponent<SpriteRenderer>();
         if (maxHpWalking != 0f)
         {
             Hp = maxHpWalking;
@@ -29,7 +27,6 @@ public class WalkingEnemy : Enemy
         if (!other.CompareTag("Player")) { return; }
         var multi = other.gameObject.transform.position.x > transform.position.x ? 1 : -1;
         transform.position += new Vector3(multi * enemySpeed * Time.deltaTime, 0, 0);
-        _renderer.flipX = multi < 0;
     }
 
     private void OnCollisionStay2D(Collision2D other)

@@ -24,16 +24,12 @@ public class SkeletonBehavior : Enemy, IDamageable
     private float _windupTimer;
     private float _gapTimer;
     private float _disengagementTimer;
-    private float _attackOffset; 
-    private StuckDetector _stuckDetector;
-    private Animator _animator;
+    private float _attackOffset;
     
     private void Start()
     {
         _renderer = GetComponent<SpriteRenderer>();
         _isLookingRight = true;
-        _stuckDetector = GetComponent<StuckDetector>();
-        _animator = GetComponent<Animator>();
         BecomeIdle();
     }
 
@@ -55,7 +51,6 @@ public class SkeletonBehavior : Enemy, IDamageable
                 break;
             case SkeletonStates.WIND_UP:
                 _renderer.color = Color.red;
-                _animator.SetTrigger("Perform Attack");
                 _windupTimer -= Time.deltaTime;
                 if (_windupTimer <= 0)
                 {
@@ -74,7 +69,6 @@ public class SkeletonBehavior : Enemy, IDamageable
                 if (_gapTimer <= 0)
                 {
                     _skeletonState = SkeletonStates.SECOND_ATTACK;
-                    _animator.SetTrigger("Perform Attack");
                 }
                 break;
             case SkeletonStates.SECOND_ATTACK:
@@ -99,7 +93,7 @@ public class SkeletonBehavior : Enemy, IDamageable
     private void SwingArm()
     {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(
-            new Vector2(transform.position.x+_attackOffset,transform.position.y),
+            new Vector2(transform.position.x+_attackOffset,transform.position.y+_attackOffset),
             new Vector2(attackDistance, attackDistance),
             0
             );
@@ -114,7 +108,6 @@ public class SkeletonBehavior : Enemy, IDamageable
         _isLookingRight = _skeletonState == SkeletonStates.IDLE ? _nextIdlePosition.x > transform.position.x : _player.transform.position.x > transform.position.x;
         _attackOffset = 0.5f * attackDistance;
         _attackOffset *= _isLookingRight ? 1 : -1;
-        _renderer.flipX = !_isLookingRight;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -123,7 +116,6 @@ public class SkeletonBehavior : Enemy, IDamageable
         _player = other.gameObject;
         _skeletonState = SkeletonStates.AGGREVATED;
     }
-    
 
     protected override void Attack(GameObject go)
     {
@@ -151,26 +143,13 @@ public class SkeletonBehavior : Enemy, IDamageable
 
     private void IdleMove()
     {
-        bool tooFar = Vector2.Distance(transform.position, _nextIdlePosition) > 0.1f;
-        bool withinArea = Math.Abs(_idlePosition.x - transform.position.x) <= idleWonder;
-        bool isStuck = _stuckDetector.IsStuckX();
-        if (isStuck)
+        if (Vector2.Distance(transform.position, _nextIdlePosition) > 0.1f && Math.Abs(_idlePosition.x-transform.position.x) <= idleWonder)
         {
-            float scale = (_isLookingRight ? UnityEngine.Random.Range(0, 5) : UnityEngine.Random.Range(5, 11))/10f;
-            _nextIdlePosition=new Vector2(_idlePosition.x + scale* idleWonder - idleWonder*0.5f,_idlePosition.y);
-            _stuckDetector.HoldUp();
-            _stuckDetector.Clear();
+            transform.position = Vector2.MoveTowards(transform.position, _nextIdlePosition, speed * Time.deltaTime);
         }
         else
         {
-            if ( tooFar && withinArea)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, _nextIdlePosition, speed * Time.deltaTime);
-            }
-            else
-            {
-                _nextIdlePosition=new Vector2(_idlePosition.x + UnityEngine.Random.Range(0, 11)/10f * idleWonder - idleWonder*0.5f,_idlePosition.y);
-            }
+           _nextIdlePosition=new Vector2(_idlePosition.x + UnityEngine.Random.Range(0, 11)/10f * idleWonder - idleWonder*0.5f,_idlePosition.y);
         }
     }
 }
