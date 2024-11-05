@@ -10,8 +10,8 @@ public class ChampionWave : Projectile
     {
         Rb = GetComponent<Rigidbody2D>();
     }
-
-    private void Start()
+    
+    void Start()
     {
         Rb.velocity = transform.right * Speed;
     }
