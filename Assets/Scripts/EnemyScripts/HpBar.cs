@@ -11,4 +11,9 @@ public class HpBar : MonoBehaviour
     {
         slider.value = currentHp / maxHp;
     }
+
+    public void SetVisibility(bool visible)
+    {
+        slider.transform.parent.gameObject.SetActive(visible);
+    }
 }

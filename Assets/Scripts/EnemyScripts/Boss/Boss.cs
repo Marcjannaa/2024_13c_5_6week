@@ -13,7 +13,7 @@ public abstract class Boss : Enemy, IDamageable
     protected GameObject _player;
     protected float _currentDamage=0f; //used for attack function
     protected bool _fightStarted;
-
+    protected HpBar _hpBar;
     private void Awake()
     {
         _fightStarted = false;
@@ -24,6 +24,8 @@ public abstract class Boss : Enemy, IDamageable
 
     private void Start()
     {
+        _hpBar = GetComponent<HpBar>();
+        _hpBar.SetVisibility(false);
         _renderer = GetComponent<SpriteRenderer>();
         _renderer.enabled = false;
     }
@@ -32,6 +34,7 @@ public abstract class Boss : Enemy, IDamageable
     {
         if(!_fightStarted)
         {
+            _hpBar.SetVisibility(true);
             _fightStarted = true;
             _player = player;
             _renderer.enabled = true;
@@ -82,6 +85,12 @@ public abstract class Boss : Enemy, IDamageable
         {
             Die();
         }
+
+        if (_hpBar is not null)
+        {
+            _hpBar.UpdateBar(Hp,MaxHp);
+        }
+
     }
 
     protected float HorizontalDistanceToPlayer()
