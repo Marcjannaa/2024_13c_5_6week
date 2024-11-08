@@ -18,6 +18,7 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         Rb.velocity = transform.right * Speed;
+        
     }
 
     public void setDirection(string direction)
