@@ -31,6 +31,7 @@ public class SkeletonBehavior : Enemy, IDamageable
     
     private void Start()
     {
+        Hp = MaxHp;
         _renderer = GetComponent<SpriteRenderer>();
         _isLookingRight = true;
         _stuckDetector = GetComponent<StuckDetector>();
@@ -141,6 +142,8 @@ public class SkeletonBehavior : Enemy, IDamageable
         {
             Destroy(gameObject);
         }
+        gameObject.GetComponent<HpBar>().UpdateBar(Hp, MaxHp);
+
     }
 
     private void BecomeIdle()
