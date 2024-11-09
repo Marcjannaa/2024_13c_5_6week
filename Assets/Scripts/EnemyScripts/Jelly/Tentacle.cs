@@ -69,15 +69,15 @@ public IEnumerator Sweep(string direction)
     {
         case "left":
             newPosition = new Vector3(defaultPosition.x + 0.6f, defaultPosition.y + 0.43f, defaultPosition.z);
-            angle = -33f;
+            angle = -60f;
             break;
         case "right":
             newPosition = new Vector3(defaultPosition.x - 0.6f, defaultPosition.y + 0.43f, defaultPosition.z);
-            angle = 33f;
+            angle = 60f;
             break;
     }
 
-    float chargeDuration = 2f;
+    float chargeDuration = 1f;
     float attackDuration = 1f;
 
     float elapsedTime = 0f;

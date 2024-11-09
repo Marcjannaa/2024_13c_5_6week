@@ -13,25 +13,25 @@ public class Jellyfish : Enemy
     private float atkDelay;
     [SerializeField] private GameObject player;
     [SerializeField] private float speed;
-    private float contactDamageDelay = 0.5f;
+    private float contactDamageDelay = 1f;
     private float counter = 0f;
-    private float dmg = 30f;
+    private float dmg = 15f;
     private float distance;
     private bool canAttack = true;
     private bool canMoveTo = true;
     private bool chase = false;
     private int action = 1;
     private Random rnd = new Random();
-    private static float moveTowardsPlayerDuration = 4f;
-    private static float attackDelay = 2f;
+    private static float moveTowardsPlayerDuration = 3f;
+    private static float attackDelay = 1f;
     
     private Transform[] tentacles;
+    [SerializeField] protected List<GameObject> gates;
 
     
     private enum JellyAttack
     {
         Sweep,
-        Drain,
         Shoot,
         Move
     }
@@ -41,6 +41,11 @@ public class Jellyfish : Enemy
         Hp = MaxHp;
         int childCount = transform.childCount ;
         tentacles = new Transform[childCount-1];
+        
+        foreach (GameObject gate in gates)
+        {
+            gate.GetComponent<BossGateBehavior>().Lock();
+        }
 
         bool headfound = false;
         for (int i = 0; i < childCount; i++)
@@ -61,7 +66,7 @@ public class Jellyfish : Enemy
             
         }
     }
-    
+
     void Update()
     {
         if (Hp > 500)
@@ -119,18 +124,6 @@ public class Jellyfish : Enemy
 //        gameObject.GetComponent<HpBar>().UpdateBar(Hp, MaxHp);
     }
 
-
-
-    void movingAttack()
-    {
-        distance = Vector2.Distance(transform.position, player.transform.position);
-        Vector2 direction = player.transform.position - transform.position;
-        direction.Normalize();
-//        float rotationAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
-//        transform.rotation = Quaternion.Euler(Vector3.forward * rotationAngle);
-    }
-
     private JellyAttack rollAttack()
     {
         int atk = rnd.Next(0, 100);
@@ -139,10 +132,8 @@ public class Jellyfish : Enemy
             return JellyAttack.Move;
         else if (atk < 70)
             return JellyAttack.Sweep;
-        else if (atk < 90)
-            return JellyAttack.Shoot;
         else
-            return JellyAttack.Drain;
+            return JellyAttack.Shoot;
     }
 
     private IEnumerator attackCoroutine()
@@ -151,17 +142,7 @@ public class Jellyfish : Enemy
 
 
         JellyAttack ja = rollAttack();
-        if (ja == JellyAttack.Drain && transform.position == new Vector3(positions[0].x, positions[0].y, 0))
-        {
-            StartCoroutine(drainAttackCoroutine());
-        }
-        else
-        {
-            while (ja == JellyAttack.Drain)
-            {
-                ja = rollAttack();
-            }
-        }
+
         switch (ja)
         {
             case JellyAttack.Move:
@@ -186,6 +167,8 @@ public class Jellyfish : Enemy
         while (!shot)
         {
             int counter = 0;
+
+            StartCoroutine(moveToPositionCoroutine(new Vector2(transform.position.x, transform.position.y + 2)));
             
             foreach (var tentacle in tentacles)
             {
@@ -222,7 +205,6 @@ public class Jellyfish : Enemy
 
     private IEnumerator sweepAttackCoroutine()
     {
-        print("sweep");
         if (transform.position == new Vector3(positions[1].x, positions[1].y, 0))
         {
             StartCoroutine(tentacles[tentacles.Length-1].GetComponent<Tentacle>().Sweep("right"));
@@ -234,12 +216,7 @@ public class Jellyfish : Enemy
         {
             StartCoroutine(tentacles[0].GetComponent<Tentacle>().Sweep("left"));
         }
-        yield return null;
-    }
-
-    private IEnumerator drainAttackCoroutine()
-    {
-        print("drain");
+        yield return new WaitForSeconds(1);
         yield return null;
     }
 
@@ -261,8 +238,6 @@ public class Jellyfish : Enemy
     
     private IEnumerator chaseSequenceCoroutine()
     {
-
-        
         while (Hp > 0)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
