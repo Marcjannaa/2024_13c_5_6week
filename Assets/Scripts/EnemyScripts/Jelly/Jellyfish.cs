@@ -41,11 +41,6 @@ public class Jellyfish : Enemy
         Hp = MaxHp;
         int childCount = transform.childCount ;
         tentacles = new Transform[childCount-1];
-        
-        foreach (GameObject gate in gates)
-        {
-            gate.GetComponent<BossGateBehavior>().Lock();
-        }
 
         bool headfound = false;
         for (int i = 0; i < childCount; i++)
@@ -65,11 +60,18 @@ public class Jellyfish : Enemy
             
             
         }
+
+        StartCoroutine(moveToPositionCoroutine(positions[0]));
+
+        foreach (var gate in gates)
+        {
+            gate.SetActive(true);
+        }
     }
 
     void Update()
     {
-        if (Hp > 500)
+        if (Hp > 200)
         {
             switch (action)
             {
@@ -167,8 +169,6 @@ public class Jellyfish : Enemy
         while (!shot)
         {
             int counter = 0;
-
-            StartCoroutine(moveToPositionCoroutine(new Vector2(transform.position.x, transform.position.y + 2)));
             
             foreach (var tentacle in tentacles)
             {
