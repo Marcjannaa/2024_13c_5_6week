@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using PlayerScripts;
@@ -15,6 +16,7 @@ public class Sentry : Enemy, IDamageable
     [SerializeField]  GameObject Projectile;
     
     [SerializeField] private Slider slider;
+    private bool _shouldShoot=false;
     private void Start()
     {
         Hp = MaxHp;
@@ -42,17 +44,17 @@ public class Sentry : Enemy, IDamageable
     {
         while (true)
         {
-            if (IsShootingLeft)
+            if (IsShootingLeft && _shouldShoot)
             {
-                var leftRotation = Quaternion.Euler(0, 180, 0) * transform.rotation;
-                var pos = transform.position;
+                Quaternion leftRotation = Quaternion.Euler(0, 180, 0) * transform.rotation;
+                Vector3 pos = transform.position;
                 pos.Set(pos.x,pos.y + 0.2f,pos.z);
                 Instantiate(Projectile, pos, leftRotation);
             }
 
-            if (IsShootingRight)
+            if (IsShootingRight && _shouldShoot)
             {
-                var pos = transform.position;
+                Vector3 pos = transform.position;
                 pos.Set(pos.x + 1f,pos.y + 0.2f,pos.z);
                 Instantiate(Projectile, pos, transform.rotation);
                 
@@ -62,4 +64,13 @@ public class Sentry : Enemy, IDamageable
         }
     }
 
+    private void OnBecameInvisible()
+    {
+        _shouldShoot = false;
+    }
+
+    private void OnBecameVisible()
+    {
+        _shouldShoot = true;
+    }
 }

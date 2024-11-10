@@ -7,7 +7,7 @@ public class ChampionBehavior : Boss
 {
     [SerializeField] private GameObject championWave;
     [SerializeField] private float walkSpeed = 2f;
-    
+    [SerializeField] private float championMaxHp = 200;
     [SerializeField] private float meleeWindupDuration = 0.7f;
     [SerializeField] private float meleeAttackDuration = 0.2f;
     [SerializeField] private float meleeAttackRange = 2.5f;
@@ -23,14 +23,23 @@ public class ChampionBehavior : Boss
     [SerializeField] private float dashCooldown = 5f;
     [SerializeField] private float dashMaxDistance = 10f;
     [SerializeField] private float dashDuration=0.2f;
-    [SerializeField] private float dashRange = 1f;
-
+    [SerializeField] private float dashRange = 3f;
     private bool _dashReady;
+    private StuckDetector _detector;
+    private bool _dashHitTaken = false;
+    private Animator _animator;
     private void Awake()
     {
-        MaxHp = 500f;
+        MaxHp = championMaxHp;
         Hp = MaxHp;
         _dashReady = true;
+        _detector = GetComponent<StuckDetector>();
+        _animator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        _renderer.flipX = !IsLookingRight();
     }
 
     protected override IEnumerator Fight()
@@ -58,6 +67,7 @@ public class ChampionBehavior : Boss
 
     private void ShootWave()
     {
+        _animator.SetTrigger("shoot");
         Vector2 pos = transform.position;
         pos = new Vector2(pos.x + 2f, pos.y-0.5f);
         Quaternion rot = Quaternion.Euler(0, 0, 0) * transform.rotation;
@@ -68,16 +78,19 @@ public class ChampionBehavior : Boss
         while (HorizontalDistanceToPlayer()>=distance)
         {
             transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, speed * Time.deltaTime);
+            _animator.SetBool("walking",true);
             yield return null;
         }
+        _animator.SetBool("walking",false);
     }
 
     private void Attack(float range)
     {
-        float posX = transform.position.x + range / 2f;
+        float posX = range / 2f;
         posX *= IsLookingRight() ? 1 : -1;
-        float poxY = transform.position.y + range / 2f;
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(new Vector2(posX,poxY), new Vector2(range, range), 0);
+        posX += transform.position.x;
+        float posY = transform.position.y;
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(new Vector2(posX,posY), new Vector2(range, range), 0);
         foreach (var collider in colliders)
         {
             Attack(collider.gameObject);
@@ -85,19 +98,21 @@ public class ChampionBehavior : Boss
     }
     private IEnumerator PerformSingleAttack()
     {
-        _renderer.color=Color.red;
+        //_renderer.color=Color.red;
+        _animator.SetTrigger("attack1");
         yield return new WaitForSeconds(meleeWindupDuration);
-        _renderer.color=Color.magenta;
+        //_renderer.color=Color.magenta;
         Attack(meleeAttackRange);
         yield return new WaitForSeconds(meleeAttackDuration);
-        _renderer.color=Color.white;
+        //_renderer.color=Color.white;
     }
 
     private IEnumerator PerformDoubleAttack()
     {
         yield return PerformSingleAttack();
-        _renderer.color=Color.yellow;
+        //_renderer.color=Color.yellow;
         yield return new WaitForSeconds(betweenMeleeAttackBreak);
+        _animator.SetTrigger("attack2");
         yield return PerformSingleAttack();
     }
 
@@ -114,9 +129,9 @@ public class ChampionBehavior : Boss
         {
             yield return PerformDoubleAttack();
         }
-        _renderer.color = Color.green;
+        //_renderer.color = Color.green;
         yield return new WaitForSeconds(meleeAttackCooldown);
-        _renderer.color = Color.white;
+        //_renderer.color = Color.white;
     }
 
     private IEnumerator PerformDash()
@@ -125,20 +140,33 @@ public class ChampionBehavior : Boss
         {
             yield return ApproachPlayer(dashMaxDistance, walkSpeed);
         }
-        _renderer.color=Color.cyan;
+        //_renderer.color=Color.cyan;
+        _dashHitTaken = false;
         yield return new WaitForSeconds(dashWindUpDuration);
-        _renderer.color=Color.red;
-        Vector2 endPos = new Vector2(_player.transform.position.x, transform.position.y);
+        _animator.SetTrigger("dash run");
+        //_renderer.color=Color.red;
+        Vector2 endPos = new Vector2(transform.position.x+dashMaxDistance* (IsLookingRight() ? 1 : -1), transform.position.y);
+        _detector.Clear();
+        _detector.HoldUp();
         while (Math.Abs(endPos.x-transform.position.x)>0.01f)
         {
             transform.position = Vector2.MoveTowards(transform.position, endPos, dashSpeed * Time.deltaTime);
-            Attack(dashRange); //BUG does not damage properly
+            if(!_dashHitTaken){
+                _animator.SetTrigger("dash attack");
+                _currentDamage = dashDamage;
+                Attack(dashRange);
+                _dashHitTaken = true;
+            }
+            if (_detector.IsStuckX())
+            {
+                endPos = transform.position;
+            }
             yield return null;
         }
-        _renderer.color = Color.green;
+        //_renderer.color = Color.green;
         StartCoroutine(CoolDownDash());
         yield return new WaitForSeconds(dashAttackCoolDown);
-        _renderer.color = Color.white;
+       // _renderer.color = Color.white;
     }
     private IEnumerator CoolDownDash()
     {

@@ -10,6 +10,7 @@ public class PlayerStash : MonoBehaviour
 {
     private int _rosesCount, _keysCount, _soulsCount = 0;
     public enum Item { Roses, Souls, Keys }
+
     public virtual void Add(Item item, int count=1)
     {
         switch (item)

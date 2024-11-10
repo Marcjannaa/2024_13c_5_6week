@@ -38,9 +38,22 @@ public class WorldStateManager : MonoBehaviour
     }
     private void UpdateAllObjects()
     {
+        List<WorldObject> toRemove = new List<WorldObject>();
         foreach (WorldObject obj in worldObjects)
         {
-            obj.UpdateObjectState();
+            try
+            {
+                obj.UpdateObjectState();
+            }
+            catch(MissingReferenceException e)
+            {
+               toRemove.Add(obj);
+            }
+        }
+
+        foreach (WorldObject obj in toRemove)
+        {
+            worldObjects.Remove(obj);
         }
     }
     

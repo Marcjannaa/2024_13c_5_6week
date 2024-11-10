@@ -28,8 +28,8 @@ public class PlayerStats : MonoBehaviour
     private void Start()
     {
         _heartCount = hearts.Count;
-        _currentHp = PlayerPrefs.GetFloat("MaxHp");
-        meleeDamage = PlayerPrefs.GetFloat("MeleeAttack");
+        _currentHp = PlayerPrefs.GetFloat("MaxHp");//_currentHp = maxHp;
+        meleeDamage = PlayerPrefs.GetFloat("MeleeAttack");//meleeDamage = defaultMeleeDamage;
         _rangedDamage = defaultRangedDamage;
         _dashDamage = defaultDashDamage;
 
@@ -47,7 +47,7 @@ public class PlayerStats : MonoBehaviour
     }
     private void ResetHp()
     {
-        _currentHp = PlayerPrefs.GetFloat("MaxHp");
+        _currentHp = PlayerPrefs.GetFloat("MaxHp");//_currentHp = maxHp;
     }
 
     public void DealDamage(float dmg)

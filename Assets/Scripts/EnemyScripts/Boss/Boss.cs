@@ -12,9 +12,11 @@ public abstract class Boss : Enemy, IDamageable
     protected SpriteRenderer _renderer;
     protected GameObject _player;
     protected float _currentDamage=0f; //used for attack function
-
+    protected bool _fightStarted;
+    protected HpBar _hpBar;
     private void Awake()
     {
+        _fightStarted = false;
         phaseChangeThresholds.Sort(); // I don't trust future me
         phaseChangeThresholds.Reverse();
         _currentPhase = 0;
@@ -22,26 +24,37 @@ public abstract class Boss : Enemy, IDamageable
 
     private void Start()
     {
+        _hpBar = GetComponent<HpBar>();
+        _hpBar.SetVisibility(false);
         _renderer = GetComponent<SpriteRenderer>();
         _renderer.enabled = false;
     }
 
     public void Aggrevate(GameObject player)
     {
-        _player = player;
-        _renderer.enabled = true;
-        foreach (GameObject gate in gates)
+        if(!_fightStarted)
         {
-            gate.GetComponent<BossGateBehavior>().Lock();
-        }
+            _hpBar.SetVisibility(true);
+            _fightStarted = true;
+            _player = player;
+            _renderer.enabled = true;
+            foreach (GameObject gate in gates)
+            {
+                gate.GetComponent<BossGateBehavior>().Lock();
+            }
 
-        StartCoroutine(Fight());
+            StartCoroutine(Fight());
+        }
     }
 
     protected abstract IEnumerator Fight();
 
     protected void Die()
     {
+        foreach (GameObject gate in gates)
+        {
+            gate.GetComponent<BossGateBehavior>().Release();
+        }
         Destroy(gameObject);
     }
 
@@ -52,7 +65,7 @@ public abstract class Boss : Enemy, IDamageable
 
     protected bool IsLookingRight()
     {
-        return transform.position.x < _player.transform.position.x;
+        return _player is not null?transform.position.x < _player.transform.position.x:true;
     }
 
     protected override void Attack(GameObject go)
@@ -72,6 +85,12 @@ public abstract class Boss : Enemy, IDamageable
         {
             Die();
         }
+
+        if (_hpBar is not null)
+        {
+            _hpBar.UpdateBar(Hp,MaxHp);
+        }
+
     }
 
     protected float HorizontalDistanceToPlayer()
