@@ -42,8 +42,11 @@ public class PlayerCollisions : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Plasma"))
         {
-            Die();
-            gameObject.GetComponent<PlayerStats>().UpdateUI();
+            if (!gameObject.GetComponent<PlayerStats>().getPlasmaStatus())
+            {
+                Die();
+                gameObject.GetComponent<PlayerStats>().UpdateUI();
+            }
         }
     }
 }

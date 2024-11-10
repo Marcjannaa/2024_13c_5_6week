@@ -22,11 +22,13 @@ public class PlayerStats : MonoBehaviour
     private int _heartCount;
     [SerializeField] private List<RawImage> hearts;
     [SerializeField] private Slider slider;
+    private bool canSwimInPlasma;
 
     //private float _currentResistance; percentage of damage avoided (example: 0.15 will reduce incoming damage to 85%)
     
     private void Start()
     {
+        canSwimInPlasma = false;
         _heartCount = hearts.Count;
         _currentHp = PlayerPrefs.GetFloat("MaxHp");//_currentHp = maxHp;
         meleeDamage = PlayerPrefs.GetFloat("MeleeAttack");//meleeDamage = defaultMeleeDamage;
@@ -122,4 +124,14 @@ public class PlayerStats : MonoBehaviour
     public void SetDashDamage(float damage) { _dashDamage = damage; }
     
     public void SetCurrentResistance(float resistance) { _currentResistance = resistance; }
+
+    public void enablePlasmaSwimming()
+    {
+        canSwimInPlasma = true;
+    }
+
+    public bool getPlasmaStatus()
+    {
+        return canSwimInPlasma;
+    }
 }
