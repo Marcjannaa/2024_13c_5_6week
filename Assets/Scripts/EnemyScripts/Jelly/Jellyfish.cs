@@ -24,6 +24,7 @@ public class Jellyfish : Enemy
     private Random rnd = new Random();
     private static float moveTowardsPlayerDuration = 3f;
     private static float attackDelay = 1f;
+    private GameObject musicBox;
     
     private Transform[] tentacles;
     [SerializeField] protected List<GameObject> gates;
@@ -38,10 +39,13 @@ public class Jellyfish : Enemy
     
     void Start()
     {
+        musicBox =  GameObject.FindGameObjectWithTag("MusicBox");
         Hp = MaxHp;
         int childCount = transform.childCount ;
         tentacles = new Transform[childCount-1];
-
+        musicBox.GetComponent<MusicBox>().PlayBossMusic("Jelly");
+        
+        
         bool headfound = false;
         for (int i = 0; i < childCount; i++)
         {
@@ -90,7 +94,7 @@ public class Jellyfish : Enemy
                     break;
             }
         }
-        else
+        else 
         {
             if (!chase)
             {
@@ -98,6 +102,8 @@ public class Jellyfish : Enemy
                 StartCoroutine(chaseSequenceCoroutine());
             }
         }
+
+        
     }
 
 
@@ -119,6 +125,7 @@ public class Jellyfish : Enemy
     {
         if (Hp - damage <= 0)
         {
+            musicBox.GetComponent<MusicBox>().PlayMusicForCurrentScene();
             Destroy(gameObject);
             return;
         }

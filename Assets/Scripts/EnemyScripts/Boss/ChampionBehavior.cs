@@ -24,17 +24,20 @@ public class ChampionBehavior : Boss
     [SerializeField] private float dashMaxDistance = 10f;
     [SerializeField] private float dashDuration=0.2f;
     [SerializeField] private float dashRange = 1f;
+
     private bool _dashReady;
     private StuckDetector _detector;
     private bool _dashHitTaken = false;
     private Animator _animator;
     private void Awake()
     {
+
         MaxHp = championMaxHp;
         Hp = MaxHp;
         _dashReady = true;
         _detector = GetComponent<StuckDetector>();
         _animator = GetComponent<Animator>();
+
     }
 
     private void Update()
@@ -44,6 +47,7 @@ public class ChampionBehavior : Boss
 
     protected override IEnumerator Fight()
     {
+        musicBox.GetComponent<MusicBox>().PlayBossMusic("Champion");
         yield return new WaitForSeconds(2);
         ShootWave();
         yield return new WaitForSeconds(1);

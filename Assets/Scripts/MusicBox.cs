@@ -22,22 +22,17 @@ public class MusicBox : MonoBehaviour
         PlayMusicForCurrentScene();
     }
 
-    private void PlayMusicForCurrentScene()
+    public void PlayMusicForCurrentScene()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
 
         switch (currentSceneName)
         {
             case"Tutorial":
-                PlayMusic(stageTheme);
-                break;
             case"lvl1":
-                PlayMusic(stageTheme);
-                break;
             case"lvl2":
-                PlayMusic(stageTheme);
-                break;
             case"lvl3":
+            case"lvl4":
                 PlayMusic(stageTheme);
                 break;
             default:
@@ -56,7 +51,7 @@ public class MusicBox : MonoBehaviour
         }
     }
     
-    private void PlayBossMusic(string bossName)
+    public void PlayBossMusic(string bossName)
     {
         switch (bossName)
         {
