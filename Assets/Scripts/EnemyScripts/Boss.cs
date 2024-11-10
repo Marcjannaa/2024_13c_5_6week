@@ -8,6 +8,7 @@ public abstract class Boss : Enemy, IDamageable
 {
     [SerializeField] protected List<float> phaseChangeThresholds = new List<float>(){0.5f};
     [SerializeField] protected List<GameObject> gates;
+    protected GameObject musicBox;
     protected int _currentPhase; //WARNING: phases are coounted from 0. It has to match thresholdList 
     protected SpriteRenderer _renderer;
     protected GameObject _player;
@@ -24,8 +25,11 @@ public abstract class Boss : Enemy, IDamageable
 
     private void Start()
     {
+        musicBox =  GameObject.FindGameObjectWithTag("MusicBox");
+
         _hpBar = GetComponent<HpBar>();
         _hpBar.SetVisibility(false);
+
         _renderer = GetComponent<SpriteRenderer>();
         _renderer.enabled = false;
     }
@@ -54,6 +58,7 @@ public abstract class Boss : Enemy, IDamageable
         foreach (GameObject gate in gates)
         {
             gate.GetComponent<BossGateBehavior>().Release();
+            musicBox.GetComponent<MusicBox>().PlayMusicForCurrentScene();
         }
         Destroy(gameObject);
     }
