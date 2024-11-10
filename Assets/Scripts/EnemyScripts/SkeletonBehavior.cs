@@ -27,13 +27,16 @@ public class SkeletonBehavior : Enemy, IDamageable
     private float _attackOffset; 
     private StuckDetector _stuckDetector;
     private Animator _animator;
+    private BoxCollider2D _agroDetector;
     
     private void Start()
     {
+        Hp = MaxHp;
         _renderer = GetComponent<SpriteRenderer>();
         _isLookingRight = true;
         _stuckDetector = GetComponent<StuckDetector>();
         _animator = GetComponent<Animator>();
+        _agroDetector=GetComponents<BoxCollider2D>().Where(e => e.isTrigger).FirstOrDefault();
         BecomeIdle();
     }
 
@@ -54,7 +57,7 @@ public class SkeletonBehavior : Enemy, IDamageable
                 }
                 break;
             case SkeletonStates.WIND_UP:
-                _renderer.color = Color.red;
+                //_renderer.color = Color.red;
                 _animator.SetTrigger("Perform Attack");
                 _windupTimer -= Time.deltaTime;
                 if (_windupTimer <= 0)
@@ -63,13 +66,13 @@ public class SkeletonBehavior : Enemy, IDamageable
                 }
                 break;
             case SkeletonStates.FIRST_ATTACK:
-                _renderer.color = Color.magenta;
+                //_renderer.color = Color.magenta;
                 SwingArm();
                 _gapTimer = attacksGap;
                 _skeletonState = SkeletonStates.BETWEEN_ATTACKS;
                 break;
             case SkeletonStates.BETWEEN_ATTACKS:
-                _renderer.color = Color.green;
+                //_renderer.color = Color.green;
                 _gapTimer -= Time.deltaTime;
                 if (_gapTimer <= 0)
                 {
@@ -78,17 +81,17 @@ public class SkeletonBehavior : Enemy, IDamageable
                 }
                 break;
             case SkeletonStates.SECOND_ATTACK:
-                _renderer.color = Color.cyan;
+                //_renderer.color = Color.cyan;
                 SwingArm();
                 _disengagementTimer = disengagementDuration;
                 _skeletonState = SkeletonStates.DISENGAGING;
                 break;
             case SkeletonStates.DISENGAGING:
-                _renderer.color = Color.yellow;
+                //_renderer.color = Color.yellow;
                 _disengagementTimer -= Time.deltaTime;
                 if (_disengagementTimer <= 0)
                 {
-                    _renderer.color = Color.white;
+                    //_renderer.color = Color.white;
                     _skeletonState = SkeletonStates.AGGREVATED;
                 }
                 break;
@@ -115,6 +118,7 @@ public class SkeletonBehavior : Enemy, IDamageable
         _attackOffset = 0.5f * attackDistance;
         _attackOffset *= _isLookingRight ? 1 : -1;
         _renderer.flipX = !_isLookingRight;
+        _agroDetector.offset = new Vector2(_attackOffset,0f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -138,11 +142,13 @@ public class SkeletonBehavior : Enemy, IDamageable
         {
             Destroy(gameObject);
         }
+        gameObject.GetComponent<HpBar>().UpdateBar(Hp, MaxHp);
+
     }
 
     private void BecomeIdle()
     {
-        _renderer.color = Color.white;
+        //_renderer.color = Color.white;
         _player = null;
         _skeletonState = SkeletonStates.IDLE;
         _idlePosition = transform.position;
