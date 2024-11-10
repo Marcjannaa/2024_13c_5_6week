@@ -8,6 +8,7 @@ public class Tentacle : MonoBehaviour
 {
     [SerializeField] private GameObject tentacleProjectile;
     private Quaternion initialRotation;
+    [SerializeField] private Animator animator;
 
     private void Start()
     {
@@ -64,6 +65,7 @@ public IEnumerator Sweep(string direction)
 
     Vector3 newPosition = defaultPosition;
     float angle = 0f;
+    animator.SetBool("isSlamming",true);
     
     switch (direction)
     {
@@ -114,6 +116,7 @@ public IEnumerator Sweep(string direction)
         yield return null;
     }
 
+    animator.SetBool("isSlamming",false);
     var parent2 = transform.parent;
     parent2.position = defaultPosition;
     parent2.rotation = defaultRotation;
