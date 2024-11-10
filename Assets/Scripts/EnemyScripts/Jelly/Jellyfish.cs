@@ -39,11 +39,11 @@ public class Jellyfish : Enemy
     
     void Start()
     {
-        musicBox =  GameObject.FindGameObjectWithTag("MusicBox");
+
         Hp = MaxHp;
         int childCount = transform.childCount ;
         tentacles = new Transform[childCount-1];
-        musicBox.GetComponent<MusicBox>().PlayBossMusic("Jelly");
+
         
         
         bool headfound = false;
@@ -71,6 +71,8 @@ public class Jellyfish : Enemy
         {
             gate.SetActive(true);
         }
+        musicBox =  GameObject.FindGameObjectWithTag("MusicBox");
+        musicBox.GetComponent<MusicBox>().PlayBossMusic("Jelly");
     }
 
     void Update()
