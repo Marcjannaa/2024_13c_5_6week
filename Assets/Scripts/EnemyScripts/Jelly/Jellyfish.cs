@@ -101,7 +101,9 @@ public class Jellyfish : Enemy
             if (!chase)
             {
                 chase = true;
+                print("chase");
                 StartCoroutine(chaseSequenceCoroutine());
+                gates[1].SetActive(false);
             }
         }
 
