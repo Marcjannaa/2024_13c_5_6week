@@ -42,7 +42,7 @@ public class Jellyfish : Enemy
 
         Hp = MaxHp;
         int childCount = transform.childCount ;
-        tentacles = new Transform[childCount-1];
+        tentacles = new Transform[childCount-2];
 
         
         

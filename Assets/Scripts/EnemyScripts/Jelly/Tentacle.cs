@@ -115,8 +115,7 @@ public IEnumerator Sweep(string direction)
         
         yield return null;
     }
-
-    animator.SetBool("isSlamming",false);
+    
     var parent2 = transform.parent;
     parent2.position = defaultPosition;
     parent2.rotation = defaultRotation;
