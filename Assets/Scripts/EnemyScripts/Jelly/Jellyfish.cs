@@ -47,7 +47,7 @@ public class Jellyfish : Enemy
         
         
         bool headfound = false;
-        for (int i = 0; i < childCount; i++)
+        for (int i = 0; i < childCount-1; i++)
         {
             if (transform.GetChild(i).name != "Head" && !headfound)
             {
@@ -133,8 +133,9 @@ public class Jellyfish : Enemy
             Destroy(gameObject);
             return;
         }
+        print("dostalem na morde "+damage);
         Hp -= damage;
-//        gameObject.GetComponent<HpBar>().UpdateBar(Hp, MaxHp);
+        gameObject.GetComponent<HpBar>().UpdateBar(Hp, MaxHp);
     }
 
     private JellyAttack rollAttack()
