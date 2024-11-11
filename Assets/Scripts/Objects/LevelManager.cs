@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            Destroy(other.gameObject);
             SceneManager.LoadScene(_sceneName);
         }
     }
