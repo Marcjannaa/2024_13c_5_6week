@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 7345637413260893524}
   - component: {fileID: 4120125403844691217}
   m_Layer: 7
-  m_Name: Tentacle 1 (4)
+  m_Name: Tentacle 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 4943330848921097168}
   - component: {fileID: 8213042158276519887}
   m_Layer: 7
-  m_Name: Tentacle 1
+  m_Name: Tentacle 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -564,7 +564,7 @@ GameObject:
   - component: {fileID: 1160068555326521174}
   - component: {fileID: 882344851963665966}
   m_Layer: 7
-  m_Name: Tentacle 1 (1)
+  m_Name: Tentacle 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -731,7 +731,7 @@ GameObject:
   - component: {fileID: 1841682217546449160}
   - component: {fileID: 5219501486152764764}
   m_Layer: 7
-  m_Name: Tentacle 1 (3)
+  m_Name: Tentacle 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -898,7 +898,7 @@ GameObject:
   - component: {fileID: 1348225874989236261}
   - component: {fileID: 3532430811327818420}
   m_Layer: 7
-  m_Name: Tentacle 1 (2)
+  m_Name: Tentacle 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1451,7 +1451,7 @@ GameObject:
   - component: {fileID: 2579905368655306615}
   - component: {fileID: 2939399829194086202}
   m_Layer: 7
-  m_Name: Tentacle 1
+  m_Name: Tentacle 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1650,7 +1650,7 @@ GameObject:
   - component: {fileID: 8314100786570036633}
   - component: {fileID: 2756349144566433414}
   m_Layer: 7
-  m_Name: Tentacle 1 (5)
+  m_Name: Tentacle 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
