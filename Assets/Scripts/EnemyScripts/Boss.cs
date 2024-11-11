@@ -26,6 +26,7 @@ public abstract class Boss : Enemy, IDamageable
     private void Start()
     {
         musicBox =  GameObject.FindGameObjectWithTag("MusicBox");
+        Debug.Log("music box wykryty");
 
         _hpBar = GetComponent<HpBar>();
         _hpBar.SetVisibility(false);
