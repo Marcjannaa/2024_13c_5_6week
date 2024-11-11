@@ -294,7 +294,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: b743205b01069d54994c67eae47f445e, type: 3}
+  m_Texture: {fileID: 2800000, guid: a7a03133a0169ec4d9f10802b7ef2e12, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -821,7 +821,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1404588447974246128
 RectTransform:
   m_ObjectHideFlags: 0
@@ -867,7 +867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.2603773, g: 0.2603773, b: 0.2603773, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2982,7 +2982,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: b743205b01069d54994c67eae47f445e, type: 3}
+  m_Texture: {fileID: 2800000, guid: a7a03133a0169ec4d9f10802b7ef2e12, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -3290,7 +3290,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 47864
+  m_InstanceId: 130878
   m_LocalBounds:
     m_Center: {x: 0, y: -0.000000029802322, z: 0}
     m_Extent: {x: 0.5, y: 0.49999997, z: 0}
@@ -3906,7 +3906,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: b743205b01069d54994c67eae47f445e, type: 3}
+  m_Texture: {fileID: 2800000, guid: a7a03133a0169ec4d9f10802b7ef2e12, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -4102,7 +4102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8606395675819459454
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4293,7 +4293,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -6176260322212768453, guid: 9b7b91b4bc22dd94387d13e2c0fd09ac, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

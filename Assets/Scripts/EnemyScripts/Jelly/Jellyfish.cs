@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PlayerScripts;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 using Random = System.Random;
 
 
-public class Jellyfish : Enemy
+public class Jellyfish : Enemy, IDamageable
 {
     [SerializeField] private List<Vector2> positions = new List<Vector2>() { new(0f, 0f), new(0f, 0f), new(0f, 0f) };
     private float atkDelay;
@@ -42,12 +43,12 @@ public class Jellyfish : Enemy
 
         Hp = MaxHp;
         int childCount = transform.childCount ;
-        tentacles = new Transform[childCount-1];
+        tentacles = new Transform[childCount-2];
 
         
         
         bool headfound = false;
-        for (int i = 0; i < childCount; i++)
+        for (int i = 0; i < childCount-1; i++)
         {
             if (transform.GetChild(i).name != "Head" && !headfound)
             {
@@ -79,6 +80,7 @@ public class Jellyfish : Enemy
     {
         if (Hp > 200)
         {
+            print(Hp);
             switch (action)
             {
                 case 0:
@@ -133,8 +135,9 @@ public class Jellyfish : Enemy
             Destroy(gameObject);
             return;
         }
+        print("dostalem na morde "+damage);
         Hp -= damage;
-//        gameObject.GetComponent<HpBar>().UpdateBar(Hp, MaxHp);
+        gameObject.GetComponent<HpBar>().UpdateBar(Hp, MaxHp);
     }
 
     private JellyAttack rollAttack()
