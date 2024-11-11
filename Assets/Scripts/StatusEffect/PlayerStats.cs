@@ -32,6 +32,7 @@ public class PlayerStats : MonoBehaviour
         _heartCount = hearts.Count;
         _currentHp = PlayerPrefs.GetFloat("MaxHp");//_currentHp = maxHp;
         meleeDamage = PlayerPrefs.GetFloat("MeleeAttack");//meleeDamage = defaultMeleeDamage;
+        canSwimInPlasma = PlayerPrefs.GetInt("CanSwim") == 1;
         _rangedDamage = defaultRangedDamage;
         _dashDamage = defaultDashDamage;
 
@@ -127,7 +128,9 @@ public class PlayerStats : MonoBehaviour
 
     public void enablePlasmaSwimming()
     {
+        PlayerPrefs.SetInt("CanSwim", 1);
         canSwimInPlasma = true;
+        LoadMenuHandler.SaveToCurrentSlot();
     }
 
     public bool getPlasmaStatus()
