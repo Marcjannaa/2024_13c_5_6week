@@ -40,7 +40,7 @@ public class Jellyfish : Enemy, IDamageable
     
     void Start()
     {
-
+        
         Hp = MaxHp;
         int childCount = transform.childCount ;
         tentacles = new Transform[childCount-2];
@@ -129,13 +129,14 @@ public class Jellyfish : Enemy, IDamageable
 
     public override void ChangeHp(float damage)
     {
+        print("whaaaat");
         if (Hp - damage <= 0)
         {
             musicBox.GetComponent<MusicBox>().PlayMusicForCurrentScene();
             Destroy(gameObject);
             return;
         }
-        print("dostalem na morde "+damage);
+        print("dostalem na morde "+ damage);
         Hp -= damage;
         gameObject.GetComponent<HpBar>().UpdateBar(Hp, MaxHp);
     }
