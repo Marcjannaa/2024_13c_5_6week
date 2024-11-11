@@ -42,7 +42,7 @@ public class PlayerMeleeAttack : MonoBehaviour
             idamageable.Damage(
                 PlayerPrefs.GetFloat("MeleeAttack"), t.collider.gameObject
             );
-            //print("hiiiit1!!");
+            print("hiiiit1!!");
         }
     }
 }

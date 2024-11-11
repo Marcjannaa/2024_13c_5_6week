@@ -65,7 +65,7 @@ public IEnumerator Sweep(string direction)
 
     Vector3 newPosition = defaultPosition;
     float angle = 0f;
-    animator.SetBool("isSlamming",true);
+
     
     switch (direction)
     {

@@ -45,6 +45,7 @@ public abstract class Boss : Enemy, IDamageable
             _renderer.enabled = true;
             foreach (GameObject gate in gates)
             {
+                print("zamykam brame");
                 gate.GetComponent<BossGateBehavior>().Lock();
             }
 

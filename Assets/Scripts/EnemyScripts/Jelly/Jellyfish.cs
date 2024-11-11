@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PlayerScripts;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 using Random = System.Random;
 
 
-public class Jellyfish : Enemy
+public class Jellyfish : Enemy, IDamageable
 {
     [SerializeField] private List<Vector2> positions = new List<Vector2>() { new(0f, 0f), new(0f, 0f), new(0f, 0f) };
     private float atkDelay;
@@ -79,6 +80,7 @@ public class Jellyfish : Enemy
     {
         if (Hp > 200)
         {
+            print(Hp);
             switch (action)
             {
                 case 0:
