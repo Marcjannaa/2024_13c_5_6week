@@ -9,11 +9,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private string _sceneName = "Level";
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Destroy(other.gameObject);
-            SceneManager.LoadScene(_sceneName);
-        }
+        if (!other.gameObject.CompareTag("Player")) return;
+        Destroy(other.gameObject);
+        SceneManager.LoadScene(_sceneName);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
