@@ -99,9 +99,8 @@ public class UpgradeMenu : MonoBehaviour
 
     public void OnExitButton()
     {
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene(PlayerPrefs.GetString("LastScene"));
         PlayerPrefs.GetInt("Paused", 1);
-        
     }
 
 }
