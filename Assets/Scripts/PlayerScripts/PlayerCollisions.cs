@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCollisions : MonoBehaviour
 {
+    [SerializeField] private AudioSource aus;
+    [SerializeField] private AudioClip auc;
     private Vector2 checkedPosition;
 
     private void Start()
@@ -42,11 +44,9 @@ public class PlayerCollisions : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Plasma"))
         {
-            if (!gameObject.GetComponent<PlayerStats>().getPlasmaStatus())
-            {
-                Die();
-                gameObject.GetComponent<PlayerStats>().UpdateUI();
-            }
+            if (gameObject.GetComponent<PlayerStats>().getPlasmaStatus()) return;
+            Die();
+            gameObject.GetComponent<PlayerStats>().UpdateUI();
         }
     }
 }
