@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class PlayerCollisions : MonoBehaviour
 {
     private Vector2 checkedPosition;
-
+    [SerializeField] private AudioClip rosePickUpClip, checkPointPickUpClip;
+    [SerializeField] private AudioSource aus;
     private void Start()
     {
         checkedPosition = transform.position;
@@ -24,6 +25,8 @@ public class PlayerCollisions : MonoBehaviour
         if (other.gameObject.CompareTag("Checkpoint"))
         {
             checkedPosition = transform.position;
+            aus.clip = checkPointPickUpClip;
+            aus.Play();
             //PlayerPrefs.SetString("LastScene" + LoadMenuHandler.slotNum, SceneManager.GetActiveScene().name);
             Destroy(other.gameObject);
         }
@@ -45,6 +48,10 @@ public class PlayerCollisions : MonoBehaviour
             if (gameObject.GetComponent<PlayerStats>().getPlasmaStatus()) return;
             Die();
             gameObject.GetComponent<PlayerStats>().UpdateUI();
+        }else if (other.gameObject.CompareTag("Rose"))
+        {
+            aus.clip = rosePickUpClip;
+            aus.Play();
         }
     }
 }
