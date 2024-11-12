@@ -21,7 +21,7 @@ public class SettingsManager : MonoBehaviour
 
     public void OnEffectsSliderChanged()
     {
-        MusicBox.ChangeVolume(effectsSlider.value);
+//        MusicBox.ChangeVolume(effectsSlider.value);
     }
     
     public void OnExitClicked() { SceneManager.LoadScene("MainMenu"); }
