@@ -7,25 +7,30 @@ using UnityEngine.SceneManagement;
 public class PlayerCollisions : MonoBehaviour
 {
     private Vector2 checkedPosition;
+    public static float volume;
     [SerializeField] private AudioClip rosePickUpClip, checkPointPickUpClip;
     [SerializeField] private AudioSource aus;
     private void Start()
     {
         checkedPosition = transform.position;
     }
-    public void Die()
+
+    private void Die()
     {
         transform.position = checkedPosition;
         gameObject.GetComponent<PlayerStats>().SetHp(0);
         gameObject.GetComponent<PlayerStats>().UpdateUI();
-        //gameObject.GetComponent<PlayerStats>().ResetStats();
     }
+
+    public static void ChangeVolume(float volume) { PlayerCollisions.volume = volume; }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Checkpoint"))
         {
             checkedPosition = transform.position;
             aus.clip = checkPointPickUpClip;
+            aus.volume = volume;
             aus.Play();
             //PlayerPrefs.SetString("LastScene" + LoadMenuHandler.slotNum, SceneManager.GetActiveScene().name);
             Destroy(other.gameObject);
@@ -51,6 +56,7 @@ public class PlayerCollisions : MonoBehaviour
         }else if (other.gameObject.CompareTag("Rose"))
         {
             aus.clip = rosePickUpClip;
+            aus.volume = volume;
             aus.Play();
         }
     }

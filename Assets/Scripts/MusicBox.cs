@@ -4,11 +4,8 @@ using UnityEngine.SceneManagement;
 public class MusicBox : MonoBehaviour
 {
     public AudioSource audioSource;
-    public AudioClip mainTheme;
-    public AudioClip stageTheme;
-    public AudioClip championTheme;
-    public AudioClip jellyTheme;
-
+    public AudioClip mainTheme, stageTheme, championTheme, jellyTheme;
+    public static float vol;
     private void Start()
     {
         SceneManager.activeSceneChanged += OnSceneChanged;
@@ -17,6 +14,10 @@ public class MusicBox : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    public static void ChangeVolume(float volume)
+    {
+        vol = volume;
+    }
     private void OnSceneChanged(Scene previousScene, Scene newScene)
     {
         PlayMusicForCurrentScene();
@@ -24,7 +25,7 @@ public class MusicBox : MonoBehaviour
 
     public void PlayMusicForCurrentScene()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
+        var currentSceneName = SceneManager.GetActiveScene().name;
 
         switch (currentSceneName)
         {
@@ -43,12 +44,11 @@ public class MusicBox : MonoBehaviour
 
     private void PlayMusic(AudioClip clip)
     {
-        if (audioSource.clip != clip)
-        {
-            audioSource.Stop();
-            audioSource.clip = clip;
-            audioSource.Play();
-        }
+        audioSource.volume = vol;
+        if (audioSource.clip == clip) return;
+        audioSource.Stop();
+        audioSource.clip = clip;
+        audioSource.Play();
     }
     
     public void PlayBossMusic(string bossName)

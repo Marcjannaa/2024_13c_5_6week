@@ -49,6 +49,7 @@ public class WalkingEnemy : Enemy
         if (Hp - damage <= 0)
         {
             aus.Play();
+            aus.volume = PlayerCollisions.volume;
             Destroy(gameObject);
             return;
         }

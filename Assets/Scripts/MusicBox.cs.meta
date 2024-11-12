@@ -3,7 +3,11 @@ guid: d986461cb7ffd064386034e84e077921
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - mainTheme: {fileID: 8300000, guid: 54544caa8ed85444ea9290e93bebaf3a, type: 3}
+  - stageTheme: {fileID: 8300000, guid: c722fc46f8d249e40b37596a30c43870, type: 3}
+  - championTheme: {fileID: 8300000, guid: a5f5a9f39b71d4049b3b6c9c71cf2278, type: 3}
+  - jellyTheme: {fileID: 8300000, guid: 93a78c1a3314ddf469872cda745d8a6d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

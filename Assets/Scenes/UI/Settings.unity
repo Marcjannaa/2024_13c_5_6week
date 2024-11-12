@@ -3840,7 +3840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSlider: {fileID: 353064767}
-  effectsSlider: {fileID: 0}
+  effectsSlider: {fileID: 1979199323}
   jumpBinding: {fileID: 627428351}
   rightBinding: {fileID: 1000521492}
   leftBinding: {fileID: 1112656454}

@@ -14,7 +14,10 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private TMP_Text jumpBinding, rightBinding, leftBinding, dashBinding, attackBinding;
     private TMP_Text _tmpText;
     //private InputManagerEntry.Axis _axis;
-    public void OnMusicSliderChanged() { }
+    public void OnMusicSliderChanged()
+    {
+        MusicBox.ChangeVolume(musicSlider.value);
+    }
 
     public void OnEffectsSliderChanged() { }
     
