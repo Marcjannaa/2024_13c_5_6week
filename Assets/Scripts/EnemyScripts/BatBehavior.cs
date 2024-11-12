@@ -13,6 +13,8 @@ public class BatBehavior : Enemy, IDamageable
     [SerializeField] private float damage = 15f;
     [SerializeField] private float idleWonderX = 2f;
     [SerializeField] private float idleWonderY = 2f;
+    [SerializeField] private AudioSource aus;
+    [SerializeField] private AudioClip auc;
     private enum BatAttackSequence {IDLE,AGGREVATED,CHARGING,DISANGAGING,READY}
     private Vector2 _attackStartPos;
     private Vector2 _idlePos;
@@ -114,6 +116,8 @@ public class BatBehavior : Enemy, IDamageable
 
     public override void ChangeHp(float damage)
     {
+        aus.clip = auc;
+        aus.Play();
         Die(); //bats suppose to be one shot
     }
 

@@ -9,6 +9,7 @@ public class WalkingEnemy : Enemy
     [SerializeField] private float maxHpWalking;
     [SerializeField] private float enemySpeed = 2f;
     [SerializeField] private float dmg = 5f;
+    [SerializeField] private AudioSource aus;
     private const float DmgCooldown = 0.2f;
     private float _counter = 0f;
     private SpriteRenderer _renderer;
@@ -47,6 +48,7 @@ public class WalkingEnemy : Enemy
     {
         if (Hp - damage <= 0)
         {
+            aus.Play();
             Destroy(gameObject);
             return;
         }
