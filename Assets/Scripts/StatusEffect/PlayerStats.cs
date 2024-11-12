@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Image = UnityEngine.UIElements.Image;
@@ -74,7 +75,8 @@ public class PlayerStats : MonoBehaviour
         RefreshHearts();
         ResetHp();
         if (_heartCount > 0) return;
-        Destroy(gameObject); // game over screen
+        Destroy(gameObject);
+        SceneManager.LoadScene(PlayerPrefs.GetString("LastScene"));
     }
 
     private void Update()

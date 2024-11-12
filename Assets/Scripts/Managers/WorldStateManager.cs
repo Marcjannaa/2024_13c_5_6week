@@ -56,5 +56,4 @@ public class WorldStateManager : MonoBehaviour
             worldObjects.Remove(obj);
         }
     }
-    
 }

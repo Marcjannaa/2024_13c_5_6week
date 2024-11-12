@@ -24,7 +24,7 @@ public class PlayerCollisions : MonoBehaviour
         if (other.gameObject.CompareTag("Checkpoint"))
         {
             checkedPosition = transform.position;
-            PlayerPrefs.SetString("LastScene" + LoadMenuHandler.slotNum, SceneManager.GetActiveScene().name);
+            //PlayerPrefs.SetString("LastScene" + LoadMenuHandler.slotNum, SceneManager.GetActiveScene().name);
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("FallZone"))

@@ -16,6 +16,8 @@ public class LoadMenuHandler : MonoBehaviour
         PlayerPrefs.SetFloat("DashDuration"+ slotNum, PlayerPrefs.GetFloat("DashDuration"));
         PlayerPrefs.SetFloat("Stamina"+ slotNum, PlayerPrefs.GetFloat("Stamina"));
         PlayerPrefs.SetInt("CanSwim" + slotNum, PlayerPrefs.GetInt("CanSwim"));
+        PlayerPrefs.SetString("LastScene" + slotNum, PlayerPrefs.GetString("LastScene"));
+        print(PlayerPrefs.GetString("LastScene"));
         PlayerPrefs.Save();
     }
     public void OnSlotClicked(string slotNum)
@@ -30,6 +32,7 @@ public class LoadMenuHandler : MonoBehaviour
             PlayerPrefs.SetFloat("DashDuration"+ slotNum, 1f);
             PlayerPrefs.SetFloat("Stamina"+ slotNum, 0.3f);
             PlayerPrefs.SetInt("CanSwim" + slotNum, 0);
+            PlayerPrefs.SetString("LastScene" + slotNum, "Tutorial");
             PlayerPrefs.Save();
         }
         else SceneManager.LoadScene(PlayerPrefs.GetString("LastScene" + slotNum));
@@ -40,6 +43,9 @@ public class LoadMenuHandler : MonoBehaviour
         PlayerPrefs.SetFloat("DashDuration", PlayerPrefs.GetFloat("DashDuration" + slotNum));
         PlayerPrefs.SetFloat("Stamina", PlayerPrefs.GetFloat("Stamina" + slotNum));
         PlayerPrefs.SetInt("CanSwim", PlayerPrefs.GetInt("CanSwim" + slotNum));
+        PlayerPrefs.SetString("LastScene", PlayerPrefs.GetString("LastScene" + slotNum));
+        print(PlayerPrefs.GetString("LastScene"));
+        print(PlayerPrefs.GetString("LastScene" + slotNum));
         PlayerPrefs.Save();
         LoadMenuHandler.slotNum = int.Parse(slotNum);
     }

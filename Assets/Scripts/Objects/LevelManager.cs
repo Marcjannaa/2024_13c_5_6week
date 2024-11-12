@@ -7,18 +7,11 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private string _sceneName = "Level";
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter2D (Collider2D other)
     {
         if (!other.gameObject.CompareTag("Player")) return;
+        PlayerPrefs.SetString("LastScene", _sceneName);
         Destroy(other.gameObject);
         SceneManager.LoadScene(_sceneName);
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            SceneManager.LoadScene(_sceneName);
-        }
     }
 }

@@ -54,6 +54,5 @@ public class SettingsManager : MonoBehaviour
         foreach (KeyCode kcode in Enum.GetValues(typeof(KeyCode)))
             if (Input.GetKey(kcode))
                 _tmpText.text = kcode.ToString();
-            
     }
 }

@@ -62,7 +62,6 @@ public class UpgradeMenu : MonoBehaviour
         PlayerPrefs.SetInt("Roses", roseCount);
         PlayerPrefs.Save();
         UpdateUI();
-
     }
     public void OnShiftUpgrade()
     {
@@ -72,8 +71,6 @@ public class UpgradeMenu : MonoBehaviour
         PlayerPrefs.SetInt("Roses", roseCount);
         PlayerPrefs.Save();
         UpdateUI();
-
-
     }
     public void OnAttackUpgrade()
     {
@@ -83,9 +80,6 @@ public class UpgradeMenu : MonoBehaviour
         PlayerPrefs.SetInt("Souls", soulsCount);
         PlayerPrefs.Save();
         UpdateUI();
-
-
-
     }
     public void OnHpUpgrade()
     {
