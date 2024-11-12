@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCollisions : MonoBehaviour
 {
-    [SerializeField] private AudioSource aus;
-    [SerializeField] private AudioClip auc;
     private Vector2 checkedPosition;
 
     private void Start()
