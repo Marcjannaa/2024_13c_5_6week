@@ -245,6 +245,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4427118026964110385, guid: 8fbfc33fb04741145ad0ca9774279de1, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6502984329003253770, guid: 8fbfc33fb04741145ad0ca9774279de1, type: 3}
       propertyPath: m_Name
       value: MusicBox
