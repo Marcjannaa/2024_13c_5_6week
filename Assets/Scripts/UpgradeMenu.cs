@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class UpgradeMenu : MonoBehaviour
 {
+    [SerializeField] private AudioSource aus;
+    
     // ilosc dusz, róży
     [SerializeField] private int roseCount, soulsCount;
     [SerializeField] private TMP_Text roseCountTxt, soulsCountTxt;
@@ -62,6 +64,7 @@ public class UpgradeMenu : MonoBehaviour
         PlayerPrefs.SetInt("Roses", roseCount);
         PlayerPrefs.Save();
         UpdateUI();
+        aus.Play();
     }
     public void OnShiftUpgrade()
     {
@@ -71,6 +74,7 @@ public class UpgradeMenu : MonoBehaviour
         PlayerPrefs.SetInt("Roses", roseCount);
         PlayerPrefs.Save();
         UpdateUI();
+        aus.Play();
     }
     public void OnAttackUpgrade()
     {
@@ -80,6 +84,7 @@ public class UpgradeMenu : MonoBehaviour
         PlayerPrefs.SetInt("Souls", soulsCount);
         PlayerPrefs.Save();
         UpdateUI();
+        aus.Play();
     }
     public void OnHpUpgrade()
     {
@@ -89,8 +94,7 @@ public class UpgradeMenu : MonoBehaviour
         PlayerPrefs.SetInt("Souls", soulsCount);
         PlayerPrefs.Save();
         UpdateUI();
-
-
+        aus.Play();
     }
 
     public void OnExitButton()
