@@ -9,8 +9,6 @@ public class JellyInitiator : MonoBehaviour
     [SerializeField] private GameObject jelly;
     private void OnTriggerEnter2D(Collider2D other)
     {
-
-            print("jelly activated");
             jelly.SetActive(true);
             Destroy(gameObject);
     }

@@ -57,7 +57,6 @@ public class Tentacle : MonoBehaviour
         transform.parent.rotation = Quaternion.Euler(0, 0, totalRotation);
     }
     
-    //do poprawki, nie rusza się głupia
 public IEnumerator Sweep(string direction)
 {
     Vector3 defaultPosition = transform.parent.position;

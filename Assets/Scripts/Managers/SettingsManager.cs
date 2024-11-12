@@ -13,7 +13,7 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private Slider musicSlider, effectsSlider;
     [SerializeField] private TMP_Text jumpBinding, rightBinding, leftBinding, dashBinding, attackBinding;
     private TMP_Text _tmpText;
-    //private InputManagerEntry.Axis _axis;
+
     public void OnMusicSliderChanged()
     {
         MusicBox.ChangeVolume(musicSlider.value);

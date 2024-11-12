@@ -45,7 +45,7 @@ public class PlayerStats : MonoBehaviour
     {
         for (var i = hearts.Count - 1; i >= 0; i--)
         {
-            hearts[i].GetComponent<Heart>().GetTheFuckOut(i < _heartCount);
+            hearts[i].GetComponent<Heart>().ChangeHeartCount(i < _heartCount);
             gameObject.GetComponentInChildren<ColorMode>().UpdateColor();
         }
     }

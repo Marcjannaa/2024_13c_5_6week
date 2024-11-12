@@ -50,7 +50,6 @@ public class BatBehavior : Enemy, IDamageable
         if (_playerCollisionCounter > 1)
         {
             _attackState = BatAttackSequence.DISANGAGING;
-            Debug.Log("tu");
         }
 
     }

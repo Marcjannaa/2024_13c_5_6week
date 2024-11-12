@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Heart : MonoBehaviour
 {
-    public void GetTheFuckOut(bool val)
+    public void ChangeHeartCount(bool val)
     {
         gameObject.SetActive(val);
     }

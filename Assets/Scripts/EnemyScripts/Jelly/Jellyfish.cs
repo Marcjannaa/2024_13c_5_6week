@@ -80,7 +80,6 @@ public class Jellyfish : Enemy, IDamageable
     {
         if (Hp > 200)
         {
-            print(Hp);
             switch (action)
             {
                 case 0:
@@ -103,7 +102,6 @@ public class Jellyfish : Enemy, IDamageable
             if (!chase)
             {
                 chase = true;
-                print("chase");
                 StartCoroutine(chaseSequenceCoroutine());
                 gates[1].SetActive(false);
             }
@@ -129,14 +127,12 @@ public class Jellyfish : Enemy, IDamageable
 
     public override void ChangeHp(float damage)
     {
-        print("whaaaat");
         if (Hp - damage <= 0)
         {
             musicBox.GetComponent<MusicBox>().PlayMusicForCurrentScene();
             Destroy(gameObject);
             return;
         }
-        print("dostalem na morde "+ damage);
         Hp -= damage;
         gameObject.GetComponent<HpBar>().UpdateBar(Hp, MaxHp);
     }

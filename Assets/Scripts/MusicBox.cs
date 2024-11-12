@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,13 +6,32 @@ public class MusicBox : MonoBehaviour
 {
     public AudioSource audioSource;
     public AudioClip mainTheme, stageTheme, championTheme, jellyTheme;
-    public static float vol;
+    public static float vol = 1f;
+    private static MusicBox instance;
     private void Start()
     {
         SceneManager.activeSceneChanged += OnSceneChanged;
 
         PlayMusicForCurrentScene();
         DontDestroyOnLoad(this.gameObject);
+    }
+    
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void Update()
+    {
+        audioSource.volume = vol;
     }
 
     public static void ChangeVolume(float volume)
